@@ -9,8 +9,6 @@ Defaults        !lecture,tty_tickets,!fqdn
 # User privilege specification
 root          ALL=(ALL) ALL
 
-<%= '#includedir /etc/sudoers.d' if @include_sudoers_d  -%>
-
 <% @sudoers_users.each do |user| -%>
 <%= user %>   ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
@@ -22,3 +20,5 @@ root          ALL=(ALL) ALL
 # Members of the group '<%= group %>' may gain root privileges
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
+
+<%= '#includedir /etc/sudoers.d' if @include_sudoers_d  %>
