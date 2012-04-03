@@ -18,7 +18,7 @@
 #
 
 package "sudo" do
-  action :upgrade
+  action platform?("freebsd") ? :install : :upgrade
 end
 
 if node['authorization']['sudo']['include_sudoers_d']
@@ -42,7 +42,7 @@ template "/etc/sudoers" do
   source "sudoers.erb"
   mode 0440
   owner "root"
-  group "root"
+  group platform?("freebsd") ? "wheel" : "root"
   variables(
     :sudoers_groups => node['authorization']['sudo']['groups'],
     :sudoers_users => node['authorization']['sudo']['users'],
