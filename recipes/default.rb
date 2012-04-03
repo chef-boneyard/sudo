@@ -21,8 +21,24 @@ package "sudo" do
   action platform?("freebsd") ? :install : :upgrade
 end
 
+if node['authorization']['sudo']['include_sudoers_d']
+  directory "/etc/sudoers.d" do
+    mode 0755
+    owner "root"
+    group "root"
+    action :create
+  end
+  cookbook_file "/etc/sudoers.d/README" do
+    cookbook "sudo"
+    source "README.sudoers"
+    mode 0440
+    owner "root"
+    group "root"
+    action :create
+  end
+end
+
 template "/etc/sudoers" do
-  path "/usr/local/etc/sudoers" if platform?("freebsd")
   source "sudoers.erb"
   mode 0440
   owner "root"
@@ -30,6 +46,7 @@ template "/etc/sudoers" do
   variables(
     :sudoers_groups => node['authorization']['sudo']['groups'],
     :sudoers_users => node['authorization']['sudo']['users'],
-    :passwordless => node['authorization']['sudo']['passwordless']
+    :passwordless => node['authorization']['sudo']['passwordless'],
+    :include_sudoers_d => node['authorization']['sudo']['include_sudoers_d']
   )
 end
