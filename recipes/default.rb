@@ -44,9 +44,9 @@ template "/etc/sudoers" do
   owner "root"
   group "root"
   variables(
-            :sudoers_groups => node['authorization']['sudo']['groups'],
-            :sudoers_users => node['authorization']['sudo']['users'],
-            :passwordless => node['authorization']['sudo']['passwordless'],
-            :include_sudoers_d => node['authorization']['sudo']['include_sudoers_d']
+    :sudoers_groups => node['authorization']['sudo']['groups'],
+    :sudoers_users => node['authorization']['sudo']['users'],
+    :passwordless => node['authorization']['sudo']['passwordless'],
+    :include_sudoers_d => node['authorization']['sudo']['include_sudoers_d']
   )
 end

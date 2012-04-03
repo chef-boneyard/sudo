@@ -29,9 +29,7 @@ def check_inputs user, group, foreign_template, foreign_vars
 end
 
 def sudo_test tmpl_name
-  cmd = Chef::ShellOut.new(
-                           %Q[ visudo -cf #{tmpl_name} ]
-                           ).run_command
+  cmd = Chef::ShellOut.new(%Q[ visudo -cf #{tmpl_name} ]).run_command
   unless cmd.exitstatus == 0
     Chef::Log.debug('sudoers fragment failed validation. Here it is for your viewing pleasure')
     Chef::Log.debug("\n" + ::File.open(tmpl_name).read + "\n")
@@ -88,7 +86,7 @@ def render_sudo_attributes new_resource
   runas = new_resource.runas
   nopasswd = new_resource.nopasswd
   sudo_entries = Array.new
-  
+
   if sudo_group
     # prepend % to name if group name if it isn't already there
     if sudo_group !~ /^%.*$/
@@ -116,7 +114,7 @@ def render_sudo_attributes new_resource
   tmpfile.close
   sudo_test tmpfile_path
   FileUtils.chmod 0440, tmpfile_path
-  
+
   if sudoers_updated? tmpfile_path, new_resource.name
     FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
     new_resource.updated_by_last_action(true)
@@ -124,7 +122,7 @@ def render_sudo_attributes new_resource
     # resource not updated, do nothing
     FileUtils.rm_f tmpfile_path
   end
-  
+
 end
 
 action :install do
