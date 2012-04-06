@@ -41,5 +41,5 @@ attribute "authorization/sudo/passwordless",
 attribute "authorization/sudo/include_sudoers_d",
   :display_name => "Include sudoers.d",
   :description => "Whether to create the sudoers.d includedir",
-  :type => "boolean",
+  :type => "string",
   :default => "false"
