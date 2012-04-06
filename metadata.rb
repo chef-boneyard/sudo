@@ -2,7 +2,7 @@ maintainer        "Opscode, Inc."
 maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Installs sudo and configures /etc/sudoers"
-version           "1.0.3"
+version           "1.1.0"
 
 recipe "sudo", "Installs sudo and configures /etc/sudoers"
 
@@ -36,4 +36,10 @@ attribute "authorization/sudo/passwordless",
   :display_name => "Passwordless Sudo",
   :description => "",
   :type => "string",
+  :default => "false"
+
+attribute "authorization/sudo/include_sudoers_d",
+  :display_name => "Include sudoers.d",
+  :description => "Whether to create the sudoers.d includedir",
+  :type => "boolean",
   :default => "false"
