@@ -18,7 +18,7 @@
 #
 
 package "sudo" do
-  action platform?("freebsd") ? :install : :upgrade
+  action :install
 end
 
 if node['authorization']['sudo']['include_sudoers_d']
