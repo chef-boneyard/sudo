@@ -29,6 +29,11 @@ placeholder file README there
 
     node['authorization']['sudo']['include_sudoers_d']
 
+Preserve SSH_AUTH_SOCK upon sudo, it defaults to false.  If you set it to true,
+SSH agent forwarding will follow the user across sudo.
+
+    node['authorization']['sudo']['agent_forwarding']
+
 USAGE
 =====
 
