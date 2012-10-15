@@ -14,11 +14,11 @@ root          ALL=(ALL) ALL
 
 <% @sudoers_users.each do |user| -%>
 <%= user %>   ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
-<% end -%>
 
+<% end -%>
 <% @sudoers_groups.each do |group| -%>
 # Members of the group '<%= group %>' may gain root privileges
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
-<% end -%>
 
+<% end -%>
 <%= '#includedir /etc/sudoers.d' if @include_sudoers_d  %>
