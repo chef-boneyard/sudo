@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+def whyrun_supported?
+  true
+end
+
 require 'fileutils'
 
 def check_inputs user, group, foreign_template, foreign_vars
@@ -62,17 +66,23 @@ def render_sudo_template new_resource
       variables new_resource.variables
       action :nothing
     end
+    #the template provider takes care of run_action(:create)
     tmpl.run_action(:create)
     sudo_test tmpfile_path
     # check if the sudoers file already exists, and only
     # overwrite if the sudoers file has been changed
     if sudoers_updated? tmpfile_path, new_resource.name
-      FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
-      new_resource.updated_by_last_action(true)
+      converge_by("move #{tmpfile_path}, /etc/sudoers.d/#{new_resource.name}") do
+         FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
+      end
+     #in whyrun mode we do now want to keep the temp file
+    if Chef::Config[:why_run]
+       FileUtils.rm_f tmpfile_path
+    end
     else
-      # resource not updated, do nothing
-      Chef::Log.debug("Sudo resource not updated, doing nothing")
-      FileUtils.rm_f tmpfile_path
+         # resource not updated, do nothing
+         Chef::Log.debug("Sudo resource not updated, doing nothing")
+         FileUtils.rm_f tmpfile_path
     end
   end
 end
@@ -107,22 +117,24 @@ def render_sudo_attributes new_resource
     entry << cmd
     sudo_entries << entry + "\n"
   end
-
   tmpfile = Tempfile.new "d"
   tmpfile_path = tmpfile.path
   tmpfile.write sudo_entries.join
   tmpfile.close
   sudo_test tmpfile_path
   FileUtils.chmod 0440, tmpfile_path
-
   if sudoers_updated? tmpfile_path, new_resource.name
-    FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
-    new_resource.updated_by_last_action(true)
+    converge_by("move #{tmpfile_path} /etc/sudoers.d/#{new_resource.name}") do
+       FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
+    end
+    #in whyrun mode we do now want to keep the temp file
+    if Chef::Config[:why_run]
+       FileUtils.rm_f tmpfile_path
+    end
   else
     # resource not updated, do nothing
-    FileUtils.rm_f tmpfile_path
+       FileUtils.rm_f tmpfile_path
   end
-
 end
 
 action :install do
@@ -138,6 +150,7 @@ end
 action :remove do
   sudoers_path = "/etc/sudoers.d/#{new_resource.name}"
   require 'fileutils'
-  FileUtils.rm_f sudoers_path
-  new_resource.updated_by_last_action(true)
+  converge_by("remove #{sudoers_path}") do
+     FileUtils.rm_f sudoers_path
+  end
 end
