@@ -133,7 +133,7 @@ def render_sudo_attributes new_resource
     end
   else
     # resource not updated, do nothing
-       FileUtils.rm_f tmpfile_path
+    FileUtils.rm_f tmpfile_path
   end
 end
 
