@@ -24,7 +24,7 @@ end
 require 'fileutils'
 
 def check_inputs user, group, foreign_template, foreign_vars
-    # if group, user, and template are nil, throw an exception
+  # if group, user, and template are nil, throw an exception
   if user == nil and group == nil and foreign_template == nil
     Chef::Application.fatal!("You must provide a user, group, or template")
   elsif user != nil and group != nil and template != nil
@@ -73,16 +73,16 @@ def render_sudo_template new_resource
     # overwrite if the sudoers file has been changed
     if sudoers_updated? tmpfile_path, new_resource.name
       converge_by("move #{tmpfile_path}, /etc/sudoers.d/#{new_resource.name}") do
-         FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
+        FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
       end
-     #in whyrun mode we do now want to keep the temp file
-    if Chef::Config[:why_run]
-       FileUtils.rm_f tmpfile_path
-    end
+      #in whyrun mode we do not want to keep the temp file
+      if Chef::Config[:why_run]
+        FileUtils.rm_f tmpfile_path
+      end
     else
-         # resource not updated, do nothing
-         Chef::Log.debug("Sudo resource not updated, doing nothing")
-         FileUtils.rm_f tmpfile_path
+      # resource not updated, do nothing
+      Chef::Log.debug("Sudo resource not updated, doing nothing")
+      FileUtils.rm_f tmpfile_path
     end
   end
 end
@@ -125,11 +125,11 @@ def render_sudo_attributes new_resource
   FileUtils.chmod 0440, tmpfile_path
   if sudoers_updated? tmpfile_path, new_resource.name
     converge_by("move #{tmpfile_path} /etc/sudoers.d/#{new_resource.name}") do
-       FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
+      FileUtils.mv tmpfile_path, "/etc/sudoers.d/#{new_resource.name}"
     end
-    #in whyrun mode we do now want to keep the temp file
+    #in whyrun mode we do not want to keep the temp file
     if Chef::Config[:why_run]
-       FileUtils.rm_f tmpfile_path
+      FileUtils.rm_f tmpfile_path
     end
   else
     # resource not updated, do nothing
@@ -151,6 +151,6 @@ action :remove do
   sudoers_path = "/etc/sudoers.d/#{new_resource.name}"
   require 'fileutils'
   converge_by("remove #{sudoers_path}") do
-     FileUtils.rm_f sudoers_path
+    FileUtils.rm_f sudoers_path
   end
 end
