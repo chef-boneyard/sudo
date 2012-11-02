@@ -110,7 +110,7 @@ def render_sudo_attributes new_resource
   commands.each do |cmd|
     entry = ""
     entry << sudo_name
-    entry << " ALL=(#{runas}) "
+    entry << " #{host}=(#{runas}) "
     if nopasswd
       entry << "NOPASSWD:"
     end
