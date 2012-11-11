@@ -21,7 +21,7 @@ actions :install, :remove
 
 attribute :user, :kind_of => String, :default => nil
 attribute :group, :kind_of => String, :default => nil
-attribute :commands, :kind_of => Array, :default => nil
+attribute :commands, :kind_of => Array, :default => []
 attribute :host, :kind_of => String, :default => "ALL"
 attribute :runas, :kind_of => String, :default => "ALL"
 attribute :nopasswd, :equal_to => [true, false], :default => true
