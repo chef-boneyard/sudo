@@ -68,8 +68,8 @@ Example using the built-in template:
 
 ```ruby
 sudo 'tomcat' do
-  user      "%tomcat" # or a username
-  runas     'app_user' # or 'app_user:tomcat'
+  user      "%tomcat"    # or a username
+  runas     'app_user'   # or 'app_user:tomcat'
   commands  ['/etc/init.d/tomcat restart']
 end
 ```
@@ -81,7 +81,7 @@ sudo 'tomcat'
 end
 ```
 
-In either case, the following file would be generated in /etc/sudoers.d/tomcat
+In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
 
 ```bash
 # This file is managed by Chef for node.example.com
@@ -105,51 +105,50 @@ In either case, the following file would be generated in /etc/sudoers.d/tomcat
     <tr>
       <td>name</td>
       <td>name of the `/etc/sudoers.d` file</td>
-      <td>`restart-tomcat`</td>
+      <td><tt>restart-tomcat</tt></td>
       <td>current resource name</td>
     </tr>
     <tr>
       <td>user</td>
       <td>user to provide sudo privileges to</td>
-      <td>`tomcat`</td>
+      <td><tt>tomcat</tt></td>
       <td></td>
     </tr>
     <tr>
       <td>group</td>
       <td>group to provide sudo privileges to, except `%` is prepended to the name in
 case it is not already</td>
-      <td>`%admin`</td>
+      <td><tt>%admin</tt></td>
       <td></td>
     </tr>
     <tr>
       <td>commands</td>
       <td>array of commands this sudoer can execute</td>
-      <td>`['/etc/init.d/tomcat restart']`</td>
-      <td>`['ALL']`</td>
+      <td><tt>['/etc/init.d/tomcat restart']</tt></td>
+      <td><tt>['ALL']</tt></td>
     </tr>
     <tr>
       <td>nopasswd</td>
       <td>supply a password to invoke sudo</td>
-      <td>true</td>
-      <td>false</td>
+      <td><tt>true</tt></td>
+      <td><tt>false</tt></td>
     </tr>
     <tr>
       <td>template</td>
       <td>the erb template to render instead of the default</td>
-      <td>`restart-tomcat.erb`</td>
+      <td><tt>restart-tomcat.erb</tt></td>
       <td></td>
     </tr>
     <tr>
       <td>variables</td>
       <td>the variables to pass to the custom template</td>
-      <td>`:commands => ['/etc/init.d/tomcat restart']`</td>
+      <td><tt>:commands => ['/etc/init.d/tomcat restart']</tt></td>
       <td></td>
     </tr>
   </tbody>
 </table>
 
-**If you use the template attribute, all other attributes will be
-ignored except for the variables attribute.**
+**If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
 
 
 License and Authors
