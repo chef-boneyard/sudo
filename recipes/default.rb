@@ -17,32 +17,32 @@
 # limitations under the License.
 #
 
-package "sudo" do
+package 'sudo' do
   action :install
 end
 
 if node['authorization']['sudo']['include_sudoers_d']
-  directory "/etc/sudoers.d" do
-    mode 0755
-    owner "root"
-    group "root"
-    action :create
+  directory '/etc/sudoers.d' do
+    mode        '0755'
+    owner       'root'
+    group       'root'
+    action      :create
   end
-  cookbook_file "/etc/sudoers.d/README" do
-    cookbook "sudo"
-    source "README.sudoers"
-    mode 0440
-    owner "root"
-    group "root"
-    action :create
+
+  cookbook_file '/etc/sudoers.d/README' do
+    source      'README'
+    mode        '0440'
+    owner       'root'
+    group       'root'
+    action      :create
   end
 end
 
-template "/etc/sudoers" do
-  source "sudoers.erb"
-  mode 0440
-  owner "root"
-  group platform?("freebsd") ? "wheel" : "root"
+template '/etc/sudoers' do
+  source 'sudoers.erb'
+  mode '0440'
+  owner 'root'
+  group platform?('freebsd') ? 'wheel' : 'root'
   variables(
     :sudoers_groups => node['authorization']['sudo']['groups'],
     :sudoers_users => node['authorization']['sudo']['users'],
