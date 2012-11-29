@@ -1,3 +1,7 @@
+## v1.2.2:
+
+* [COOK-1628] - set host in sudo lwrp
+
 ## v1.2.0:
 
 * [COOK-1314] - default package action is now :install instead of :upgrade
