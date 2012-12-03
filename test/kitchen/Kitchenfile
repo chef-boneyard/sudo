@@ -1,0 +1,3 @@
+cookbook 'sudo' do
+  preflight_command ['rspec']
+end
