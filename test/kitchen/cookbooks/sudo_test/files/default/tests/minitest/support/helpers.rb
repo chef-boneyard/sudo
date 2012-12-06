@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sudo
-# Attribute File:: default
+# Cookbook Name:: sudo_test
+# Recipe:: default
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
-default['authorization']['sudo']['groups']              = []
-default['authorization']['sudo']['users']               = []
-default['authorization']['sudo']['passwordless']        = false
-default['authorization']['sudo']['include_sudoers_d']   = false
-default['authorization']['sudo']['agent_forwarding']    = false
+module Helpers
+  module SudoTest
+    include MiniTest::Chef::Assertions
+    include MiniTest::Chef::Context
+    include MiniTest::Chef::Resources
+
+  end
+end

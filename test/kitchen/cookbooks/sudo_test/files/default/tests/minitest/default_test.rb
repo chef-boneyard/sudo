@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sudo
-# Attribute File:: default
+# Cookbook Name:: sudo_test
+# Minitest:: default
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +17,12 @@
 # limitations under the License.
 #
 
-default['authorization']['sudo']['groups']              = []
-default['authorization']['sudo']['users']               = []
-default['authorization']['sudo']['passwordless']        = false
-default['authorization']['sudo']['include_sudoers_d']   = false
-default['authorization']['sudo']['agent_forwarding']    = false
+require File.expand_path('../support/helpers', __FILE__)
+
+describe "sudo_test::default" do
+  include Helpers::SudoTest
+
+  it 'installs sudo' do
+    package('sudo').must_be_installed
+  end
+end
