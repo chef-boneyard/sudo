@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sudo
-# Attribute File:: default
+# Cookbook Name:: sudo_test
+# Recipe:: cook-2022
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,6 @@
 # limitations under the License.
 #
 
-default['authorization']['sudo']['groups']            = []
-default['authorization']['sudo']['users']             = []
-default['authorization']['sudo']['passwordless']      = false
-default['authorization']['sudo']['include_sudoers_d'] = false
-default['authorization']['sudo']['agent_forwarding']  = false
-default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!fqdn']
+node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
+
+include_recipe "sudo::default"
