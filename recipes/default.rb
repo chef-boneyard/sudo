@@ -44,11 +44,31 @@ template '/etc/sudoers' do
   owner 'root'
   group platform?('freebsd') ? 'wheel' : 'root'
   variables(
-    :sudoers_groups => node['authorization']['sudo']['groups'],
-    :sudoers_users => node['authorization']['sudo']['users'],
     :passwordless => node['authorization']['sudo']['passwordless'],
     :include_sudoers_d => node['authorization']['sudo']['include_sudoers_d'],
     :agent_forwarding => node['authorization']['sudo']['agent_forwarding'],
     :sudoers_defaults => node['authorization']['sudo']['sudoers_defaults']
+  )
+end
+
+template "sudo users" do
+  path "/etc/sudoers.d/chef-users"
+  sources "users.erb"
+  mode 0440
+  owner "root"
+  group platform?("freebsd") ? "wheel" : "root"
+  variables(
+    :sudoers_users => node['authorization']['sudo']['users']
+  )
+end
+
+template "sudo groups" do
+  path "/etc/sudoers.d/chef-groups"
+  sources "groups.erb"
+  mode 0440
+  owner "root"
+  group platform?("freebsd") ? "wheel" : "root"
+  variables(
+    :sudoers_groups => node['authorization']['sudo']['groups']
   )
 end
