@@ -1,3 +1,8 @@
+## v1.3.0:
+
+* [COOK-1892] - Revamp sudo cookbook and LWRP
+* [COOK-2022] - add an attribute for setting /etc/sudoers Defaults
+
 ## v1.2.2:
 
 * [COOK-1628] - set host in sudo lwrp
