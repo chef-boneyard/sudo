@@ -1,3 +1,11 @@
+## v2.0.0:
+
+This is a major release because the LWRP's "nopasswd" attribute is
+changed from true to false, to match the passwordless attribute in the
+attributes file. This requires a change to people's LWRP use.
+
+* [COOK-2085] - Incorrect default value in the sudo LWRP's nopasswd attribute
+
 ## v1.3.0:
 
 * [COOK-1892] - Revamp sudo cookbook and LWRP
