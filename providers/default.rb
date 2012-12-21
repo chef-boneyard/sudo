@@ -108,7 +108,7 @@ action :remove do
   resource = file "/etc/sudoers.d/#{new_resource.name}" do
     action :nothing
   end
-  resource.run_action(:remove)
+  resource.run_action(:delete)
   new_resource.updated_by_last_action(true) if resource.updated_by_last_action?
 end
 
