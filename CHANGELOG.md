@@ -1,3 +1,8 @@
+## v2.0.2:
+
+* [COOK-2109] - lwrp uses incorrect action on underlying file
+  resource.
+
 ## v2.0.0:
 
 This is a major release because the LWRP's "nopasswd" attribute is
