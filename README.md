@@ -59,50 +59,54 @@ Configure a node attribute,
 for common platforms is listed below:
 
 *Debian*
-
-    node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
+```ruby
+node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
+```
 
 *Ubuntu 10.04*
-
-    node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
+```ruby
+node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
+```
 
 *Ubuntu 12.04*
-
-    node.default['authorization']['sudo']['sudoers_defaults'] = [
-      'env_reset',
-      'secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'
-    ]
+```ruby
+node.default['authorization']['sudo']['sudoers_defaults'] = [
+  'env_reset',
+  'secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'
+]
+```
 
 *RHEL family 5.x*
+The version of sudo in RHEL 5 may not support `+=`, as used in `env_keep`, so its a single string.
 
-The version of sudo in RHEL 5 may not support `+=`, as used in
-`env_keep`, so its a single string.
-
-    node.default['authorization']['sudo']['sudoers_defaults'] = [
-      '!visiblepw',
-      'env_reset',
-      'env_keep = "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR \
-                   LS_COLORS MAIL PS1 PS2 QTDIR USERNAME \
-                   LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION \
-                   LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC \
-                   LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS \
-                   _XKB_CHARSET XAUTHORITY"'
-    ]
+```ruby
+node.default['authorization']['sudo']['sudoers_defaults'] = [
+  '!visiblepw',
+  'env_reset',
+  'env_keep = "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR \
+               LS_COLORS MAIL PS1 PS2 QTDIR USERNAME \
+               LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION \
+               LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC \
+               LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS \
+               _XKB_CHARSET XAUTHORITY"'
+]
+```
 
 *RHEL family 6.x*
-
-    node.default['authorization']['sudo']['sudoers_defaults'] = [
-      '!visiblepw',
-      'env_reset',
-      'env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS"',
-      'env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"',
-      'env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"',
-      'env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"',
-      'env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"',
-      'env_keep += "HOME"',
-      'always_set_home',
-      'secure_path = /sbin:/bin:/usr/sbin:/usr/bin'
-    ]
+```ruby
+node.default['authorization']['sudo']['sudoers_defaults'] = [
+  '!visiblepw',
+  'env_reset',
+  'env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS"',
+  'env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"',
+  'env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"',
+  'env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"',
+  'env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"',
+  'env_keep += "HOME"',
+  'always_set_home',
+  'secure_path = /sbin:/bin:/usr/sbin:/usr/bin'
+]
+```
 
 #### LWRP
 **Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as it relies on the "#includedir" directive introduced in version 1.7.2. The recipe does not enforce installing the version. To use this LWRP, set `node['authorization']['sudo']['include_sudoers_d']` to `true`.
