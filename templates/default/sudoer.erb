@@ -2,5 +2,5 @@
 # Do NOT modify this file directly.
 
 <% @commands.each do |command| -%>
-  <%= @sudoer %>  <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
+<%= @sudoer %>  <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
 <% end -%>
