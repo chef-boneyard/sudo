@@ -1,3 +1,9 @@
+## v2.0.4:
+
+* [COOK-2078] - syntax highlighting README on GitHub flavored markdown
+* [COOK-2119] - LWRP template doesn't support multiple commands in a
+  single block.
+
 ## v2.0.2:
 
 * [COOK-2109] - lwrp uses incorrect action on underlying file
