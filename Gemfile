@@ -8,5 +8,5 @@ group :test do
   gem 'fauxhai'
   gem 'foodcritic'
   gem 'fuubar'
-  gem 'test-kitchen', '<= 1.0'
+  gem 'test-kitchen', '< 1.0'
 end
