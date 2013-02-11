@@ -43,7 +43,7 @@ def validate_fragment!(resource)
   begin
     file.write(capture(resource))
 
-    cmd = Chef::ShellOut.new("visudo -cf #{file.path}").run_command
+    cmd = Mixlib::ShellOut.new("visudo -cf #{file.path}").run_command
     unless cmd.exitstatus == 0
       Chef::Log.error("Fragment validation failed: \n\n")
       Chef::Log.error(file.read)
