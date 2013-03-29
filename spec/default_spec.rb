@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'sudo::default' do
   context 'usual business' do
-    before { Fauxhai.mock platform: 'ubuntu' }
+    before { Fauxhai.mock :platform => 'ubuntu' }
     let(:runner) { ChefSpec::ChefRunner.new.converge 'sudo::default' }
 
     it 'installs the sudo package' do
