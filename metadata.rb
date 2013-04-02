@@ -7,7 +7,7 @@ version           '2.0.4'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
-%w{redhat centos fedora ubuntu debian freebsd}.each do |os|
+%w{redhat centos fedora ubuntu debian freebsd solaris2}.each do |os|
   supports os
 end
 
