@@ -131,7 +131,7 @@ end
 ```
 
 ```ruby
-sudo 'tomcat'
+sudo 'tomcat' do
   template    'my_tomcat.erb' # local cookbook template
   variables   :cmds => ['/etc/init.d/tomcat restart']
 end
