@@ -17,8 +17,12 @@
 # limitations under the License.
 #
 
-package 'sudo' do
-  action :install
+if node['kernel']['version'].include? "NexentaOS"
+  apt_package 'sudo'
+else
+  package 'sudo' do
+    action :install
+  end
 end
 
 if node['authorization']['sudo']['include_sudoers_d']
