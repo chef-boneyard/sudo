@@ -1,3 +1,10 @@
+## v2.1.0:
+
+* [COOK-2388] - Chef::ShellOut is deprecated, please use
+  Mixlib::ShellOut
+* [COOK-2427] - unable to install users cookbook in chef 11
+* [COOK-2814] - Incorrect syntax in README example
+
 ## v2.0.4:
 
 * [COOK-2078] - syntax highlighting README on GitHub flavored markdown
