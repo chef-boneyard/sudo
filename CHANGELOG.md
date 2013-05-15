@@ -1,3 +1,10 @@
+## v2.1.2:
+
+### Bug
+
+- [COOK-2388]: Chef::ShellOut is deprecated, please use Mixlib::ShellOut
+- [COOK-2814]: Incorrect syntax in README example
+
 ## v2.1.0:
 
 * [COOK-2388] - Chef::ShellOut is deprecated, please use
