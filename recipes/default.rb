@@ -17,19 +17,21 @@
 # limitations under the License.
 #
 
+prefix = node['authorization']['sudo']['prefix']
+
 package 'sudo' do
   action :install
 end
 
 if node['authorization']['sudo']['include_sudoers_d']
-  directory '/etc/sudoers.d' do
+  directory "#{prefix}/sudoers.d" do
     mode        '0755'
     owner       'root'
     group       'root'
     action      :create
   end
 
-  cookbook_file '/etc/sudoers.d/README' do
+  cookbook_file "#{prefix}/sudoers.d/README" do
     source      'README'
     mode        '0440'
     owner       'root'
@@ -38,7 +40,7 @@ if node['authorization']['sudo']['include_sudoers_d']
   end
 end
 
-template '/etc/sudoers' do
+template "#{prefix}/sudoers" do
   source 'sudoers.erb'
   mode '0440'
   owner 'root'
