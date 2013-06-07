@@ -18,7 +18,7 @@
 # limitations under the License.
 
 actions :install, :remove
-default_action :install
+default_action :install if defined?(default_action) # Chef > 10.8
 
 attribute :user,       :kind_of => String,          :default => nil
 attribute :group,      :kind_of => String,          :default => nil
@@ -29,10 +29,13 @@ attribute :nopasswd,   :equal_to => [true, false],  :default => false
 attribute :template,   :regex => /^[a-z_]+.erb$/,   :default => nil
 attribute :variables,  :kind_of => Hash,            :default => nil
 
-# Set default for the supports attribute in initializer since it is
-# a 'reserved' attribute name
 def initialize(*args)
   super
+
+  # Default action for Chef <= 10.8
   @action = :install
+
+  # Set default for the supports attribute in initializer since it is
+  # a 'reserved' attribute name
   @supports = { :report => true, :exception => true }
 end
