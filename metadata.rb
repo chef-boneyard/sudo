@@ -39,6 +39,12 @@ attribute 'authorization/sudo/passwordless',
   :type => 'string',
   :default => 'false'
 
+attribute 'authorization/sudo/setenv',
+  :display_name => 'SetEnv Sudo',
+  :description => '',
+  :type => 'string',
+  :default => 'false'
+
 attribute 'authorization/sudo/include_sudoers_d',
   :display_name => 'Include sudoers.d',
   :description => 'Whether to create the sudoers.d includedir',
