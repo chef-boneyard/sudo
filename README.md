@@ -1,26 +1,35 @@
 Chef sudo cookbook
 ==================
-The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
+The Chef `sudo` cookbook installs the `sudo` package and configures 
+the `/etc/sudoers` file.
 
 It also exposes an LWRP for adding and managing sudoers.
 
 Requirements
 ------------
-The platform has a package named `sudo` and the `sudoers` file is `/etc/sudoers`.
+The platform has a package named `sudo` and the `sudoers` file is 
+`/etc/sudoers`.
 
 Attributes
 ----------
-- `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[]`)
-- `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
-- `node['authorization']['sudo']['passwordless']` - use passwordless sudo (default: `false`)
-- `node['authorization']['sudo']['include_sudoers_d']` - include and manager `/etc/sudoers.d` (default: `false`)
-- `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
-- `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
+- `node['authorization']['sudo']['groups']` - groups to enable sudo access 
+  (default: `[]`)
+- `node['authorization']['sudo']['users']` - users to enable sudo access 
+  (default: `[]`)
+- `node['authorization']['sudo']['passwordless']` - use passwordless sudo 
+   (default: `false`)
+- `node['authorization']['sudo']['include_sudoers_d']` - include and manager 
+  `/etc/sudoers.d` (default: `false`)
+- `node['authorization']['sudo']['agent_forwarding']` - preserve 
+  `SSH_AUTH_SOCK` when sudoing (default: `false`)
+- `node['authorization']['sudo']['sudoers_defaults']` - Array of 
+  `Defaults` entries to configure in `/etc/sudoers`
 
 Usage
 -----
 #### Attributes
-To use attributes for defining sudoers, set the attributes above on the node (or role) itself:
+To use attributes for defining sudoers, set the attributes above on the node 
+(or role) itself:
 
 ```json
 {
@@ -49,7 +58,8 @@ default_attributes(
 )
 ```
 
-**Note that the template for the sudoers file has the group "sysadmin" with ALL:ALL permission, though the group by default does not exist.**
+**Note that the template for the sudoers file has the group "sysadmin" 
+with ALL:ALL permission, though the group by default does not exist.**
 
 #### Sudoers Defaults
 
@@ -77,7 +87,8 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ```
 
 *RHEL family 5.x*
-The version of sudo in RHEL 5 may not support `+=`, as used in `env_keep`, so its a single string.
+The version of sudo in RHEL 5 may not support `+=`, as used in `env_keep`, 
+so its a single string.
 
 ```ruby
 node.default['authorization']['sudo']['sudoers_defaults'] = [
@@ -109,16 +120,23 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ```
 
 #### LWRP
-**Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as it relies on the "#includedir" directive introduced in version 1.7.2. The recipe does not enforce installing the version. To use this LWRP, set `node['authorization']['sudo']['include_sudoers_d']` to `true`.
+**Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as 
+it relies on the "#includedir" directive introduced in version 1.7.2. 
+The recipe does not enforce installing the version. To use this LWRP, 
+set `node['authorization']['sudo']['include_sudoers_d']` to `true`.
 
 There are two ways for rendering a sudoer-fragment using this LWRP:
 
   1. Using the built-in template
   2. Using a custom, cookbook-level template
 
-Both methods will create the `/etc/sudoers.d/#{username}` file with the correct permissions.
+Both methods will create the `/etc/sudoers.d/#{username}` file with the 
+correct permissions.
 
-The LWRP also performs **fragment validation**. If a sudoer-fragment is not valid, the Chef run will throw an exception and fail. This ensures that your sudoers file is always valid and cannot become corrupt (from this cookbook).
+The LWRP also performs **fragment validation**. If a sudoer-fragment is 
+not valid, the Chef run will throw an exception and fail. This ensures that 
+your sudoers file is always valid and cannot become corrupt (from this 
+cookbook).
 
 Example using the built-in template:
 
@@ -172,8 +190,8 @@ In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
     </tr>
     <tr>
       <td>group</td>
-      <td>group to provide sudo privileges to, except `%` is prepended to the name in
-case it is not already</td>
+      <td>group to provide sudo privileges to, except `%` is prepended to 
+          the name in case it is not already</td>
       <td><tt>%admin</tt></td>
       <td></td>
     </tr>
@@ -204,7 +222,8 @@ case it is not already</td>
   </tbody>
 </table>
 
-**If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
+**If you use the template attribute, all other attributes will be ignored 
+except for the variables attribute.**
 
 
 License and Authors
