@@ -183,10 +183,10 @@ In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
       <td>current resource name</td>
     </tr>
     <tr>
-      <td>user</td>
-      <td>user to provide sudo privileges to</td>
-      <td><tt>tomcat</tt></td>
-      <td></td>
+      <td>commands</td>
+      <td>array of commands this sudoer can execute</td>
+      <td><tt>['/etc/init.d/tomcat restart']</tt></td>
+      <td><tt>['ALL']</tt></td>
     </tr>
     <tr>
       <td>group</td>
@@ -196,21 +196,27 @@ In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
       <td></td>
     </tr>
     <tr>
-      <td>commands</td>
-      <td>array of commands this sudoer can execute</td>
-      <td><tt>['/etc/init.d/tomcat restart']</tt></td>
-      <td><tt>['ALL']</tt></td>
-    </tr>
-    <tr>
       <td>nopasswd</td>
       <td>supply a password to invoke sudo</td>
       <td><tt>true</tt></td>
       <td><tt>false</tt></td>
     </tr>
     <tr>
+      <td>runas</td>
+      <td>User the command(s) can be run as</td>
+      <td><tt>root</tt></td>
+      <td><tt>ALL</tt></td>
+    </tr>
+    <tr>
       <td>template</td>
       <td>the erb template to render instead of the default</td>
       <td><tt>restart-tomcat.erb</tt></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>user to provide sudo privileges to</td>
+      <td><tt>tomcat</tt></td>
       <td></td>
     </tr>
     <tr>
