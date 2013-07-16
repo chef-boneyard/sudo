@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'sudo::default' do
-  before { Fauxhai.mock(:platform => 'ubuntu', :version => '12.04') }
-
   context 'usual business' do
-    let(:runner) { ChefSpec::ChefRunner.new.converge 'sudo::default' }
+    let(:runner) do
+      ChefSpec::ChefRunner.new(platform: 'ubuntu', version: '12.04').converge 'sudo::default'
+    end
 
     it 'installs the sudo package' do
       runner.should install_package 'sudo'
@@ -17,7 +17,7 @@ describe 'sudo::default' do
 
   context 'with custom prefix' do
     let(:runner) do
-      ChefSpec::ChefRunner.new do |node|
+      ChefSpec::ChefRunner.new(platform: 'ubuntu', version: '12.04') do |node|
         node.set['authorization'] = {
           'sudo' => {
             'prefix' => '/secret/etc'
@@ -33,7 +33,7 @@ describe 'sudo::default' do
 
   context 'sudoers.d' do
     let(:runner) do
-      ChefSpec::ChefRunner.new do |node|
+      ChefSpec::ChefRunner.new(platform: 'ubuntu', version: '12.04') do |node|
         node.set['authorization'] = {
           'sudo' => {
             'include_sudoers_d' => 'true'
