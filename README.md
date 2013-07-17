@@ -49,8 +49,6 @@ default_attributes(
 )
 ```
 
-**Note that the template for the sudoers file has the group "sysadmin" with ALL:ALL permission, though the group by default does not exist.**
-
 #### Sudoers Defaults
 
 Configure a node attribute,
