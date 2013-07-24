@@ -53,7 +53,7 @@ end
 
 template "sudo users" do
   path "/etc/sudoers.d/chef-users"
-  sources "users.erb"
+  source "users.erb"
   mode 0440
   owner "root"
   group platform?("freebsd") ? "wheel" : "root"
@@ -64,7 +64,7 @@ end
 
 template "sudo groups" do
   path "/etc/sudoers.d/chef-groups"
-  sources "groups.erb"
+  source "groups.erb"
   mode 0440
   owner "root"
   group platform?("freebsd") ? "wheel" : "root"
