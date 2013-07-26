@@ -1,3 +1,12 @@
+## v2.1.4:
+
+This is a bugfix for 11.6.0 compatibility, as we're not
+monkey-patching Erubis::Context.
+
+### Bug
+
+- [COOK-3399]: Remove node attribute in comment of sudoers templates
+
 ## v2.1.2:
 
 ### Bug
