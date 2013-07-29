@@ -190,6 +190,12 @@ case it is not already</td>
       <td><tt>false</tt></td>
     </tr>
     <tr>
+      <td>user_defaults</td>
+      <td>array of defaults this user has</td>
+      <td><tt>['Defaults:zabbix !requiretty']</tt></td>
+      <td></td>
+    </tr>
+    <tr>
       <td>template</td>
       <td>the erb template to render instead of the default</td>
       <td><tt>restart-tomcat.erb</tt></td>
