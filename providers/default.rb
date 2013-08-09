@@ -42,6 +42,7 @@ def validate_fragment!(resource)
 
   begin
     file.write(capture(resource))
+    file.rewind
 
     cmd = Mixlib::ShellOut.new("visudo -cf #{file.path}").run_command
     unless cmd.exitstatus == 0
