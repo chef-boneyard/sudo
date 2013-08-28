@@ -1,12 +1,14 @@
-Chef sudo cookbook
-==================
+sudo cookbook
+=============
 The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
 
 It also exposes an LWRP for adding and managing sudoers.
 
+
 Requirements
 ------------
 The platform has a package named `sudo` and the `sudoers` file is `/etc/sudoers`.
+
 
 Attributes
 ----------
@@ -16,6 +18,7 @@ Attributes
 - `node['authorization']['sudo']['include_sudoers_d']` - include and manager `/etc/sudoers.d` (default: `false`)
 - `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
+
 
 Usage
 -----
@@ -214,6 +217,7 @@ License and Authors
 - Author:: Seth Chisamore <schisamo@opscode.com>
 - Author:: Seth Vargo <sethvargo@gmail.com>
 
+```text
 Copyright 2009-2012, Opscode, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -227,3 +231,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
