@@ -3,6 +3,11 @@ sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
 
+v2.2.0
+------
+### New Feature
+- **[COOK-3056](https://tickets.opscode.com/browse/COOK-3056)** - Allow custom sudoers config prefix
+
 v2.1.4
 ------
 This is a bugfix for 11.6.0 compatibility, as we're not monkey-patching Erubis::Context.
