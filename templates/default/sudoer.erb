@@ -1,6 +1,10 @@
 # This file is managed by Chef.
 # Do NOT modify this file directly.
 
+<% @user_defaults.each do |default| -%>
+<%= default %>
+<% end -%>
+
 <% @commands.each do |command| -%>
 <%= @sudoer %>  <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
 <% end -%>

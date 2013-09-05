@@ -86,7 +86,8 @@ def render_sudoer
                     :host => new_resource.host,
                     :runas => new_resource.runas,
                     :nopasswd => new_resource.nopasswd,
-                    :commands => new_resource.commands
+                    :commands => new_resource.commands,
+                    :user_defaults => new_resource.user_defaults
       action        :nothing
     end
   end
