@@ -15,6 +15,7 @@ Attributes
 - `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['passwordless']` - use passwordless sudo (default: `false`)
+- `node['authorization']['sudo']['setenv']` - allow sudo to setenv by passing -E flag (default: `false`)
 - `node['authorization']['sudo']['include_sudoers_d']` - include and manager `/etc/sudoers.d` (default: `false`)
 - `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
@@ -189,6 +190,12 @@ case it is not already</td>
     <tr>
       <td>nopasswd</td>
       <td>supply a password to invoke sudo</td>
+      <td><tt>true</tt></td>
+      <td><tt>false</tt></td>
+    </tr>
+    <tr>
+      <td>setenv</td>
+      <td>allow sudo to accept -E flag for passing current user's environment</td>
       <td><tt>true</tt></td>
       <td><tt>false</tt></td>
     </tr>

@@ -26,6 +26,7 @@ attribute :commands,   :kind_of => Array,           :default => ['ALL']
 attribute :host,       :kind_of => String,          :default => 'ALL'
 attribute :runas,      :kind_of => String,          :default => 'ALL'
 attribute :nopasswd,   :equal_to => [true, false],  :default => false
+attribute :setenv,     :equal_to => [true, false],  :default => false
 attribute :template,   :regex => /^[a-z_]+.erb$/,   :default => nil
 attribute :variables,  :kind_of => Hash,            :default => nil
 
