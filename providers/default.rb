@@ -28,9 +28,9 @@ end
 # Ensure that the inputs are valid (we cannot just use the resource for this)
 def check_inputs(user, group, foreign_template, foreign_vars)
   # if group, user, and template are nil, throw an exception
-  if user == nil && group == nil && foreign_template == nil
+  if user.nil? && group.nil? && foreign_template.nil?
     Chef::Application.fatal!('You must provide a user, group, or template!')
-  elsif user != nil && group != nil && template != nil
+  elsif !user.nil? && !group.nil? && !template.nil?
     Chef::Application.fatal!('You cannot specify user, group, and template!')
   end
 end
@@ -113,23 +113,23 @@ action :remove do
 end
 
 private
-# Capture a template to a string
-def capture(template)
-  context = {}
-  context.merge!(template.variables)
-  context[:node] = node
+  # Capture a template to a string
+  def capture(template)
+    context = {}
+    context.merge!(template.variables)
+    context[:node] = node
 
-  eruby = Erubis::Eruby.new(::File.read(template_location(template)))
-  return eruby.evaluate(context)
-end
-
-# Find the template
-def template_location(template)
-  if template.local
-    template.source
-  else
-    context = template.instance_variable_get('@run_context')
-    cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
-    cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
+    eruby = Erubis::Eruby.new(::File.read(template_location(template)))
+    eruby.evaluate(context)
   end
-end
+
+  # Find the template
+  def template_location(template)
+    if template.local
+      template.source
+    else
+      context = template.instance_variable_get('@run_context')
+      cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
+      cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
+    end
+  end

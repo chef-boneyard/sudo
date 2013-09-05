@@ -1,5 +1,7 @@
 sudo cookbook
 =============
+[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/sudo.png?branch=master)](http://travis-ci.org/opscode-cookbooks/sudo)
+
 The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
 
 It also exposes an LWRP for adding and managing sudoers.
@@ -208,6 +210,41 @@ case it is not already</td>
 </table>
 
 **If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
+
+
+Development
+-----------
+This section details "quick development" steps. For a detailed explanation, see [[Contributing.md]].
+
+1. Clone this repository from GitHub:
+
+        $ git clone git@github.com:opscode-cookbooks/sudo.git
+
+2. Create a git branch
+
+        $ git checkout -b my_bug_fix
+
+3. Install dependencies:
+
+        $ bundle install
+
+4. Make your changes/patches/fixes, committing appropiately
+5. **Write tests**
+6. Run the tests:
+
+    - `bundle exec foodcritic -f any .`
+    - `bundle exec rspec`
+    - `bundle exec rubocop`
+    - `bundle exec kitchen test`
+
+    In detail:
+
+    - Foodcritic will catch any Chef-specific style errors
+    - RSpec will run the unit tests
+    - Rubocop will check for Ruby-specific style errors
+    - Test Kitchen will run and converge the recipes
+
+
 
 
 License and Authors
