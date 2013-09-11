@@ -25,6 +25,13 @@ default['authorization']['sudo']['agent_forwarding']  = false
 default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!fqdn']
 
 case node['platform_family']
+when "freebsd"
+  default['authorization']['sudo']['rootgroup'] = 'wheel'
+else
+  default['authorization']['sudo']['rootgroup'] = 'root'
+end
+
+case node['platform_family']
 when 'smartos'
   default['authorization']['sudo']['prefix'] = '/opt/local/etc'
 when "freebsd"
