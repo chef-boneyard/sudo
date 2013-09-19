@@ -17,7 +17,14 @@
 # limitations under the License.
 #
 
-default['authorization']['sudo']['groups']            = []
+case node['platform_family']
+when "freebsd"
+  default['authorization']['sudo']['groups']            = ['wheel']
+else
+  default['authorization']['sudo']['groups']            = []
+end
+
+>>>>>>> a583523... FreeBSD only allows members of group wheel to su.  It seems logical to by default allows these users to sudo too.
 default['authorization']['sudo']['users']             = []
 default['authorization']['sudo']['passwordless']      = false
 default['authorization']['sudo']['include_sudoers_d'] = false
@@ -25,8 +32,17 @@ default['authorization']['sudo']['agent_forwarding']  = false
 default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!fqdn']
 
 case node['platform_family']
+when "freebsd"
+  default['authorization']['sudo']['rootgroup'] = 'wheel'
+else
+  default['authorization']['sudo']['rootgroup'] = 'root'
+end
+
+case node['platform_family']
 when 'smartos'
   default['authorization']['sudo']['prefix'] = '/opt/local/etc'
+when "freebsd"
+  default['authorization']['sudo']['prefix'] = '/usr/local/etc'
 else
   default['authorization']['sudo']['prefix'] = '/etc'
 end

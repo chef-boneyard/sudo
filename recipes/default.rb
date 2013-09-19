@@ -27,7 +27,7 @@ if node['authorization']['sudo']['include_sudoers_d']
   directory "#{prefix}/sudoers.d" do
     mode        '0755'
     owner       'root'
-    group       'root'
+    group       node[:authorization][:sudo][:rootgroup]
     action      :create
   end
 
@@ -35,7 +35,7 @@ if node['authorization']['sudo']['include_sudoers_d']
     source      'README'
     mode        '0440'
     owner       'root'
-    group       'root'
+    group       node[:authorization][:sudo][:rootgroup]
     action      :create
   end
 end
@@ -44,7 +44,7 @@ template "#{prefix}/sudoers" do
   source 'sudoers.erb'
   mode '0440'
   owner 'root'
-  group platform?('freebsd') ? 'wheel' : 'root'
+  group node[:authorization][:sudo][:rootgroup]
   variables(
     :sudoers_groups => node['authorization']['sudo']['groups'],
     :sudoers_users => node['authorization']['sudo']['users'],
