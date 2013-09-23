@@ -28,20 +28,19 @@ Development
 -----------
 1. Clone the git repository from GitHub:
 
-    $ git clone git@github.com:opscode-cookbooks/COOKBOOK.git
+        $ git clone git@github.com:opscode-cookbooks/COOKBOOK.git
 
 2. Install the dependencies using bundler:
 
-    $ bundle install
+        $ bundle install
 
 3. Create a branch for your changes:
 
-    $ git checkout -b my_bug_fix
+        $ git checkout -b my_bug_fix
 
 4. Make any changes
 5. Write tests to support those changes. It is highly recommended you write both unit and integration tests.
 6. Run the tests:
-
     - `bundle exec rspec`
     - `bundle exec foodcritic .`
     - `bundle exec rubocop`
