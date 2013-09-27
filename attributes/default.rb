@@ -24,7 +24,6 @@ else
   default['authorization']['sudo']['groups']            = []
 end
 
->>>>>>> a583523... FreeBSD only allows members of group wheel to su.  It seems logical to by default allows these users to sudo too.
 default['authorization']['sudo']['users']             = []
 default['authorization']['sudo']['passwordless']      = false
 default['authorization']['sudo']['include_sudoers_d'] = false
