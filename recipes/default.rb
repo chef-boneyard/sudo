@@ -19,11 +19,13 @@
 
 prefix = node['authorization']['sudo']['prefix']
 
-package 'sudo'
+package 'sudo' do
+  action :install
+end
 
 if node['authorization']['sudo']['include_sudoers_d']
   directory "#{prefix}/sudoers.d" do
-    mode    '0755'
+    mode    '0750'
     owner   'root'
     group   'root'
   end
