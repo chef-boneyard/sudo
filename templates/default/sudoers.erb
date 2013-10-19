@@ -23,4 +23,4 @@ root          ALL=(ALL) ALL
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
 
-<%= '#includedir /etc/sudoers.d' if @include_sudoers_d  %>
+<%= "#includedir #{node['authorization']['sudo']['prefix']}/sudoers.d" if @include_sudoers_d  %>

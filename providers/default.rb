@@ -63,10 +63,13 @@ end
 #      desired variables to the method and the correct template will be
 #      written out for the user
 def render_sudoer
+  sudoers_dir = directory "#{node['authorization']['sudo']['prefix']}/sudoers.d/"
+  sudoers_dir.run_action(:create)
+
   if new_resource.template
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 
-    resource = template "/etc/sudoers.d/#{new_resource.name}" do
+    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
       source        new_resource.template
       owner         'root'
       group         node['root_group']
@@ -77,7 +80,7 @@ def render_sudoer
   else
     sudoer = new_resource.user || "%#{new_resource.group}".squeeze('%')
 
-    resource = template "/etc/sudoers.d/#{new_resource.name}" do
+    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
       source        'sudoer.erb'
       cookbook      'sudo'
       owner         'root'
@@ -106,7 +109,7 @@ end
 
 # Removes a user from the sudoers group
 action :remove do
-  resource = file "/etc/sudoers.d/#{new_resource.name}" do
+  resource = file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
     action :nothing
   end
   resource.run_action(:delete)
