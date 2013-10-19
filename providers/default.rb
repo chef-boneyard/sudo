@@ -69,7 +69,7 @@ def render_sudoer
     resource = template "/etc/sudoers.d/#{new_resource.name}" do
       source        new_resource.template
       owner         'root'
-      group         'root'
+      group         node['root_group']
       mode          '0440'
       variables     new_resource.variables
       action        :nothing
@@ -81,7 +81,7 @@ def render_sudoer
       source        'sudoer.erb'
       cookbook      'sudo'
       owner         'root'
-      group         'root'
+      group         node['root_group']
       mode          '0440'
       variables     :sudoer => sudoer,
                     :host => new_resource.host,
