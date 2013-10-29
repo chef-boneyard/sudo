@@ -63,9 +63,6 @@ end
 #      desired variables to the method and the correct template will be
 #      written out for the user
 def render_sudoer
-  sudoers_dir = directory "#{node['authorization']['sudo']['prefix']}/sudoers.d/"
-  sudoers_dir.run_action(:create)
-
   if new_resource.template
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 
@@ -104,6 +101,9 @@ end
 
 # Default action - install a single sudoer
 action :install do
+  sudoers_dir = directory "#{node['authorization']['sudo']['prefix']}/sudoers.d/"
+  sudoers_dir.run_action(:create)
+
   render_sudoer
 end
 
