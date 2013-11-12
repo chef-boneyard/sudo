@@ -36,3 +36,12 @@ def initialize(*args)
   @action = :install
   @supports = { :report => true, :exception => true }
 end
+
+state_attrs :commands,
+            :group,
+            :host,
+            :nopasswd,
+            :runas,
+            :template,
+            :user,
+            :variables
