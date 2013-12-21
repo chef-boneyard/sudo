@@ -3,6 +3,12 @@ sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
 
+v2.3.0
+------
+### Improvement
+- **[COOK-3843](https://tickets.opscode.com/browse/COOK-3843)** - Make cookbook 'sudo' compatible with Mac OS X
+
+
 v2.2.2
 ------
 ### Improvement
