@@ -3,7 +3,7 @@
 }
 
 @test "it drops the README" {
-  cat /etc/sudoers.d/README | grep "As of Debian version"
+  sudo cat /etc/sudoers.d/README | grep "As of Debian version"
 }
 
 @test "it creates the /etc/sudoers" {
