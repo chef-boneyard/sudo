@@ -66,10 +66,10 @@ def render_sudoer
   if new_resource.template
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 
-    resource = template "/etc/sudoers.d/#{new_resource.name}" do
+    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
       source        new_resource.template
       owner         'root'
-      group         'root'
+      group         node['root_group']
       mode          '0440'
       variables     new_resource.variables
       action        :nothing
@@ -77,11 +77,11 @@ def render_sudoer
   else
     sudoer = new_resource.user || "%#{new_resource.group}".squeeze('%')
 
-    resource = template "/etc/sudoers.d/#{new_resource.name}" do
+    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
       source        'sudoer.erb'
       cookbook      'sudo'
       owner         'root'
-      group         'root'
+      group         node['root_group']
       mode          '0440'
       variables     :sudoer => sudoer,
                     :host => new_resource.host,
@@ -101,12 +101,15 @@ end
 
 # Default action - install a single sudoer
 action :install do
+  sudoers_dir = directory "#{node['authorization']['sudo']['prefix']}/sudoers.d/"
+  sudoers_dir.run_action(:create)
+
   render_sudoer
 end
 
 # Removes a user from the sudoers group
 action :remove do
-  resource = file "/etc/sudoers.d/#{new_resource.name}" do
+  resource = file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
     action :nothing
   end
   resource.run_action(:delete)

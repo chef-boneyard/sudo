@@ -113,6 +113,24 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ]
 ```
 
+*Mac OS X*
+```ruby
+node.default['authorization']['sudo']['sudoers_defaults'] = [
+  'env_reset',
+  'env_keep += "BLOCKSIZE"',
+  'env_keep += "COLORFGBG COLORTERM"',
+  'env_keep += "__CF_USER_TEXT_ENCODING"',
+  'env_keep += "CHARSET LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE"',
+  'env_keep += "LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME"',
+  'env_keep += "LINES COLUMNS"',
+  'env_keep += "LSCOLORS"',
+  'env_keep += "TZ"',
+  'env_keep += "DISPLAY XAUTHORIZATION XAUTHORITY"',
+  'env_keep += "EDITOR VISUAL"',
+  'env_keep += "HOME MAIL"'
+]
+```
+
 #### LWRP
 **Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as it relies on the "#includedir" directive introduced in version 1.7.2. The recipe does not enforce installing the version. To use this LWRP, set `node['authorization']['sudo']['include_sudoers_d']` to `true`.
 
