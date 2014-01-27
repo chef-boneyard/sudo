@@ -29,9 +29,9 @@ end
 def check_inputs(user, group, foreign_template, foreign_vars)
   # if group, user, and template are nil, throw an exception
   if user.nil? && group.nil? && foreign_template.nil?
-    Chef::Application.fatal!('You must provide a user, group, or template!')
+    fail 'You must provide a user, group, or template!'
   elsif !user.nil? && !group.nil? && !template.nil?
-    Chef::Application.fatal!('You cannot specify user, group, and template!')
+    fail 'You cannot specify user, group, and template!'
   end
 end
 
@@ -96,7 +96,9 @@ def render_sudoer
   validate_fragment!(resource)
 
   resource.run_action(:create)
-  new_resource.updated_by_last_action(true) if resource.updated_by_last_action?
+
+  # Return whether the resource was updated so we can notify in the action
+  resource.updated_by_last_action?
 end
 
 # Default action - install a single sudoer
@@ -104,7 +106,7 @@ action :install do
   sudoers_dir = directory "#{node['authorization']['sudo']['prefix']}/sudoers.d/"
   sudoers_dir.run_action(:create)
 
-  render_sudoer
+  new_resource.updated_by_last_action(true) if render_sudoer
 end
 
 # Removes a user from the sudoers group
@@ -117,23 +119,24 @@ action :remove do
 end
 
 private
-  # Capture a template to a string
-  def capture(template)
-    context = {}
-    context.merge!(template.variables)
-    context[:node] = node
 
-    eruby = Erubis::Eruby.new(::File.read(template_location(template)))
-    eruby.evaluate(context)
-  end
+# Capture a template to a string
+def capture(template)
+  context = {}
+  context.merge!(template.variables)
+  context[:node] = node
 
-  # Find the template
-  def template_location(template)
-    if template.local
-      template.source
-    else
-      context = template.instance_variable_get('@run_context')
-      cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
-      cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
-    end
+  eruby = Erubis::Eruby.new(::File.read(template_location(template)))
+  eruby.evaluate(context)
+end
+
+# Find the template
+def template_location(template)
+  if template.local
+    template.source
+  else
+    context = template.instance_variable_get('@run_context')
+    cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
+    cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
   end
+end

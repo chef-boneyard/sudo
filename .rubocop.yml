@@ -4,6 +4,8 @@ AllCops:
 
 AlignParameters:
   Enabled: false
+CyclomaticComplexity:
+  Max: 10
 Encoding:
   Enabled: false
 HashSyntax:
@@ -11,4 +13,4 @@ HashSyntax:
 LineLength:
   Enabled: false
 MethodLength:
-  Max: 30
+  Max: 40
