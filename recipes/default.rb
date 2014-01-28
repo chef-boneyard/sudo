@@ -20,7 +20,7 @@
 prefix = node['authorization']['sudo']['prefix']
 
 package 'sudo' do
-  not_if 'sudo -V'
+  not_if 'which sudo'
 end
 
 if node['authorization']['sudo']['include_sudoers_d']
