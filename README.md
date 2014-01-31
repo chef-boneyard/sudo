@@ -209,7 +209,7 @@ case it is not already</td>
     <tr>
       <td>defaults</td>
       <td>array of defaults this user has</td>
-      <td><tt>['!requiretty,env_reset']</tt></td>
+      <td><tt>['!requiretty','env_reset']</tt></td>
       <td></td>
     </tr>
     <tr>
