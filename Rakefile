@@ -22,11 +22,16 @@ task :integration do
   end
 end
 
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:unit) do |t|
+  t.rspec_opts = ['--color --format progress']
+end
+
 # We cannot run Test Kitchen on Travis CI yet...
 namespace :travis do
   desc 'Run tests on Travis'
-  task ci: ['style']
+  task ci: ['unit', 'style']
 end
 
 # The default rake task should just run it all
-task default: ['style', 'integration']
+task default: ['travis:ci', 'integration']

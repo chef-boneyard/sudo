@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'sudo::default' do
   before do
-    stub_command('sudo -V').and_return(nil)
+    stub_command('which sudo').and_return(nil)
   end
 
   context 'usual business' do
