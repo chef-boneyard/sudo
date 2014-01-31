@@ -28,6 +28,7 @@ attribute :runas,      :kind_of => String,          :default => 'ALL'
 attribute :nopasswd,   :equal_to => [true, false],  :default => false
 attribute :template,   :kind_of => String,          :default => nil
 attribute :variables,  :kind_of => Hash,            :default => nil
+attribute :defaults,   :kind_of => Array,           :default => []
 
 # Set default for the supports attribute in initializer since it is
 # a 'reserved' attribute name
