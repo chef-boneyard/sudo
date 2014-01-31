@@ -27,6 +27,8 @@ default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!
 case node['platform_family']
 when 'smartos'
   default['authorization']['sudo']['prefix'] = '/opt/local/etc'
+when 'freebsd'
+  default['authorization']['sudo']['prefix'] = '/usr/local/etc'
 else
   default['authorization']['sudo']['prefix'] = '/etc'
 end
