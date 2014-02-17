@@ -5,4 +5,6 @@
 <%= @sudoer %>  <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
 <% end -%>
 
+<% unless @defaults.empty? %>
 Defaults:<%= @sudoer %> <%= @defaults.join(',') %>
+<% end -%>
