@@ -3,6 +3,19 @@ sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
 
+v2.4.0 (2014-02-18)
+-------------------
+### Bug
+- **[COOK-4225](https://tickets.opscode.com/browse/COOK-4225)** - Mac OS X: /etc/sudoers: syntax error when include_sudoers_d is true
+
+### Improvement
+- **[COOK-4014](https://tickets.opscode.com/browse/COOK-4014)** - It should be possible to remove the 'sysadmin' group setting from /etc/sudoers
+- **[COOK-3643](https://tickets.opscode.com/browse/COOK-3643)** - FreeBSD support for sudo cookbook
+
+### New Feature
+- **[COOK-3409](https://tickets.opscode.com/browse/COOK-3409)** - enhance sudo lwrp's default template to allow defining default user parameters
+
+
 v2.3.0
 ------
 ### Improvement
