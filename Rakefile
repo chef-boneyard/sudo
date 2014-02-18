@@ -1,37 +1,62 @@
-require 'bundler/setup'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
+require 'foodcritic'
+require 'kitchen'
 
+# Style tests. Rubocop and Foodcritic
 namespace :style do
-  require 'rubocop/rake_task'
   desc 'Run Ruby style checks'
   Rubocop::RakeTask.new(:ruby)
 
-  require 'foodcritic'
   desc 'Run Chef style checks'
-  FoodCritic::Rake::LintTask.new(:chef)
+  FoodCritic::Rake::LintTask.new(:chef) do |t|
+    t.options = {
+      fail_tags: ['any'],
+      tags: [
+        '~FC005',
+        '~FC017'
+      ]
+    }
+  end
 end
 
 desc 'Run all style checks'
 task style: ['style:chef', 'style:ruby']
 
-require 'kitchen'
-desc 'Run Test Kitchen integration tests'
-task :integration do
-  Kitchen.logger = Kitchen.default_file_logger
-  Kitchen::Config.new.instances.each do |instance|
-    instance.test(:always)
+# Rspec and ChefSpec
+desc "Run ChefSpec examples"
+RSpec::Core::RakeTask.new(:spec)
+
+# Integration tests. Kitchen.ci
+namespace :integration do
+  desc 'Run Test Kitchen with Vagrant'
+  task :vagrant do
+    Kitchen.logger = Kitchen.default_file_logger
+    Kitchen::Config.new.instances.each do |instance|
+      instance.test(:always)
+    end
+  end
+  
+  desc 'Run Test Kitchen with cloud plugins'
+  task :cloud do
+    run_kitchen = true
+    if ENV['TRAVIS'] == 'true' && ENV['TRAVIS_PULL_REQUEST'] != 'false'
+      run_kitchen = false
+    end
+    
+    if run_kitchen
+      Kitchen.logger = Kitchen.default_file_logger
+      @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.cloud.yml')
+      config = Kitchen::Config.new( loader: @loader)
+      config.instances.each do |instance|
+        instance.test(:always)      
+      end      
+    end
   end
 end
 
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:unit) do |t|
-  t.rspec_opts = ['--color --format progress']
-end
+desc 'Run all tests on Travis'
+task travis: ['style', 'spec', 'integration:cloud']
 
-# We cannot run Test Kitchen on Travis CI yet...
-namespace :travis do
-  desc 'Run tests on Travis'
-  task ci: ['unit', 'style']
-end
-
-# The default rake task should just run it all
-task default: ['travis:ci', 'integration']
+# Default
+task default: ['style', 'spec', 'integration:vagrant']
