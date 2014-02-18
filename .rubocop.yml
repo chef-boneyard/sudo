@@ -1,3 +1,5 @@
+inherit_from: rubocop-todo.yml
+
 AllCops:
   Excludes:
     - vendor/**
@@ -11,4 +13,4 @@ HashSyntax:
 LineLength:
   Enabled: false
 MethodLength:
-  Max: 30
+  Enabled: false

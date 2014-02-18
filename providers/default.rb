@@ -84,10 +84,10 @@ def render_sudoer
       group         node['root_group']
       mode          '0440'
       variables     :sudoer => sudoer,
-                    :host => new_resource.host,
-                    :runas => new_resource.runas,
-                    :nopasswd => new_resource.nopasswd,
-                    :commands => new_resource.commands
+      :host => new_resource.host,
+      :runas => new_resource.runas,
+      :nopasswd => new_resource.nopasswd,
+      :commands => new_resource.commands
       action        :nothing
     end
   end
@@ -117,23 +117,24 @@ action :remove do
 end
 
 private
-  # Capture a template to a string
-  def capture(template)
-    context = {}
-    context.merge!(template.variables)
-    context[:node] = node
 
-    eruby = Erubis::Eruby.new(::File.read(template_location(template)))
-    eruby.evaluate(context)
-  end
+# Capture a template to a string
+def capture(template)
+  context = {}
+  context.merge!(template.variables)
+  context[:node] = node
 
-  # Find the template
-  def template_location(template)
-    if template.local
-      template.source
-    else
-      context = template.instance_variable_get('@run_context')
-      cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
-      cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
-    end
+  eruby = Erubis::Eruby.new(::File.read(template_location(template)))
+  eruby.evaluate(context)
+end
+
+# Find the template
+def template_location(template)
+  if template.local
+    template.source
+  else
+    context = template.instance_variable_get('@run_context')
+    cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
+    cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
   end
+end
