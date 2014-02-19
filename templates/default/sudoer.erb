@@ -4,5 +4,3 @@
 <% @commands.each do |command| -%>
 <%= @sudoer %>  <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
 <% end -%>
-
-Defaults:<%= @sudoer %> <%= @defaults.join(',') %>

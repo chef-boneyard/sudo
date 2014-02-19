@@ -233,12 +233,6 @@ case it is not already</td>
       <td></td>
     </tr>
     <tr>
-      <td>defaults</td>
-      <td>array of defaults this user has</td>
-      <td><tt>['!requiretty','env_reset']</tt></td>
-      <td></td>
-    </tr>
-    <tr>
       <td>variables</td>
       <td>the variables to pass to the custom template</td>
       <td><tt>:commands => ['/etc/init.d/tomcat restart']</tt></td>
