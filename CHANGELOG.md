@@ -3,6 +3,11 @@ sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
 
+v2.5.0 (2014-02-18)
+-------------------
+Reverting 'Add user-specific sudoer defaults' 5684825701ef2da0dfe0e74865c0f2c596d44871
+
+
 v2.4.0 (2014-02-18)
 -------------------
 ### Bug
