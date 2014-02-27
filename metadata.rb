@@ -3,7 +3,7 @@ maintainer        'Opscode, Inc.'
 maintainer_email  'cookbooks@opscode.com'
 license           'Apache 2.0'
 description       'Installs sudo and configures /etc/sudoers'
-version           '2.4.2'
+version           '2.4.3'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
