@@ -3,6 +3,11 @@ sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
 
+v2.5.0 (2014-02-27)
+-------------------
+Bumping to 2.5.0
+
+
 v2.4.2 (2014-02-27)
 -------------------
 [COOK-4350] - Fix issue with "Defaults" line in sudoer.erb
