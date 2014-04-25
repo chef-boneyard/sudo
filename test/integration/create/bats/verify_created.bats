@@ -16,3 +16,8 @@
 @test "it doesn't create defaults for specific sudo resource if no defaults are set (COOK-3409)" {
   sudo cat /etc/sudoers.d/bob | egrep -v "^Defaults:bob"
 }
+
+@test "it supports providing command aliases for sudo usage (COOK-4612)" {
+  sudo grep -E "^Cmnd_Alias STARTSSH = /etc/init.d/ssh start, /etc/init.d/ssh restart, \! /etc/init.d/ssh stop$" /etc/sudoers.d/alice
+  sudo grep -E "^alice  ALL=\(ALL\) STARTSSH$" /etc/sudoers.d/alice
+}
