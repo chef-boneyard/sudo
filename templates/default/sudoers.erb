@@ -11,6 +11,10 @@ Defaults      env_keep+=SSH_AUTH_SOCK
 # User privilege specification
 root          ALL=(ALL) ALL
 
+<% @command_aliases.each do |a| -%>
+Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
+<% end -%>
+
 <% @sudoers_users.each do |user| -%>
 <%= user %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
