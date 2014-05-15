@@ -3,6 +3,12 @@ sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
 
+v2.6.0 (2014-05-15)
+-------------------
+- [COOK-4612] Add support for the command alias (Cmnd_Alias) directive
+- [COOK-4637] - handle duplicate resources in LWRP
+
+
 v2.5.2 (2014-02-27)
 -------------------
 Bumping version for toolchain sanity
