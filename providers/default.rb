@@ -89,7 +89,9 @@ def render_sudoer
                     :nopasswd => new_resource.nopasswd,
                     :commands => new_resource.commands,
                     :command_aliases => new_resource.command_aliases,
-                    :defaults => new_resource.defaults
+                    :defaults => new_resource.defaults,
+                    :env_keep_add => new_resource.env_keep_add,
+                    :env_keep_subtract => new_resource.env_keep_subtract
       action        :nothing
     end
   end

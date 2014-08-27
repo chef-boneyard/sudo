@@ -239,6 +239,18 @@ case it is not already</td>
       <td></td>
     </tr>
     <tr>
+      <td>env_keep_add</td>
+      <td>array of strings to add to env_keep</td>
+      <td><tt>['HOME', 'MY_ENV_VAR MY_OTHER_ENV_VAR']</tt></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>env_keep_subtract</td>
+      <td>array of strings to remove from env_keep</td>
+      <td><tt>['DISPLAY', 'MY_SECURE_ENV_VAR']</tt></td>
+      <td></td>
+    </tr>
+    <tr>
       <td>variables</td>
       <td>the variables to pass to the custom template</td>
       <td><tt>:commands => ['/etc/init.d/tomcat restart']</tt></td>
