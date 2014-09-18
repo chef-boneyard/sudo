@@ -1,6 +1,6 @@
-sudo Cookbook CHANGELOG
-=======================
-This file is used to list changes made in each version of the sudo cookbook.
+v2.7.1 (2014-09-18)
+-------------------
+- [#53] - removed doublespace from sudoer.erb template
 
 v2.7.0 (2014-08-08)
 -------------------
