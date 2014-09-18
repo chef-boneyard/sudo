@@ -6,7 +6,7 @@ Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
 <% end -%>
 
 <% @commands.each do |command| -%>
-<%= @sudoer %>  <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
+<%= @sudoer %> <%= @host %>=(<%= @runas %>) <%= 'NOPASSWD:' if @nopasswd %><%= command %>
 <% end -%>
 
 <% unless @defaults.empty? %>
