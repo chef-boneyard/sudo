@@ -64,7 +64,6 @@ describe 'sudo::default' do
     end
 
     it 'gives users and groups passwordless sudo' do
-      expect(chef_run).to render_file('/etc/sudoers').with_content('bacon ALL=(ALL) NOPASSWD:ALL')
       expect(chef_run).to render_file('/etc/sudoers').with_content('%bacon ALL=(ALL) NOPASSWD:ALL')
     end
   end
