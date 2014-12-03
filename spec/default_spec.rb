@@ -58,13 +58,14 @@ describe 'sudo::default' do
     let(:chef_run) do
       ChefSpec::Runner.new do |node|
         node.set['authorization']['sudo']['users'] = %w(bacon)
-        node.set['authorization']['sudo']['groups'] = %w(bacon)
+        node.set['authorization']['sudo']['groups'] = %w(bacon-group)
         node.set['authorization']['sudo']['passwordless'] = true
       end.converge(described_recipe)
     end
 
     it 'gives users and groups passwordless sudo' do
-      expect(chef_run).to render_file('/etc/sudoers').with_content('%bacon ALL=(ALL) NOPASSWD:ALL')
+      expect(chef_run).to render_file('/etc/sudoers').with_content('bacon ALL=(ALL) NOPASSWD:ALL')
+      expect(chef_run).to render_file('/etc/sudoers').with_content('%bacon-group ALL=(ALL) NOPASSWD:ALL')
     end
   end
 
