@@ -20,6 +20,8 @@ Attributes
 - `node['authorization']['sudo']['include_sudoers_d']` - include and manager `/etc/sudoers.d` (default: `false`)
 - `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
+- `node['authorization']['sudo']['sudoers_defaults_commands']` - Array of `Defaults` entries to configure in `/etc/sudoers`, command specific
+- `node['authorization']['sudo']['sudoers_defaults_commands']` - Array of `Defaults` entries to configure in `/etc/sudoers`, user specific ( see http://unix.stackexchange.com/a/13246)
 
 
 Usage
