@@ -94,6 +94,33 @@ describe 'sudo::default' do
     end
   end
 
+  context "node['authorization']['sudo']['sudoers_defaults_commands']" do
+    let(:chef_run) do
+      ChefSpec::Runner.new do |node|
+        node.set['authorization']['sudo']['sudoers_defaults_commands'][:ham]='bacon'
+      end.converge(described_recipe)
+    end
+
+    it 'includes each default' do
+      expect(chef_run).to render_file('/etc/sudoers').with_content('Defaults!ham bacon')
+    end
+  end
+
+  context "node['authorization']['sudo']['sudoers_defaults_users']" do
+    let(:chef_run) do
+      ChefSpec::Runner.new do |node|
+	node.set['authorization']['sudo']['sudoers_defaults_users'][:ham]='bacon'
+        node.set['authorization']['sudo']['sudoers_defaults_users'][:spam]=['pork', 'ribs']
+      end.converge(described_recipe)
+    end
+
+    it 'includes each default' do
+      expect(chef_run).to render_file('/etc/sudoers').with_content('Defaults:ham bacon')
+      expect(chef_run).to render_file('/etc/sudoers').with_content('Defaults:spam pork')
+      expect(chef_run).to render_file('/etc/sudoers').with_content('Defaults:spam ribs')
+    end
+  end
+
   context "node['authorization']['sudo']['prefix']" do
     context 'on SmartOS' do
       let(:chef_run) { ChefSpec::Runner.new(platform: 'smartos', version: 'joyent_20130111T180733Z').converge(described_recipe) }
