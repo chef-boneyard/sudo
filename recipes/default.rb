@@ -55,3 +55,15 @@ template "#{prefix}/sudoers" do
     :env_keep_subtract => node['authorization']['sudo']['env_keep_subtract']
   )
 end
+
+if node['authorization']['sudo']['local_commands']
+  node['authorization']['sudo']['local_commands'].each do |name,params|
+    sudo "#{name}" do
+      user  params["user"]
+      runas params["runas"]
+      commands  params["commands"]
+      action    params["action"]
+      nopasswd  params["nopasswd"]
+    end
+  end
+end
