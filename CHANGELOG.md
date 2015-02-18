@@ -30,37 +30,37 @@ v2.4.2 (2014-02-27)
 v2.4.0 (2014-02-18)
 -------------------
 ### Bug
-- **[COOK-4225](https://tickets.opscode.com/browse/COOK-4225)** - Mac OS X: /etc/sudoers: syntax error when include_sudoers_d is true
+- **[COOK-4225](https://tickets.chef.io/browse/COOK-4225)** - Mac OS X: /etc/sudoers: syntax error when include_sudoers_d is true
 
 ### Improvement
-- **[COOK-4014](https://tickets.opscode.com/browse/COOK-4014)** - It should be possible to remove the 'sysadmin' group setting from /etc/sudoers
-- **[COOK-3643](https://tickets.opscode.com/browse/COOK-3643)** - FreeBSD support for sudo cookbook
+- **[COOK-4014](https://tickets.chef.io/browse/COOK-4014)** - It should be possible to remove the 'sysadmin' group setting from /etc/sudoers
+- **[COOK-3643](https://tickets.chef.io/browse/COOK-3643)** - FreeBSD support for sudo cookbook
 
 ### New Feature
-- **[COOK-3409](https://tickets.opscode.com/browse/COOK-3409)** - enhance sudo lwrp's default template to allow defining default user parameters
+- **[COOK-3409](https://tickets.chef.io/browse/COOK-3409)** - enhance sudo lwrp's default template to allow defining default user parameters
 
 
 v2.3.0
 ------
 ### Improvement
-- **[COOK-3843](https://tickets.opscode.com/browse/COOK-3843)** - Make cookbook 'sudo' compatible with Mac OS X
+- **[COOK-3843](https://tickets.chef.io/browse/COOK-3843)** - Make cookbook 'sudo' compatible with Mac OS X
 
 
 v2.2.2
 ------
 ### Improvement
-- **[COOK-3653](https://tickets.opscode.com/browse/COOK-3653)** - Change template attribute to kind_of String
-- **[COOK-3572](https://tickets.opscode.com/browse/COOK-3572)** - Add Test Kitchen, Specs, and Travis CI
+- **[COOK-3653](https://tickets.chef.io/browse/COOK-3653)** - Change template attribute to kind_of String
+- **[COOK-3572](https://tickets.chef.io/browse/COOK-3572)** - Add Test Kitchen, Specs, and Travis CI
 
 ### Bug
-- **[COOK-3610](https://tickets.opscode.com/browse/COOK-3610)** - Document "Runas" attribute not described in the LWRP Attributes section
-- **[COOK-3431](https://tickets.opscode.com/browse/COOK-3431)** - Validate correctly with `visudo`
+- **[COOK-3610](https://tickets.chef.io/browse/COOK-3610)** - Document "Runas" attribute not described in the LWRP Attributes section
+- **[COOK-3431](https://tickets.chef.io/browse/COOK-3431)** - Validate correctly with `visudo`
 
 
 v2.2.0
 ------
 ### New Feature
-- **[COOK-3056](https://tickets.opscode.com/browse/COOK-3056)** - Allow custom sudoers config prefix
+- **[COOK-3056](https://tickets.chef.io/browse/COOK-3056)** - Allow custom sudoers config prefix
 
 v2.1.4
 ------

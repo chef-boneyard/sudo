@@ -1,6 +1,6 @@
 sudo cookbook
 =============
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/sudo.png?branch=master)](http://travis-ci.org/opscode-cookbooks/sudo)
+[![Build Status](https://secure.travis-ci.org/chef-cookbooks/sudo.png?branch=master)](http://travis-ci.org/chef-cookbooks/sudo)
 
 The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
 
@@ -268,7 +268,7 @@ This section details "quick development" steps. For a detailed explanation, see 
 
 1. Clone this repository from GitHub:
 
-        $ git clone git@github.com:opscode-cookbooks/sudo.git
+        $ git clone git@github.com:chef-cookbooks/sudo.git
 
 2. Create a git branch
 
@@ -298,12 +298,12 @@ This section details "quick development" steps. For a detailed explanation, see 
 License and Authors
 -------------------
 - Author:: Bryan W. Berry <bryan.berry@gmail.com>
-- Author:: Adam Jacob <adam@opscode.com>
-- Author:: Seth Chisamore <schisamo@opscode.com>
+- Author:: Adam Jacob <adam@chef.io>
+- Author:: Seth Chisamore <schisamo@chef.io>
 - Author:: Seth Vargo <sethvargo@gmail.com>
 
 ```text
-Copyright 2009-2012, Opscode, Inc.
+Copyright 2009-2012, Chef Software, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
