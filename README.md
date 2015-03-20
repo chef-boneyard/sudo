@@ -1,6 +1,6 @@
 sudo cookbook
 =============
-[![Build Status](https://secure.travis-ci.org/chef-cookbooks/sudo.png?branch=master)](http://travis-ci.org/chef-cookbooks/sudo)
+[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/sudo.png?branch=master)](http://travis-ci.org/opscode-cookbooks/sudo)
 
 The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
 
