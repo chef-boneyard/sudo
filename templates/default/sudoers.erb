@@ -24,4 +24,5 @@ Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
 
+# This is not a comment; see sudoers(5) for more information on "#include" directives
 <%= "#includedir #{node['authorization']['sudo']['prefix']}/sudoers.d" if @include_sudoers_d  %>
