@@ -17,7 +17,7 @@ Attributes
 - `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[ "sysadmin" ]`)
 - `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['passwordless']` - use passwordless sudo (default: `false`)
-- `node['authorization']['sudo']['include_sudoers_d']` - include and manager `/etc/sudoers.d` (default: `false`)
+- `node['authorization']['sudo']['include_sudoers_d']` - include and manage `/etc/sudoers.d` (default: `false`)
 - `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
 
