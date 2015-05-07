@@ -130,6 +130,22 @@ describe 'sudo::default' do
     end
   end
 
+  context "['authorization']['sudo']['env_keep_add/subtract']" do
+    let(:chef_run) do
+      ChefSpec::Runner.new do |node|
+        node.set['authorization']['sudo']['env_keep_add'] = %w(foo bar)
+        node.set['authorization']['sudo']['env_keep_subtract'] = %w(baz quux)
+      end.converge(described_recipe)
+    end
+
+    it 'includes each env_keep line' do
+      expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults\s+env_keep\s+\+=\s+"foo"/)
+      expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults\s+env_keep\s+\+=\s+"bar"/)
+      expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults\s+env_keep\s+-=\s+"baz"/)
+      expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults\s+env_keep\s+-=\s+"quux"/)
+    end
+  end
+
   context 'sudoers.d' do
     let(:chef_run) do
       ChefSpec::Runner.new(platform: 'ubuntu', version: '12.04') do |node|

@@ -24,4 +24,12 @@ Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
 
+<% @env_keep_add.each do |env_keep| -%>
+Defaults    env_keep += "<%= env_keep %>"
+<% end -%>
+
+<% @env_keep_subtract.each do |env_keep| -%>
+Defaults    env_keep -= "<%= env_keep %>"
+<% end -%>
+
 <%= "#includedir #{node['authorization']['sudo']['prefix']}/sudoers.d" if @include_sudoers_d  %>

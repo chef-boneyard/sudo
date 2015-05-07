@@ -1,3 +1,4 @@
+require 'rspec/expectations'
 require 'chefspec'
 
 RSpec.configure do |config|
