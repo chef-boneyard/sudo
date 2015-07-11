@@ -1,3 +1,8 @@
+v2.7.2 (2015-07-10)
+-------------------
+- Adding support for keep_env
+- misc cleanup
+
 v2.7.1 (2014-09-18)
 -------------------
 - [#53] - removed doublespace from sudoer.erb template

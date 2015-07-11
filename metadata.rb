@@ -3,7 +3,7 @@ maintainer        'Chef Software, Inc.'
 maintainer_email  'cookbooks@chef.io'
 license           'Apache 2.0'
 description       'Installs sudo and configures /etc/sudoers'
-version           '2.7.1'
+version           '2.7.2'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
