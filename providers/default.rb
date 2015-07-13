@@ -26,7 +26,7 @@ def whyrun_supported?
 end
 
 # Ensure that the inputs are valid (we cannot just use the resource for this)
-def check_inputs(user, group, foreign_template, foreign_vars)
+def check_inputs(user, group, foreign_template, _foreign_vars)
   # if group, user, and template are nil, throw an exception
   if user.nil? && group.nil? && foreign_template.nil?
     fail 'You must provide a user, group, or template!'
@@ -83,15 +83,15 @@ def render_sudoer
       owner         'root'
       group         node['root_group']
       mode          '0440'
-      variables     :sudoer => sudoer,
-                    :host => new_resource.host,
-                    :runas => new_resource.runas,
-                    :nopasswd => new_resource.nopasswd,
-                    :commands => new_resource.commands,
-                    :command_aliases => new_resource.command_aliases,
-                    :defaults => new_resource.defaults,
-                    :env_keep_add => new_resource.env_keep_add,
-                    :env_keep_subtract => new_resource.env_keep_subtract
+      variables     sudoer:             sudoer,
+                    host:               new_resource.host,
+                    runas:              new_resource.runas,
+                    nopasswd:           new_resource.nopasswd,
+                    commands:           new_resource.commands,
+                    command_aliases:    new_resource.command_aliases,
+                    defaults:           new_resource.defaults,
+                    env_keep_add:       new_resource.env_keep_add,
+                    env_keep_subtract:  new_resource.env_keep_subtract
       action        :nothing
     end
   end
@@ -109,7 +109,7 @@ end
 action :install do
   target = "#{node['authorization']['sudo']['prefix']}/sudoers.d/"
 
-  unless ::File.exists?(target)
+  unless ::File.exist?(target)
     sudoers_dir = directory target
     sudoers_dir.run_action(:create)
   end

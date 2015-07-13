@@ -141,7 +141,7 @@ describe 'sudo::default' do
       expect(chef_run).to create_directory('/etc/sudoers.d').with(
         owner: 'root',
         mode: '0755'
-        )
+      )
     end
   end
 end
