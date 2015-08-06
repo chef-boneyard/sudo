@@ -66,7 +66,7 @@ def render_sudoer
   if new_resource.template
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 
-    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
+    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
       source new_resource.template
       owner 'root'
       group node['root_group']
@@ -77,7 +77,7 @@ def render_sudoer
   else
     sudoer = new_resource.user || "%#{new_resource.group}".squeeze('%')
 
-    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
+    resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
       source 'sudoer.erb'
       cookbook 'sudo'
       owner 'root'
@@ -127,6 +127,12 @@ action :remove do
 end
 
 private
+
+# acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
+# It is quite common for users to have a `.` in their login, so we will convert this to `__`
+def sudo_filename
+  new_resource.name.gsub(/\./, '__')
+end
 
 # Capture a template to a string
 def capture(template)

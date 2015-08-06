@@ -11,6 +11,10 @@ sudo 'bob' do
   user 'bob'
 end
 
+sudo 'invalid.user' do
+  user 'bob'
+end
+
 sudo 'alice' do
   user 'alice'
   command_aliases [{ name: 'STARTSSH', command_list: ['/etc/init.d/ssh start', '/etc/init.d/ssh restart', '! /etc/init.d/ssh stop'] }]

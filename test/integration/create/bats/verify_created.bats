@@ -21,3 +21,7 @@
   sudo grep -E "^Cmnd_Alias STARTSSH = /etc/init.d/ssh start, /etc/init.d/ssh restart, \! /etc/init.d/ssh stop$" /etc/sudoers.d/alice
   sudo grep -E "^alice  ALL=\(ALL\) STARTSSH$" /etc/sudoers.d/alice
 }
+
+@test "it munges a user with a dot in it" {
+  test -f /etc/sudoers.d/invalid__user
+}
