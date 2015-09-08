@@ -67,32 +67,32 @@ def render_sudoer
     Chef::Log.debug('Template attribute provided, all other attributes ignored.')
 
     resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
-      source        new_resource.template
-      owner         'root'
-      group         node['root_group']
-      mode          '0440'
-      variables     new_resource.variables
-      action        :nothing
+      source new_resource.template
+      owner 'root'
+      group node['root_group']
+      mode '0440'
+      variables new_resource.variables
+      action :nothing
     end
   else
     sudoer = new_resource.user || "%#{new_resource.group}".squeeze('%')
 
     resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
-      source        'sudoer.erb'
-      cookbook      'sudo'
-      owner         'root'
-      group         node['root_group']
-      mode          '0440'
-      variables     sudoer:             sudoer,
-                    host:               new_resource.host,
-                    runas:              new_resource.runas,
-                    nopasswd:           new_resource.nopasswd,
-                    commands:           new_resource.commands,
-                    command_aliases:    new_resource.command_aliases,
-                    defaults:           new_resource.defaults,
-                    env_keep_add:       new_resource.env_keep_add,
-                    env_keep_subtract:  new_resource.env_keep_subtract
-      action        :nothing
+      source 'sudoer.erb'
+      cookbook 'sudo'
+      owner 'root'
+      group node['root_group']
+      mode '0440'
+      variables sudoer:             sudoer,
+                host:               new_resource.host,
+                runas:              new_resource.runas,
+                nopasswd:           new_resource.nopasswd,
+                commands:           new_resource.commands,
+                command_aliases:    new_resource.command_aliases,
+                defaults:           new_resource.defaults,
+                env_keep_add:       new_resource.env_keep_add,
+                env_keep_subtract:  new_resource.env_keep_subtract
+      action :nothing
     end
   end
 

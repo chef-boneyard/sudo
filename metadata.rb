@@ -1,10 +1,10 @@
-name              'sudo'
-maintainer        'Chef Software, Inc.'
-maintainer_email  'cookbooks@chef.io'
-license           'Apache 2.0'
-description       'Installs sudo and configures /etc/sudoers'
+name 'sudo'
+maintainer 'Chef Software, Inc.'
+maintainer_email 'cookbooks@chef.io'
+license 'Apache 2.0'
+description 'Installs sudo and configures /etc/sudoers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '2.7.2'
+version '2.7.2'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
@@ -16,35 +16,35 @@ source_url 'https://github.com/chef-cookbooks/sudo' if respond_to?(:source_url)
 issues_url 'https://github.com/chef-cookbooks/sudo/issues' if respond_to?(:issues_url)
 
 attribute 'authorization',
-  :display_name => 'Authorization',
-  :description  => 'Hash of Authorization attributes',
-  :type         => 'hash'
+  display_name: 'Authorization',
+  description: 'Hash of Authorization attributes',
+  type: 'hash'
 
 attribute 'authorization/sudo',
-  :display_name => 'Authorization Sudoers',
-  :description  => 'Hash of Authorization/Sudo attributes',
-  :type         => 'hash'
+  display_name: 'Authorization Sudoers',
+  description: 'Hash of Authorization/Sudo attributes',
+  type: 'hash'
 
 attribute 'authorization/sudo/users',
-  :display_name => 'Sudo Users',
-  :description  => 'Users who are allowed sudo ALL',
-  :type         => 'array',
-  :default      => ''
+  display_name: 'Sudo Users',
+  description: 'Users who are allowed sudo ALL',
+  type: 'array',
+  default: ''
 
 attribute 'authorization/sudo/groups',
-  :display_name => 'Sudo Groups',
-  :description  => 'Groups who are allowed sudo ALL',
-  :type         => 'array',
-  :default      => ''
+  display_name: 'Sudo Groups',
+  description: 'Groups who are allowed sudo ALL',
+  type: 'array',
+  default: ''
 
 attribute 'authorization/sudo/passwordless',
-  :display_name => 'Passwordless Sudo',
-  :description  => '',
-  :type         => 'string',
-  :default      => 'false'
+  display_name: 'Passwordless Sudo',
+  description: '',
+  type: 'string',
+  default: 'false'
 
 attribute 'authorization/sudo/include_sudoers_d',
-  :display_name => 'Include sudoers.d',
-  :description  => 'Whether to create the sudoers.d includedir',
-  :type         => 'string',
-  :default      => 'false'
+  display_name: 'Include sudoers.d',
+  description: 'Whether to create the sudoers.d includedir',
+  type: 'string',
+  default: 'false'
