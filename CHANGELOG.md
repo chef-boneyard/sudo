@@ -1,3 +1,7 @@
+sudo Cookbook CHANGELOG
+=======================
+This file is used to list changes made in each version of the sudo cookbook.
+
 v2.7.2 (2015-07-10)
 -------------------
 - Adding support for keep_env
