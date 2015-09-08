@@ -1,19 +1,34 @@
-inherit_from: rubocop-todo.yml
-
 AllCops:
-  Excludes:
-    - vendor/**
+  Exclude:
+    - vendor/**/*
+    - Guardfile
 
 AlignParameters:
   Enabled: false
-CyclomaticComplexity:
-  Max: 10
+
 Encoding:
   Enabled: false
-HashSyntax:
+
+ClassLength:
   Enabled: false
-LineLength:
-  Enabled: false
+
 MethodLength:
   Enabled: false
 
+LineLength:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+PerceivedComplexity:
+  Enabled: false
+
+CyclomaticComplexity:
+  Enabled: false
+
+Style/FileName:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
