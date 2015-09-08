@@ -1,6 +1,7 @@
 sudo cookbook
 =============
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/sudo.png?branch=master)](http://travis-ci.org/opscode-cookbooks/sudo)
+[![Build Status](https://travis-ci.org/chef-cookbooks/sudo.svg?branch=master)](http://travis-ci.org/chef-cookbooks/sudo)
+[![Cookbook Version](https://img.shields.io/cookbook/v/sudo.svg)](https://supermarket.chef.io/cookbooks/sudo)
 
 The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
 
@@ -295,15 +296,15 @@ This section details "quick development" steps. For a detailed explanation, see 
 
 
 
-License and Authors
--------------------
+License & Authors
+-----------------
 - Author:: Bryan W. Berry <bryan.berry@gmail.com>
 - Author:: Adam Jacob <adam@chef.io>
 - Author:: Seth Chisamore <schisamo@chef.io>
 - Author:: Seth Vargo <sethvargo@gmail.com>
 
 ```text
-Copyright 2009-2012, Chef Software, Inc.
+Copyright 2009-2015, Chef Software, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
