@@ -16,12 +16,12 @@ Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
 <% end -%>
 
 <% @sudoers_users.each do |user| -%>
-<%= user %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
+<%= user %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %><%= "SETENV:" if @setenv %>ALL
 <% end -%>
 
 <% @sudoers_groups.each do |group| -%>
 # Members of the group '<%= group %>' may gain root privileges
-%<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
+%<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %><%= "SETENV:" if @setenv %>ALL
 <% end -%>
 
 # This is not a comment; see sudoers(5) for more information on "#include" directives
