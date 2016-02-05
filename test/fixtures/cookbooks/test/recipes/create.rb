@@ -1,4 +1,4 @@
-include_recipe 'fake::default'
+include_recipe 'test::default'
 
 sudo 'tomcat' do
   user '%tomcat'
