@@ -30,6 +30,7 @@ Attributes
 - `node['authorization']['sudo']['include_sudoers_d']` - include and manage `/etc/sudoers.d` (default: `false`)
 - `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
+- `node['authorization']['sudo']['setenv']` - Whether to permit preserving of environment with `sudo -E` (default: `false`)
 
 
 Usage
@@ -247,6 +248,12 @@ case it is not already</td>
       <td>array of defaults this user has</td>
       <td><tt>['!requiretty','env_reset']</tt></td>
       <td></td>
+    </tr>
+    <tr>
+      <td>setenv</td>
+      <td>whether to permit the preserving of environment with `sudo -E`</td>
+      <td><tt>true</tt></td>
+      <td><tt><false></tt></td>
     </tr>
     <tr>
       <td>env_keep_add</td>

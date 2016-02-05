@@ -4,9 +4,9 @@
 }
 
 @test "it gives sudo access for each command on it's own line (COOK-2119)" {
-  sudo cat /etc/sudoers.d/tomcat | grep "%tomcat  ALL=(app_user) /etc/init.d/tomcat restart"
-  sudo cat /etc/sudoers.d/tomcat | grep "%tomcat  ALL=(app_user) /etc/init.d/tomcat stop"
-  sudo cat /etc/sudoers.d/tomcat | grep "%tomcat  ALL=(app_user) /etc/init.d/tomcat start"
+  sudo cat /etc/sudoers.d/tomcat | grep "%tomcat ALL=(app_user) /etc/init.d/tomcat restart"
+  sudo cat /etc/sudoers.d/tomcat | grep "%tomcat ALL=(app_user) /etc/init.d/tomcat stop"
+  sudo cat /etc/sudoers.d/tomcat | grep "%tomcat ALL=(app_user) /etc/init.d/tomcat start"
 }
 
 @test "it sets sudo defaults for specific sudo resources (COOK-3409)" {
@@ -19,5 +19,9 @@
 
 @test "it supports providing command aliases for sudo usage (COOK-4612)" {
   sudo grep -E "^Cmnd_Alias STARTSSH = /etc/init.d/ssh start, /etc/init.d/ssh restart, \! /etc/init.d/ssh stop$" /etc/sudoers.d/alice
-  sudo grep -E "^alice  ALL=\(ALL\) STARTSSH$" /etc/sudoers.d/alice
+  sudo grep -E "^alice ALL=\(ALL\) STARTSSH$" /etc/sudoers.d/alice
+}
+
+@test "it supports the setting of SETENV for preserving the sudo environment" {
+  sudo grep -E "SETENV:" /etc/sudoers.d/git
 }

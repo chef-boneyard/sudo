@@ -30,6 +30,7 @@ attribute :template,          kind_of: String,           default: nil
 attribute :variables,         kind_of: Hash,             default: nil
 attribute :defaults,          kind_of: Array,            default: []
 attribute :command_aliases,   kind_of: Array,            default: []
+attribute :setenv,            equal_to: [true, false],   default: false
 attribute :env_keep_add,      kind_of: Array,            default: []
 attribute :env_keep_subtract, kind_of: Array,            default: []
 

@@ -48,3 +48,9 @@ attribute 'authorization/sudo/include_sudoers_d',
   description: 'Whether to create the sudoers.d includedir',
   type: 'string',
   default: 'false'
+
+attribute 'authorization/sudo/setenv',
+  display_name: 'SetEnv Sudo',
+  description: 'Whether to permit the preserving of environment via sudo -E',
+  type: 'string',
+  default: 'false'

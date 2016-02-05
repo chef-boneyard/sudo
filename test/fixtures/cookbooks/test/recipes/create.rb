@@ -16,3 +16,11 @@ sudo 'alice' do
   command_aliases [{ name: 'STARTSSH', command_list: ['/etc/init.d/ssh start', '/etc/init.d/ssh restart', '! /etc/init.d/ssh stop'] }]
   commands ['STARTSSH']
 end
+
+sudo 'git' do
+  user 'git'
+  runas 'phabricator'
+  nopasswd true
+  setenv true
+  commands ['/usr/bin/git-upload-pack', '/usr/bin/git-receive-pack']
+end
