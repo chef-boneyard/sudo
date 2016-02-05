@@ -29,9 +29,9 @@ end
 def check_inputs(user, group, foreign_template, _foreign_vars)
   # if group, user, and template are nil, throw an exception
   if user.nil? && group.nil? && foreign_template.nil?
-    fail 'You must provide a user, group, or template!'
+    raise 'You must provide a user, group, or template!'
   elsif !user.nil? && !group.nil? && !template.nil?
-    fail 'You cannot specify user, group, and template!'
+    raise 'You cannot specify user, group, and template!'
   end
 end
 

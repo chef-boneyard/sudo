@@ -28,11 +28,11 @@ default['authorization']['sudo']['command_aliases']   = []
 default['authorization']['sudo']['env_keep_add']      = []
 default['authorization']['sudo']['env_keep_subtract'] = []
 
-case node['platform_family']
-when 'smartos'
-  default['authorization']['sudo']['prefix'] = '/opt/local/etc'
-when 'freebsd'
-  default['authorization']['sudo']['prefix'] = '/usr/local/etc'
-else
-  default['authorization']['sudo']['prefix'] = '/etc'
+default['authorization']['sudo']['prefix'] = case node['platform_family']
+                                             when 'smartos'
+                                               '/opt/local/etc'
+                                             when 'freebsd'
+                                               '/usr/local/etc'
+                                             else
+                                               '/etc'
 end
