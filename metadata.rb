@@ -8,7 +8,7 @@ version '2.8.0'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
-%w(redhat centos fedora ubuntu debian freebsd mac_os_x).each do |os|
+%w(redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific).each do |os|
   supports os
 end
 
