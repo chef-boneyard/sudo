@@ -4,7 +4,18 @@ This file is used to list changes made in each version of the sudo cookbook.
 ## v2.8.0 (2016-02-04)
 - Added a new attribute to the recipe and provider for adding SETENV to sudoer config
 - Updated development deps to the latest version
-- Remove the cloud testing deps and guard deps
+- Setup test kitchen to run in Travis with kitchen-docker
+- Expanded the kitchen.yml config to include additional platforms
+- Renamed the test recipe from fake to test
+- Updated the testing and contributing docs to the latest
+- Added maintainers.toml and maitainers.md
+- Added a chefignore file to limit which files get uploaded to the chef server
+- Added long_description to the metadata.rb
+- Added source_url and issues_url for Supermarket to the metadata.rb
+- Resolved all Rubocop warnings
+- Updated the Chefspec to the 4.x format
+- Removed kitchen cloud testing configs and gem deps
+- Removed the Guardfile and the gem deps
 
 ## v2.7.2 (2015-07-10)
 - Adding support for keep_env
