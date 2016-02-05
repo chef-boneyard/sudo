@@ -1,6 +1,11 @@
 # sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
+## v2.8.0 (2016-02-04)
+- Added a new attribute to the recipe and provider for adding SETENV to sudoer config
+- Updated development deps to the latest version
+- Remove the cloud testing deps and guard deps
+
 ## v2.7.2 (2015-07-10)
 - Adding support for keep_env
 - misc cleanup
