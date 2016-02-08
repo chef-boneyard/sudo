@@ -1,6 +1,9 @@
 # sudo Cookbook CHANGELOG
 This file is used to list changes made in each version of the sudo cookbook.
 
+## v2.9.0 (2016-02-07)
+- Updated the provider to avoid writing out config files with periods in the filename when a user has a period in their name as these are skipped by the sudo package. A sudo config for invalid.user will write out a config named invalid_user now.
+
 ## v2.8.0 (2016-02-04)
 - Added a new attribute to the recipe and provider for adding SETENV to sudoer config
 - Updated development deps to the latest version
