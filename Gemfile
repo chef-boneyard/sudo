@@ -7,7 +7,7 @@ end
 
 group :lint do
   gem 'foodcritic', '~> 6.0'
-  gem 'rubocop', '~> 0.36'
+  gem 'rubocop', '~> 0.37'
 end
 
 group :unit do
