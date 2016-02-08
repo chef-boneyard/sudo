@@ -25,3 +25,7 @@
 @test "it supports the setting of SETENV for preserving the sudo environment" {
   sudo grep -E "SETENV:" /etc/sudoers.d/git
 }
+
+@test "it munges a user with a dot in it" {
+  test -f /etc/sudoers.d/invalid__user
+}
