@@ -44,6 +44,10 @@ Bumping to 2.5.0
 [COOK-4350] - Fix issue with "Defaults" line in sudoer.erb
 
 ## v2.4.0 (2014-02-18)
+**BREAKING CHANGE**: The `sysadmin` group has been removed from the template. You will lose sudo access if:
+- You have users that depend on the sysadmin group for sudo access, and
+- You are overriding authorization.sudo.groups, but not including `sysadmin` in the list of groups
+
 ### Bug
 - **[COOK-4225](https://tickets.chef.io/browse/COOK-4225)** - Mac OS X: /etc/sudoers: syntax error when include_sudoers_d is true
 
