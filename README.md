@@ -151,7 +151,7 @@ There are two ways for rendering a sudoer-fragment using this LWRP:
 1. Using the built-in template
 2. Using a custom, cookbook-level template
 
-Both methods will create the `/etc/sudoers.d/#{username}` file with the correct permissions.
+Both methods will create the `/etc/sudoers.d/#{resourcename}` file with the correct permissions.
 
 The LWRP also performs **fragment validation**. If a sudoer-fragment is not valid, the Chef run will throw an exception and fail. This ensures that your sudoers file is always valid and cannot become corrupt (from this cookbook).
 
