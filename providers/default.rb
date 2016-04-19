@@ -20,6 +20,8 @@
 # limitations under the License.
 #
 
+use_inline_resources
+
 # This LWRP supports whyrun mode
 def whyrun_supported?
   true
