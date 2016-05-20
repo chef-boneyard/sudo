@@ -15,6 +15,15 @@ sudo 'invalid.user' do
   user 'bob'
 end
 
+sudo 'tilde-invalid~user' do
+  user 'bob'
+end
+
+# Like above, but ensure the tilde at the front gets munged as well
+sudo '~bob' do
+  user 'bob'
+end
+
 sudo 'alice' do
   user 'alice'
   command_aliases [{ name: 'STARTSSH', command_list: ['/etc/init.d/ssh start', '/etc/init.d/ssh restart', '! /etc/init.d/ssh stop'] }]

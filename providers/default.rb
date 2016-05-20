@@ -133,9 +133,9 @@ end
 private
 
 # acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
-# It is quite common for users to have a `.` in their login, so we will convert this to `__`
+# We convert either to `__`
 def sudo_filename
-  new_resource.name.gsub(/\./, '__')
+  new_resource.name.gsub(/[\.~]/, '__')
 end
 
 # Capture a template to a string

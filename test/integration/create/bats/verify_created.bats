@@ -29,3 +29,11 @@
 @test "it munges a user with a dot in it" {
   test -f /etc/sudoers.d/invalid__user
 }
+
+@test "it munges a user with a tilde in it" {
+  test -f /etc/sudoers.d/tilde-invalid__user
+}
+
+@test "it munges a user with a tilde in it as first character" {
+  test -f /etc/sudoers.d/__bob
+}
