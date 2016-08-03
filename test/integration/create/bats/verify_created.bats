@@ -29,3 +29,7 @@
 @test "it munges a user with a dot in it" {
   test -f /etc/sudoers.d/invalid__user
 }
+
+@test "it sets NOEXEC on commands for jane as the commands allow shelling out" {
+  sudo grep -E "NOEXEC:" /etc/sudoers.d/jane
+}
