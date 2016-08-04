@@ -5,6 +5,6 @@
 # its Chef run.
 #
 
-apt_update 'update'
+apt_update 'update' if platform_family?('debian')
 
 include_recipe 'sudo::default'
