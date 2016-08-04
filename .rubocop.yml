@@ -1,0 +1,5 @@
+
+# SupportedStyles: slashes, percent_r, mixed
+Style/RegexpLiteral:
+  Exclude:
+    - 'test/integration/create/default_spec.rb'
