@@ -5,4 +5,6 @@
 # its Chef run.
 #
 
+apt_update 'update'
+
 include_recipe 'sudo::default'
