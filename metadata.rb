@@ -8,10 +8,11 @@ version '2.9.0'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
-%w(redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific zlinux).each do |os|
+%w(redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific zlinux suse opensuse opensuseleap).each do |os|
   supports os
 end
 
 source_url 'https://github.com/chef-cookbooks/sudo' if respond_to?(:source_url)
 issues_url 'https://github.com/chef-cookbooks/sudo/issues' if respond_to?(:issues_url)
 
+chef_version '>= 11' if respond_to?(:chef_version)

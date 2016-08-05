@@ -1,4 +1,5 @@
 # sudo cookbook
+
 [![Build Status](https://travis-ci.org/chef-cookbooks/sudo.svg?branch=master)](http://travis-ci.org/chef-cookbooks/sudo) [![Cookbook Version](https://img.shields.io/cookbook/v/sudo.svg)](https://supermarket.chef.io/cookbooks/sudo)
 
 The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
@@ -6,16 +7,20 @@ The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/su
 It also exposes an LWRP for adding and managing sudoers.
 
 ## Requirements
+
 ### Platforms
+
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific/Amazon/Oracle
 - FreeBSD
 - Mac OS X
+- openSUSE / Suse
 
 ### Chef
 - Chef 11+
 
 ### Cookbooks
+
 - None
 
 ## Attributes
