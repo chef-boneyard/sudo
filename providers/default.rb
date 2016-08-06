@@ -89,6 +89,7 @@ def render_sudoer
                 host:               new_resource.host,
                 runas:              new_resource.runas,
                 nopasswd:           new_resource.nopasswd,
+                noexec:             new_resource.noexec,
                 commands:           new_resource.commands,
                 command_aliases:    new_resource.command_aliases,
                 defaults:           new_resource.defaults,

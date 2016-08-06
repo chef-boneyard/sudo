@@ -224,6 +224,12 @@ case it is not already</td>
       <td><tt>false</tt></td>
     </tr>
     <tr>
+      <td>noexec</td>
+      <td>prevents commands from shelling out</td>
+      <td><tt>true</tt></td>
+      <td><tt>false</tt></td>
+    </tr>
+    <tr>
       <td>runas</td>
       <td>User the command(s) can be run as</td>
       <td><tt>root</tt></td>

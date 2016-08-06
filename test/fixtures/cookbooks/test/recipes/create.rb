@@ -28,3 +28,9 @@ sudo 'git' do
   setenv true
   commands ['/usr/bin/git-upload-pack', '/usr/bin/git-receive-pack']
 end
+
+sudo 'jane' do
+  user 'jane'
+  noexec true
+  commands ['/usr/bin/less']
+end
