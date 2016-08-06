@@ -51,5 +51,5 @@ describe file('/etc/sudoers.d/jane') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^jane ALL=\(ALL\)  NOEXEC: \/usr\/bin\/less$/) }
+  its('content') { should match(/^jane ALL=\(ALL\) NOEXEC:\/usr\/bin\/less$/) }
 end
