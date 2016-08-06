@@ -44,3 +44,12 @@ describe file('/etc/sudoers.d/invalid__user') do
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
 end
+
+# supports setting the NOEXEC flag
+describe file('/etc/sudoers.d/jane') do
+  it { should be_file }
+  it { should be_owned_by 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq 288 }
+  its('content') { should match(/^jane ALL=\(ALL\) NOEXEC: \/usr\/bin\/less$/) }
+end
