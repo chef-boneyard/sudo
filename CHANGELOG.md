@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 2.11.0 (2016-08-09)
+- Add support for NOEXEC flag
+
 ## v2.10.0 (2016-08-04)
 
 - Added a warning to the LWRP if include_sudoers_d is set to false

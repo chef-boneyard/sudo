@@ -1,7 +1,6 @@
 sudo: required
 dist: trusty
 
-# install the pre-release chef-dk.  Use chef-stable-precise to install the stable release
 addons:
   apt:
     sources:
@@ -14,7 +13,7 @@ install: echo "skip bundle install"
 
 branches:
   only:
-  - master
+    - master
 
 services: docker
 
