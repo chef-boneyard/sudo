@@ -55,16 +55,16 @@ To use attributes for defining sudoers, set the attributes above on the node (or
   "default_attributes": {
     "authorization": {
       "sudo": {
-        command_aliases: [
+        "command_aliases": [
           { name: 'TEST', command_list: ['/usr/bin/ls','/usr/bin/cat']},
           { name: 'TEST2', command_list: ['/usr/bin/iptables','/usr/bin/su']}
         ],
-        custom_commands: {
-          users: [
+        "custom_commands": {
+          "users": [
             { user: 'test_user', passwordless: true, command_list: ['TEST','TEST2'] },
             { user: 'test_user2', passwordless: true, command_list: ['TEST','TEST2'] }
           ],
-          groups: [
+          "groups": [
             { group: 'test_group', passwordless: true, command_list: ['TEST','TEST2'] },
             { group: 'test_group2', passwordless: true, command_list: ['TEST','TEST2'] }
           ]
