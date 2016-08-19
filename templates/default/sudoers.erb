@@ -11,6 +11,16 @@ Defaults      env_keep+=SSH_AUTH_SOCK
 # User privilege specification
 root          ALL=(ALL) ALL
 
+<% @custom_commands_users.each do |commands| -%>
+# Privileges for specific command <%= commands[:command_list].join(', ') %> for user <%= commands[:user] %>
+<%= commands[:user] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %> <%= commands[:command_list].join(', ') %>
+<% end -%>
+
+<% @custom_commands_groups.each do |commands| -%>
+# Privileges for specific command <%= commands[:command_list].join(', ') %> for group <%= commands[:group] %>
+%<%= commands[:group] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %> <%= commands[:command_list].join(', ') %>
+<% end -%>
+
 <% @command_aliases.each do |a| -%>
 Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
 <% end -%>

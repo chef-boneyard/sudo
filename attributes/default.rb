@@ -27,6 +27,8 @@ default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!
 default['authorization']['sudo']['command_aliases']   = []
 default['authorization']['sudo']['env_keep_add']      = []
 default['authorization']['sudo']['env_keep_subtract'] = []
+default['authorization']['sudo']['custom_commands']['users'] = []
+default['authorization']['sudo']['custom_commands']['groups'] = []
 
 default['authorization']['sudo']['prefix'] = case node['platform_family']
                                              when 'smartos'
