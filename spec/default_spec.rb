@@ -112,22 +112,6 @@ describe 'sudo::default' do
     end
   end
 
-  context "node['authorization']['sudo']['custom_commands']['users']" do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['custom_commands']['users'] =
-          [{ user: 'test_user', passwordless: true, command_list: ['/usr/bin/whoami'] }]
-      end.converge(described_recipe)
-    end
-
-  context "node['authorization']['sudo']['custom_commands']['groups']" do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['custom_commands']['groups'] =
-          [{ group: 'test_user', passwordless: true, command_list: ['/usr/bin/whoami'] }]
-      end.converge(described_recipe)
-    end
-
   context "node['authorization']['sudo']['command_aliases']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
