@@ -20,7 +20,7 @@ describe 'sudo::default' do
   context 'with custom prefix' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['prefix'] = '/secret/etc'
+        node.normal['authorization']['sudo']['prefix'] = '/secret/etc'
       end.converge(described_recipe)
     end
 
@@ -32,8 +32,8 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['users']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['prefix'] = '/secret/etc'
-        node.set['authorization']['sudo']['users'] = %w(bacon)
+        node.normal['authorization']['sudo']['prefix'] = '/secret/etc'
+        node.normal['authorization']['sudo']['users'] = %w(bacon)
       end.converge(described_recipe)
     end
 
@@ -45,7 +45,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['groups']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['groups'] = %w(bacon)
+        node.normal['authorization']['sudo']['groups'] = %w(bacon)
       end.converge(described_recipe)
     end
 
@@ -57,9 +57,9 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['passwordless']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['users'] = %w(bacon)
-        node.set['authorization']['sudo']['groups'] = %w(bacon-group)
-        node.set['authorization']['sudo']['passwordless'] = true
+        node.normal['authorization']['sudo']['users'] = %w(bacon)
+        node.normal['authorization']['sudo']['groups'] = %w(bacon-group)
+        node.normal['authorization']['sudo']['passwordless'] = true
       end.converge(described_recipe)
     end
 
@@ -72,7 +72,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['agent_forwarding']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['agent_forwarding'] = true
+        node.normal['authorization']['sudo']['agent_forwarding'] = true
       end.converge(described_recipe)
     end
 
@@ -84,7 +84,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['sudoers_defaults']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['sudoers_defaults'] = %w(ham bacon)
+        node.normal['authorization']['sudo']['sudoers_defaults'] = %w(ham bacon)
       end.converge(described_recipe)
     end
 
@@ -115,7 +115,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['command_aliases']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['command_aliases'] =
+        node.normal['authorization']['sudo']['command_aliases'] =
           [{ name: 'TESTA', command_list: ['/usr/bin/whoami'] }, { name: 'TeSTb', command_list: ['/usr/bin/ruby', '! /usr/bin/perl'] }]
       end.converge(described_recipe)
     end
@@ -133,7 +133,7 @@ describe 'sudo::default' do
   context 'sudoers.d' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
-        node.set['authorization']['sudo']['include_sudoers_d'] = true
+        node.normal['authorization']['sudo']['include_sudoers_d'] = true
       end.converge(described_recipe)
     end
 
