@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.0.0 (2016-09-08)
+- Testing updates
+- Require Chef 12.1+
+
 ## 2.11.0 (2016-08-09)
 - Add support for NOEXEC flag
 
