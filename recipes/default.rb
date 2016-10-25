@@ -53,6 +53,8 @@ template "#{prefix}/sudoers" do
     sudoers_defaults: node['authorization']['sudo']['sudoers_defaults'],
     command_aliases: node['authorization']['sudo']['command_aliases'],
     env_keep_add: node['authorization']['sudo']['env_keep_add'],
-    env_keep_subtract: node['authorization']['sudo']['env_keep_subtract']
+    env_keep_subtract: node['authorization']['sudo']['env_keep_subtract'],
+    custom_commands_users: node['authorization']['sudo']['custom_commands']['users'],
+    custom_commands_groups: node['authorization']['sudo']['custom_commands']['groups']
   )
 end

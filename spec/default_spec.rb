@@ -130,6 +130,26 @@ describe 'sudo::default' do
     end
   end
 
+  context "node['authorization']['sudo']['custom_commands']" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set['authorization']['sudo']['command_aliases'] =
+          [{ name: 'TESTA', command_list: ['/usr/bin/whoami'] }, { name: 'TeSTb', command_list: ['/usr/bin/ruby', '! /usr/bin/perl'] }]
+        node.set['authorization']['sudo']['custom_commands']['users'] =
+          [{ user: 'test_usera', passwordless: true, command_list: ['TESTA'] }, { user: 'test_userb', passwordless: false, command_list: ['TESTB'] }]
+      end.converge(described_recipe)
+    end
+
+    it 'includes each command alias making sure they are upcased' do
+      expect(chef_run).to render_file('/etc/sudoers').with_content(
+        'test_usera ALL = NOPASSWD: TESTA'
+      )
+      expect(chef_run).to render_file('/etc/sudoers').with_content(
+        'test_userb ALL =  TESTB'
+      )
+    end
+  end
+
   context 'sudoers.d' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|

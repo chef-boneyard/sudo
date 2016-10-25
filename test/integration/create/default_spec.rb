@@ -4,7 +4,7 @@ describe file('/etc/sudoers.d/bob') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should should_not match(/^Defaults:bob/) }
+  its('content') { should_not match(/^Defaults:bob/) }
 end
 
 describe file('/etc/sudoers.d/tomcat') do

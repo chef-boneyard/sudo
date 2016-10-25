@@ -15,6 +15,16 @@ root    ALL=(ALL) ALL
 <%= user %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %><%= "SETENV:" if @setenv %>ALL
 <% end -%>
 
+<% @custom_commands_users.each do |commands| -%>
+# Privileges for specific command <%= commands[:command_list].join(', ') %> for user <%= commands[:user] %>
+<%= commands[:user] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %> <%= commands[:command_list].join(', ') %>
+<% end -%>
+
+<% @custom_commands_groups.each do |commands| -%>
+# Privileges for specific command <%= commands[:command_list].join(', ') %> for group <%= commands[:group] %>
+%<%= commands[:group] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %> <%= commands[:command_list].join(', ') %>
+<% end -%>
+
 <% @sudoers_groups.each do |group| -%>
 # Members of the group '<%= group %>' may gain root privileges
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless %><%= "SETENV:" if @setenv %>ALL
