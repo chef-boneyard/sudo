@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.1.0 (2016-10-24)
+- add attribute custom_commands for user and group
+
 ## 3.0.0 (2016-09-08)
 - Testing updates
 - Require Chef 12.1+
