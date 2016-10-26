@@ -150,6 +150,32 @@ describe 'sudo::default' do
     end
   end
 
+  context "node['authorization']['sudo']['env_keep_add']" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set['authorization']['sudo']['env_keep_add'] = ['TEST_ENV_ADD']
+      end.converge(described_recipe)
+    end
+    it 'adds environment variables to /etc/sudoers' do
+      expect(chef_run).to render_file('/etc/sudoers').with_content(
+        'Defaults    env_keep += "TEST_ENV_ADD"'
+      )
+    end
+  end
+
+  context "node['authorization']['sudo']['env_keep_subtract']" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set['authorization']['sudo']['env_keep_subtract'] = ['TEST_ENV_SUB']
+      end.converge(described_recipe)
+    end
+    it 'adds environment variables to /etc/sudoers' do
+      expect(chef_run).to render_file('/etc/sudoers').with_content(
+        'Defaults    env_keep -= "TEST_ENV_SUB"'
+      )
+    end
+  end
+
   context 'sudoers.d' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
