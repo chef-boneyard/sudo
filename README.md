@@ -63,20 +63,24 @@ To use attributes for defining sudoers, set the attributes above on the node (or
           ]
         },
         "custom_commands": {
-          "users": {
-            "user": "test_user",
-            "passwordless": true,
-            "command_list": [
-              "TEST"
-            ]
-          },
-          "groups": {
-            "group": "test_group",
-            "passwordless": false,
-            "command_list": [
-              "TEST"
-            ]
-          }
+          "users": [
+            {
+              "user": "test_user",
+              "passwordless": true,
+              "command_list": [
+                "TEST"
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "group": "test_group",
+              "passwordless": false,
+              "command_list": [
+                "TEST"
+              ]
+            }
+          ]
         }
       }
     }
