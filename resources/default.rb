@@ -1,9 +1,9 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
-# Cookbook Name:: sudo
+# Cookbook:: sudo
 # Resource:: default
 #
-# Copyright 2011-2013, Bryan w. Berry
+# Copyright:: 2011-2016, Bryan w. Berry
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
