@@ -53,3 +53,13 @@ describe file('/etc/sudoers.d/jane') do
   its('mode') { should eq 288 }
   its('content') { should match(/^jane ALL=\(ALL\) NOEXEC:\/usr\/bin\/less$/) }
 end
+
+# it munges a user with a tilde in it
+describe file('/etc/sudoers.d/tilde-invalid__user') do
+  it { should be_file }
+end
+
+# it munges a user with a tilde in it as first character
+describe file('/etc/sudoers.d/__bob') do
+  it { should be_file }
+end
