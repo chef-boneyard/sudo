@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.2.0 (2016-12-27)
+
+- Convert ~ to __ like we do for i (sudoers.d files)
+
 ## 3.1.0 (2016-10-24)
 - add attribute custom_commands for user and group
 
