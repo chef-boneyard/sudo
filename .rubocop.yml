@@ -1,5 +1,6 @@
 
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
+# Offense count: 1
+# Configuration parameters: MinBodyLength.
+Style/GuardClause:
   Exclude:
-    - 'test/integration/create/default_spec.rb'
+    - 'providers/default.rb'
