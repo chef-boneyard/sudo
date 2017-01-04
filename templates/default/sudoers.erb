@@ -7,6 +7,12 @@ Defaults      <%= defaults %>
 <% if @agent_forwarding -%>
 Defaults      env_keep+=SSH_AUTH_SOCK
 <% end -%>
+<% @env_keep_add.each do |env_keep| -%>
+Defaults    env_keep += "<%= env_keep %>"
+<% end -%>
+<% @env_keep_subtract.each do |env_keep| -%>
+Defaults    env_keep -= "<%= env_keep %>"
+<% end -%>
 
 # User privilege specification
 root          ALL=(ALL) ALL
