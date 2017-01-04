@@ -124,7 +124,7 @@ end
 
 # Removes a user from the sudoers group
 action :remove do
-  resource = file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.name}" do
+  resource = file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
     action :nothing
   end
   resource.run_action(:delete)

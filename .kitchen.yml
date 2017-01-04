@@ -26,3 +26,5 @@ suites:
     run_list: test::default
   - name: create
     run_list: test::create
+  - name: remove
+    run_list: test::remove
