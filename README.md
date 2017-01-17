@@ -56,13 +56,13 @@ To use attributes for defining sudoers, set the attributes above on the node (or
   "default_attributes": {
     "authorization": {
       "sudo": {
-        "command_aliases": {
+        "command_aliases": [{
           "name": "TEST",
           "command_list": [
             "/usr/bin/ls",
             "/usr/bin/cat"
           ]
-        },
+        }],
         "custom_commands": {
           "users": [
             {
