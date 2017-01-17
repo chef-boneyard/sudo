@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.3.1 (2017-01-17)
+
+- fixed command_aliases in README
+
 ## 3.3.0 (2017-01-04)
 
 - Add attributes for env_keep_add and env_keep_subtract for the base sudoers file
