@@ -63,3 +63,23 @@ end
 describe file('/etc/sudoers.d/__bob') do
   it { should be_file }
 end
+
+# supports setting only env_keep_add
+describe file('/etc/sudoers.d/rbenv') do
+  it { should be_file }
+  it { should be_owned_by 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq 288 }
+  its('content') { should match(/^Defaults    env_keep \+= "PATH"$/) }
+  its('content') { should match(/^Defaults    env_keep \+= "RBENV_ROOT"$/) }
+  its('content') { should match(/^Defaults    env_keep \+= "RBENV_VERSION"$/) }
+end
+
+# supports setting only env_keep_subtract
+describe file('/etc/sudoers.d/java_home') do
+  it { should be_file }
+  it { should be_owned_by 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq 288 }
+  its('content') { should match(/^Defaults    env_keep -= "JAVA_HOME"$/) }
+end

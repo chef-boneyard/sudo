@@ -77,7 +77,7 @@ def render_sudoer
       action :nothing
     end
   else
-    sudoer = new_resource.user || "%#{new_resource.group}".squeeze('%')
+    sudoer = new_resource.user || ("%#{new_resource.group}".squeeze('%') if new_resource.group)
 
     resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
       source 'sudoer.erb'
