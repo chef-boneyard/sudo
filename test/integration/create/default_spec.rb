@@ -4,7 +4,7 @@ describe file('/etc/sudoers.d/bob') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should_not match(/^Defaults:bob/) }
+  its('content') { should_not match(%r{^Defaults:bob}) }
 end
 
 describe file('/etc/sudoers.d/tomcat') do
@@ -13,9 +13,9 @@ describe file('/etc/sudoers.d/tomcat') do
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
   # each app has its own line COOK-2119
-  its('content') { should match(/^%tomcat ALL=\(app_user\) \/etc\/init.d\/tomcat restart$\n^%tomcat ALL=\(app_user\) \/etc\/init.d\/tomcat stop$\n^%tomcat ALL=\(app_user\) \/etc\/init.d\/tomcat start$/m) }
+  its('content') { should match(%r{^%tomcat ALL=\(app_user\) \/etc\/init.d\/tomcat restart$\n^%tomcat ALL=\(app_user\) \/etc\/init.d\/tomcat stop$\n^%tomcat ALL=\(app_user\) \/etc\/init.d\/tomcat start$}m) }
   # sudo defaults for specific sudo resources (COOK-3409)
-  its('content') { should match(/^Defaults:%tomcat \!requiretty,env_reset/) }
+  its('content') { should match(%r{^Defaults:%tomcat \!requiretty,env_reset}) }
 end
 
 # supports providing command aliases for sudo usage (COOK-4612)
@@ -24,8 +24,8 @@ describe file('/etc/sudoers.d/alice') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^Cmnd_Alias STARTSSH = \/etc\/init.d\/ssh start, \/etc\/init.d\/ssh restart, ! \/etc\/init.d\/ssh stop$/) }
-  its('content') { should match(/^alice ALL=\(ALL\) STARTSSH$/) }
+  its('content') { should match(%r{^Cmnd_Alias STARTSSH = \/etc\/init.d\/ssh start, \/etc\/init.d\/ssh restart, ! \/etc\/init.d\/ssh stop$}) }
+  its('content') { should match(%r{^alice ALL=\(ALL\) STARTSSH$}) }
 end
 
 # supports the setting of SETENV for preserving the sudo environment
@@ -34,7 +34,7 @@ describe file('/etc/sudoers.d/git') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^git ALL=\(phabricator\) NOPASSWD:SETENV:\/usr\/bin\/git-upload-pack$/) }
+  its('content') { should match(%r{^git ALL=\(phabricator\) NOPASSWD:SETENV:\/usr\/bin\/git-upload-pack$}) }
 end
 
 # it munges a user with a dot in it
@@ -51,7 +51,7 @@ describe file('/etc/sudoers.d/jane') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^jane ALL=\(ALL\) NOEXEC:\/usr\/bin\/less$/) }
+  its('content') { should match(%r{^jane ALL=\(ALL\) NOEXEC:\/usr\/bin\/less$}) }
 end
 
 # it munges a user with a tilde in it
@@ -70,9 +70,9 @@ describe file('/etc/sudoers.d/rbenv') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^Defaults    env_keep \+= "PATH"$/) }
-  its('content') { should match(/^Defaults    env_keep \+= "RBENV_ROOT"$/) }
-  its('content') { should match(/^Defaults    env_keep \+= "RBENV_VERSION"$/) }
+  its('content') { should match(%r{^Defaults    env_keep \+= "PATH"$}) }
+  its('content') { should match(%r{^Defaults    env_keep \+= "RBENV_ROOT"$}) }
+  its('content') { should match(%r{^Defaults    env_keep \+= "RBENV_VERSION"$}) }
 end
 
 # supports setting only env_keep_subtract
@@ -81,7 +81,7 @@ describe file('/etc/sudoers.d/java_home') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^Defaults    env_keep -= "JAVA_HOME"$/) }
+  its('content') { should match(%r{^Defaults    env_keep -= "JAVA_HOME"$}) }
 end
 
 # supports a single user with specific access to multiple sudo users ('runas')
@@ -90,6 +90,6 @@ describe file('/etc/sudoers.d/ops') do
   it { should be_owned_by 'root' }
   its('group') { should eq 'root' }
   its('mode') { should eq 288 }
-  its('content') { should match(/^%ops ALL=\(ALL\) NOPASSWD:!ALL$/) }
-  its('content') { should match(/^%ops ALL=\(app_user\) NOPASSWD:\/etc\/init.d\/tomcat restart, \/etc\/init.d\/tomcat stop, \/etc\/init.d\/tomcat start$/) }
+  its('content') { should match(%r{^%ops ALL=\(ALL\) NOPASSWD:!ALL$}) }
+  its('content') { should match(%r{^%ops ALL=\(app_user\) NOPASSWD:\/etc\/init.d\/tomcat restart, \/etc\/init.d\/tomcat stop, \/etc\/init.d\/tomcat start$}) }
 end
