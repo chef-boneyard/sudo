@@ -13,8 +13,14 @@ Defaults    env_keep += "<%= env_keep %>"
 Defaults    env_keep -= "<%= env_keep %>"
 <% end -%>
 
+<% if @commands.kind_of?(Array) %>
 <% @commands.each do |command| -%>
 <% if @sudoer %><%= @sudoer %> <%= @host %>=(<%= @runas %>) <%= 'NOEXEC:' if @noexec %><%= 'NOPASSWD:' if @nopasswd %><%= 'SETENV:' if @setenv %><%= command %><% end -%>
+<% end -%>
+<% elsif @commands.kind_of?(Hash) %>
+<% @commands.each do |runas, command| -%>
+<% if @sudoer %><%= @sudoer %> <%= @host %>=(<%= runas %>) <%= 'NOEXEC:' if @noexec %><%= 'NOPASSWD:' if @nopasswd %><%= 'SETENV:' if @setenv %><%= command %><% end -%>
+<% end -%>
 <% end -%>
 
 <% unless @defaults.empty? %>

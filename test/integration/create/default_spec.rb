@@ -83,3 +83,13 @@ describe file('/etc/sudoers.d/java_home') do
   its('mode') { should eq 288 }
   its('content') { should match(/^Defaults    env_keep -= "JAVA_HOME"$/) }
 end
+
+# supports a single user with specific access to multiple sudo users ('runas')
+describe file('/etc/sudoers.d/ops') do
+  it { should be_file }
+  it { should be_owned_by 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq 288 }
+  its('content') { should match(/^%ops ALL=\(ALL\) NOPASSWD:!ALL$/) }
+  its('content') { should match(/^%ops ALL=\(app_user\) NOPASSWD:\/etc\/init.d\/tomcat restart, \/etc\/init.d\/tomcat stop, \/etc\/init.d\/tomcat start$/) }
+end
