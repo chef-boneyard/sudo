@@ -57,8 +57,6 @@ sudo 'ops' do
   group 'ops'
   nopasswd true
   # Sudo wants large deny first, then specific allows.
-  commands ({
-    'ALL' => '!ALL',
-    'app_user' => '/etc/init.d/tomcat restart, /etc/init.d/tomcat stop, /etc/init.d/tomcat start'
-    })
+  commands  'ALL' => '!ALL',
+            'app_user' => '/etc/init.d/tomcat restart, /etc/init.d/tomcat stop, /etc/init.d/tomcat start'
 end
