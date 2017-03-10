@@ -1,6 +1,7 @@
-
-# Offense count: 1
-# Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
     - 'providers/default.rb'
+
+Style/RegexpLiteral:
+  Exclude:
+    - 'test/integration/create/default_spec.rb'

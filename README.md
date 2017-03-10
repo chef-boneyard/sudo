@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/chef-cookbooks/sudo.svg?branch=master)](http://travis-ci.org/chef-cookbooks/sudo) [![Cookbook Version](https://img.shields.io/cookbook/v/sudo.svg)](https://supermarket.chef.io/cookbooks/sudo)
 
-The Chef `sudo` cookbook installs the `sudo` package and configures the `/etc/sudoers` file.
-
-It also exposes an LWRP for adding and managing sudoers.
+The default recipe installs the `sudo` package and configures the `/etc/sudoers` file. The cookbook also includes a sudo resource to adding and removing individual sudo entries.
 
 ## Requirements
 
@@ -25,6 +23,7 @@ It also exposes an LWRP for adding and managing sudoers.
 - None
 
 ## Attributes
+
 - `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[ "sysadmin" ]`)
 - `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['passwordless']` - use passwordless sudo (default: `false`)
@@ -34,7 +33,9 @@ It also exposes an LWRP for adding and managing sudoers.
 - `node['authorization']['sudo']['setenv']` - Whether to permit preserving of environment with `sudo -E` (default: `false`)
 
 ## Usage
+
 ### Attributes
+
 To use attributes for defining sudoers, set the attributes above on the node (or role) itself:
 
 ```json
@@ -105,15 +106,10 @@ default_attributes(
 **Note that the template for the sudoers file has the group "sysadmin" with ALL:ALL permission, though the group by default does not exist.**
 
 ### Sudoers Defaults
+
 Configure a node attribute, `node['authorization']['sudo']['sudoers_defaults']` as an array of `Defaults` entries to configure in `/etc/sudoers`. A list of examples for common platforms is listed below:
 
 _Debian_
-
-```ruby
-node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
-```
-
-_Ubuntu 10.04_
 
 ```ruby
 node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
@@ -188,7 +184,8 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ]
 ```
 
-### LWRP
+### Sudo Resource
+
 **Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as it relies on the "#includedir" directive introduced in version 1.7.2. The recipe does not enforce installing the version. To use this LWRP, set `node['authorization']['sudo']['include_sudoers_d']` to `true`.
 
 There are two ways for rendering a sudoer-fragment using this LWRP:
@@ -225,7 +222,8 @@ In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
 %tomcat ALL=(app_user) /etc/init.d/tomcat restart
 ```
 
-#### LWRP Attributes
+#### Resource Properties
+
 <table>
   <thead>
     <tr>
@@ -321,42 +319,8 @@ case it is not already</td>
 
 **If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
 
-## Development
-This section details "quick development" steps. For a detailed explanation, see [[Contributing.md]].
-- Clone this repository from GitHub:
-
-  ```
-   $ git clone git@github.com:chef-cookbooks/sudo.git
-  ```
-
-- Create a git branch
-
-  ```
-   $ git checkout -b my_bug_fix
-  ```
-
-- Install dependencies:
-
-  ```
-   $ bundle install
-  ```
-
-- Make your changes/patches/fixes, committing appropiately
-- **Write tests**
-- Run the tests:
-  - `bundle exec foodcritic -f any .`
-  - `bundle exec rspec`
-  - `bundle exec rubocop`
-  - `bundle exec kitchen test`
-
-    In detail:
-
-  - Foodcritic will catch any Chef-specific style errors
-  - RSpec will run the unit tests
-  - Rubocop will check for Ruby-specific style errors
-  - Test Kitchen will run and converge the recipes
-
 ## License & Authors
+
 **Author:** Bryan W. Berry [bryan.berry@gmail.com](mailto:bryan.berry@gmail.com)
 
 **Author:** Cookbook Engineering Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))

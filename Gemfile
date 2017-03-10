@@ -6,14 +6,6 @@
 
 source 'https://rubygems.org'
 
-group :integration do
-  gem 'berkshelf'
-  gem 'test-kitchen'
-  gem 'kitchen-vagrant'
-  gem 'kitchen-dokken'
-  gem 'kitchen-inspec'
-end
-
 gem 'tomlrb'
 gem 'rake'
 gem 'stove'

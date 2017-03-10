@@ -31,7 +31,6 @@ if node['authorization']['sudo']['include_sudoers_d']
   end
 
   cookbook_file "#{prefix}/sudoers.d/README" do
-    source 'README'
     mode '0440'
     owner 'root'
     group node['root_group']
