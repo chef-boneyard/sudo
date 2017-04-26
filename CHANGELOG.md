@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.4.0 (2017-04-26)
+
+- Add lwrp support for only env_keep add/subtract
+- Readme improvements
+- Move the files out of the default directory since Chef >= 12 doesn't require this
+- Test with Local Delivery instead of Rake
+- Cookstyle fixes
+- Update apache2 license string
+
 ## 3.3.1 (2017-01-17)
 
 - fixed command_aliases in README
