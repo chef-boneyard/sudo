@@ -82,11 +82,3 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools
-
-suites:
-  - name: default
-    run_list: test::default
-  - name: create
-    run_list: test::create
-  - name: remove
-    run_list: test::remove

@@ -23,5 +23,7 @@ platforms:
 suites:
   - name: default
     run_list: test::default
-  - name: resources
-    run_list: test::resources
+  - name: create
+    run_list: test::create
+  - name: remove
+    run_list: test::remove
