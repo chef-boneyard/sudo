@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.5.0 (2017-05-16)
+
+- Add sudo package management to resource 
+
 ## 3.4.0 (2017-04-26)
 
 - Add lwrp support for only env_keep add/subtract
