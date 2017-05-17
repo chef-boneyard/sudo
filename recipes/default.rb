@@ -57,3 +57,15 @@ template "#{prefix}/sudoers" do
     custom_commands_groups: node['authorization']['sudo']['custom_commands']['groups']
   )
 end
+
+if node['authorization']['sudo']['local_commands']
+  node['authorization']['sudo']['local_commands'].each do |name,params|
+    sudo "#{name}" do
+      user  params["user"]
+      runas params["runas"]
+      commands  params["commands"]
+      action    params["action"]
+      nopasswd  params["nopasswd"]
+    end
+  end
+end
