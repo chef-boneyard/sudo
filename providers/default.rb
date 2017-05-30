@@ -115,7 +115,7 @@ action :install do
 
   package 'sudo' do
     not_if 'which sudo'
-  end
+  end.run_action(:install)
 
   unless ::File.exist?(target)
     sudoers_dir = directory target
