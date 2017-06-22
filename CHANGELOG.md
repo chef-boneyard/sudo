@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.5.1 (2017-06-21)
+
+- Remove sysadmin from default groups as sysadmin is no longer a group we push via the users cookbook.
+
 ## 3.5.0 (2017-05-16)
 
 - Add sudo package management to resource 

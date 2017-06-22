@@ -104,7 +104,7 @@ describe 'sudo::default' do
     end
 
     context 'on Ubuntu' do
-      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04').converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe) }
 
       it 'uses /etc' do
         expect(chef_run).to create_template('/etc/sudoers')
@@ -178,7 +178,7 @@ describe 'sudo::default' do
 
   context 'sudoers.d' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
         node.normal['authorization']['sudo']['include_sudoers_d'] = true
       end.converge(described_recipe)
     end
