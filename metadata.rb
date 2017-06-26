@@ -8,7 +8,7 @@ version '3.5.2'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
-%w(redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific zlinux suse opensuse opensuseleap).each do |os|
+%w(amazon redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific zlinux suse opensuse opensuseleap).each do |os|
   supports os
 end
 
