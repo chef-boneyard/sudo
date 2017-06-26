@@ -10,6 +10,7 @@ include_recipe 'test::create'
   alice
   git
   jane
+  ops
 ).each do |sudoer|
   sudo sudoer do
     action :remove

@@ -7,6 +7,7 @@
   alice
   git
   jane
+  ops
 ).each do |sudoer|
   describe file("/etc/sudoers.d/#{sudoer}") do
     it { should_not exist }
