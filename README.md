@@ -10,9 +10,10 @@ The default recipe installs the `sudo` package and configures the `/etc/sudoers`
 
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific/Amazon/Oracle
+- Amazon Linux
 - FreeBSD
-- Mac OS X
-- openSUSE / Suse
+- macOS
+- openSUSE / SUSE Enterprise
 
 ### Chef
 
