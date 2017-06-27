@@ -10,9 +10,10 @@ The default recipe installs the `sudo` package and configures the `/etc/sudoers`
 
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific/Amazon/Oracle
+- Amazon Linux
 - FreeBSD
-- Mac OS X
-- openSUSE / Suse
+- macOS
+- openSUSE / SUSE Enterprise
 
 ### Chef
 
@@ -224,98 +225,21 @@ In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
 
 #### Resource Properties
 
-<table>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-      <th>Example</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>name</td>
-      <td>name of the `/etc/sudoers.d` file</td>
-      <td><tt>restart-tomcat</tt></td>
-      <td>current resource name</td>
-    </tr>
-    <tr>
-      <td>commands</td>
-      <td>array of commands this sudoer can execute</td>
-      <td><tt>['/etc/init.d/tomcat restart']</tt></td>
-      <td><tt>['ALL']</tt></td>
-    </tr>
-    <tr>
-      <td>group</td>
-      <td>group to provide sudo privileges to, except `%` is prepended to the name in
-case it is not already</td>
-      <td><tt>%admin</tt></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>nopasswd</td>
-      <td>supply a password to invoke sudo</td>
-      <td><tt>true</tt></td>
-      <td><tt>false</tt></td>
-    </tr>
-    <tr>
-      <td>noexec</td>
-      <td>prevents commands from shelling out</td>
-      <td><tt>true</tt></td>
-      <td><tt>false</tt></td>
-    </tr>
-    <tr>
-      <td>runas</td>
-      <td>User the command(s) can be run as</td>
-      <td><tt>root</tt></td>
-      <td><tt>ALL</tt></td>
-    </tr>
-    <tr>
-      <td>template</td>
-      <td>the erb template to render instead of the default</td>
-      <td><tt>restart-tomcat.erb</tt></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>user</td>
-      <td>user to provide sudo privileges to</td>
-      <td><tt>tomcat</tt></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>defaults</td>
-      <td>array of defaults this user has</td>
-      <td><tt>['!requiretty','env_reset']</tt></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>setenv</td>
-      <td>whether to permit the preserving of environment with `sudo -E`</td>
-      <td><tt>true</tt></td>
-      <td><tt><false></tt></td>
-    </tr>
-    <tr>
-      <td>env_keep_add</td>
-      <td>array of strings to add to env_keep</td>
-      <td><tt>['HOME', 'MY_ENV_VAR MY_OTHER_ENV_VAR']</tt></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>env_keep_subtract</td>
-      <td>array of strings to remove from env_keep</td>
-      <td><tt>['DISPLAY', 'MY_SECURE_ENV_VAR']</tt></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>variables</td>
-      <td>the variables to pass to the custom template</td>
-      <td><tt>:commands => ['/etc/init.d/tomcat restart']</tt></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+Attribute         | Description                                                                                        | Example                                  | Default
+----------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------- | ---------------------
+name              | name of the `/etc/sudoers.d` file                                                                  | restart-tomcat                           | current resource name
+commands          | array of commands this sudoer can execute                                                          | ['/etc/init.d/tomcat restart']           | ['ALL']
+group             | group to provide sudo privileges to, except `%` is prepended to the name in case it is not already | %admin                                   |
+nopasswd          | supply a password to invoke sudo                                                                   | true                                     | false
+noexec            | prevents commands from shelling out                                                                | true                                     | false
+runas             | User the command(s) can be run as                                                                  | root                                     | ALL
+template          | the erb template to render instead of the default                                                  | restart-tomcat.erb                       |
+user              | user to provide sudo privileges to                                                                 | tomcat                                   |
+defaults          | array of defaults this user has                                                                    | ['!requiretty','env_reset']              |
+setenv            | whether to permit the preserving of environment with `sudo -E`                                     | true                                     | false
+env_keep_add      | array of strings to add to env_keep                                                                | ['HOME', 'MY_ENV_VAR MY_OTHER_ENV_VAR']  |
+env_keep_subtract | array of strings to remove from env_keep                                                           | ['DISPLAY', 'MY_SECURE_ENV_VAR']         |
+variables         | the variables to pass to the custom template                                                       | commands: ['/etc/init.d/tomcat restart'] |
 
 **If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
 
