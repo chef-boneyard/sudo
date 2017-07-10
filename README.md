@@ -243,13 +243,13 @@ variables         | the variables to pass to the custom template                
 
 **If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
 
-## License & Authors
+## Maintainers
 
-**Author:** Bryan W. Berry [bryan.berry@gmail.com](mailto:bryan.berry@gmail.com)
+This cookbook is maintained by Chef's Community Cookbook Engineering team. Our goal is to improve cookbook quality and to aid the community in contributing to cookbooks. To learn more about our team, process, and design goals see our [team documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/COOKBOOK_TEAM.MD). To learn more about contributing to cookbooks like this see our [contributing documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD), or if you have general questions about this cookbook come chat with us in #cookbok-engineering on the [Chef Community Slack](http://community-slack.chef.io/)
 
-**Author:** Cookbook Engineering Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))
+## License
 
-**Copyright:** 2008-2016, Chef Software, Inc.
+**Copyright:** 2008-2017, Chef Software, Inc.
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
