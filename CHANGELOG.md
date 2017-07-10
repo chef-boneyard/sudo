@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 3.5.3 (2017-07-09)
+
+- Add amazon linux to the metadata
+- Remove extra spaces in the sudoer template
+- Update platform names in the readme
+- Replace the HTML table with markdown
+
 ## 3.5.2 (2017-06-26)
 
 - Remove totally bogus "supports" attribute from the resource
