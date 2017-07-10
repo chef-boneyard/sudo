@@ -6,7 +6,7 @@ describe 'sudo::default' do
   end
 
   context 'usual business' do
-    let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+    cached(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
     it 'installs the sudo package' do
       expect(chef_run).to install_package('sudo')
@@ -15,12 +15,19 @@ describe 'sudo::default' do
     it 'creates the /etc/sudoers file' do
       expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults      !lecture,tty_tickets,!fqdn/)
     end
+
+    it 'creates the sudoers.d directory' do
+      expect(chef_run).to create_directory('/etc/sudoers.d').with(
+        owner: 'root',
+        mode: '0755'
+      )
+    end
   end
 
   context 'with custom prefix' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.normal['authorization']['sudo']['prefix'] = '/secret/etc'
+        node.override['authorization']['sudo']['prefix'] = '/secret/etc'
       end.converge(described_recipe)
     end
 
@@ -32,8 +39,8 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['users']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.normal['authorization']['sudo']['prefix'] = '/secret/etc'
-        node.normal['authorization']['sudo']['users'] = %w(bacon)
+        node.override['authorization']['sudo']['prefix'] = '/secret/etc'
+        node.override['authorization']['sudo']['users'] = %w(bacon)
       end.converge(described_recipe)
     end
 
@@ -45,7 +52,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['groups']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.normal['authorization']['sudo']['groups'] = %w(bacon)
+        node.override['authorization']['sudo']['groups'] = %w(bacon)
       end.converge(described_recipe)
     end
 
@@ -57,9 +64,9 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['passwordless']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.normal['authorization']['sudo']['users'] = %w(bacon)
-        node.normal['authorization']['sudo']['groups'] = %w(bacon-group)
-        node.normal['authorization']['sudo']['passwordless'] = true
+        node.override['authorization']['sudo']['users'] = %w(bacon)
+        node.override['authorization']['sudo']['groups'] = %w(bacon-group)
+        node.override['authorization']['sudo']['passwordless'] = true
       end.converge(described_recipe)
     end
 
@@ -96,7 +103,7 @@ describe 'sudo::default' do
 
   context "node['authorization']['sudo']['prefix']" do
     context 'on SmartOS' do
-      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'smartos', version: 'joyent_20130111T180733Z').converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'smartos', version: '5.11').converge(described_recipe) }
 
       it 'uses /opt/local/etc' do
         expect(chef_run).to create_template('/opt/local/etc/sudoers')
@@ -176,18 +183,13 @@ describe 'sudo::default' do
     end
   end
 
-  context 'sudoers.d' do
+  context 'Non-Linux distro' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
-        node.normal['authorization']['sudo']['include_sudoers_d'] = true
-      end.converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform: 'freebsd', version: '11.0').converge(described_recipe)
     end
 
-    it 'creates the sudoers.d directory' do
-      expect(chef_run).to create_directory('/etc/sudoers.d').with(
-        owner: 'root',
-        mode: '0755'
-      )
+    it 'does not create the sudoers.d directory' do
+      expect(chef_run).not_to create_directory('/etc/sudoers.d')
     end
   end
 end
