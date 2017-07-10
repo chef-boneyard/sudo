@@ -134,21 +134,6 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ]
 ```
 
-_RHEL family 5.x_ The version of sudo in RHEL 5 may not support `+=`, as used in `env_keep`, so its a single string.
-
-```ruby
-node.default['authorization']['sudo']['sudoers_defaults'] = [
-  '!visiblepw',
-  'env_reset',
-  'env_keep = "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR \
-               LS_COLORS MAIL PS1 PS2 QTDIR USERNAME \
-               LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION \
-               LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC \
-               LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS \
-               _XKB_CHARSET XAUTHORITY"'
-]
-```
-
 _RHEL family 6.x_
 
 ```ruby
