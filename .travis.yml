@@ -24,7 +24,6 @@ env:
   - INSTANCE=default-debian-7
   - INSTANCE=default-debian-8
   - INSTANCE=default-fedora-latest
-  - INSTANCE=default-opensuse-132
   - INSTANCE=default-opensuse-leap
   - INSTANCE=default-ubuntu-1404
   - INSTANCE=default-ubuntu-1604
@@ -33,7 +32,6 @@ env:
   - INSTANCE=create-debian-7
   - INSTANCE=create-debian-8
   - INSTANCE=create-fedora-latest
-  - INSTANCE=create-opensuse-132
   - INSTANCE=create-opensuse-leap
   - INSTANCE=create-ubuntu-1404
   - INSTANCE=create-ubuntu-1604
