@@ -28,7 +28,7 @@ The default recipe installs the `sudo` package and configures the `/etc/sudoers`
 - `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[ "sysadmin" ]`)
 - `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['passwordless']` - use passwordless sudo (default: `false`)
-- `node['authorization']['sudo']['include_sudoers_d']` - include and manage `/etc/sudoers.d` (default: `false`)
+- `node['authorization']['sudo']['include_sudoers_d']` - include and manage `/etc/sudoers.d` (default: `true` on Linux systems. Note: older / EOL distros do not support this feature)
 - `node['authorization']['sudo']['agent_forwarding']` - preserve `SSH_AUTH_SOCK` when sudoing (default: `false`)
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
 - `node['authorization']['sudo']['setenv']` - Whether to permit preserving of environment with `sudo -E` (default: `false`)
@@ -134,21 +134,6 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ]
 ```
 
-_RHEL family 5.x_ The version of sudo in RHEL 5 may not support `+=`, as used in `env_keep`, so its a single string.
-
-```ruby
-node.default['authorization']['sudo']['sudoers_defaults'] = [
-  '!visiblepw',
-  'env_reset',
-  'env_keep = "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR \
-               LS_COLORS MAIL PS1 PS2 QTDIR USERNAME \
-               LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION \
-               LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC \
-               LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS \
-               _XKB_CHARSET XAUTHORITY"'
-]
-```
-
 _RHEL family 6.x_
 
 ```ruby
@@ -187,9 +172,10 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 
 ### Sudo Resource
 
-**Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as it relies on the "#includedir" directive introduced in version 1.7.2. The recipe does not enforce installing the version. To use this LWRP, set `node['authorization']['sudo']['include_sudoers_d']` to `true`.
+**Note** Sudo version 1.7.2 or newer is required to use the sudo LWRP as it relies on the "#includedir" directive introduced in version 1.7.2\. The recipe does not enforce installing the version. Supported releases of Ubuntu, Debian and RHEL (6+) all support this feature.
 
 There are two ways for rendering a sudoer-fragment using this LWRP:
+
 1. Using the built-in template
 2. Using a custom, cookbook-level template
 
