@@ -25,7 +25,7 @@ The default recipe installs the `sudo` package and configures the `/etc/sudoers`
 
 ## Attributes
 
-- `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[ "sysadmin" ]`)
+- `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['passwordless']` - use passwordless sudo (default: `false`)
 - `node['authorization']['sudo']['include_sudoers_d']` - include and manage `/etc/sudoers.d` (default: `true` on Linux systems. Note: older / EOL distros do not support this feature)
