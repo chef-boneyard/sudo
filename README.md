@@ -17,7 +17,7 @@ The default recipe installs the `sudo` package and configures the `/etc/sudoers`
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.7+
 
 ### Cookbooks
 
