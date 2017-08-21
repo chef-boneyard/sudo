@@ -19,12 +19,12 @@ root          ALL=(ALL) ALL
 
 <% @custom_commands_users.each do |commands| -%>
 # Privileges for specific command <%= commands[:command_list].join(', ') %> for user <%= commands[:user] %>
-<%= commands[:user] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %> <%= commands[:command_list].join(', ') %>
+<%= commands[:user] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %><%= "SETENV:" if @setenv %> <%= commands[:command_list].join(', ') %>
 <% end -%>
 
 <% @custom_commands_groups.each do |commands| -%>
 # Privileges for specific command <%= commands[:command_list].join(', ') %> for group <%= commands[:group] %>
-%<%= commands[:group] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %> <%= commands[:command_list].join(', ') %>
+%<%= commands[:group] %> ALL = <%= "NOPASSWD:" if commands[:passwordless] %><%= "SETENV:" if @setenv %> <%= commands[:command_list].join(', ') %>
 <% end -%>
 
 <% @command_aliases.each do |a| -%>
