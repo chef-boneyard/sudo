@@ -1,6 +1,6 @@
 Style/GuardClause:
   Exclude:
-    - 'providers/default.rb'
+    - 'resources/default.rb'
 
 Style/RegexpLiteral:
   Exclude:
