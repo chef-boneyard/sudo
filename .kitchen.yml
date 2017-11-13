@@ -16,11 +16,11 @@ platforms:
   - name: centos-7
   - name: debian-7
   - name: debian-8
-  - name: debian-9.0
+  - name: debian-9
   - name: fedora-26
-  - name: freebsd-10.3
-  - name: freebsd-11.0
-  - name: opensuse-leap-42.2
+  - name: freebsd-10
+  - name: freebsd-11
+  - name: opensuse-leap-42
   - name: ubuntu-14.04
   - name: ubuntu-16.04
 
