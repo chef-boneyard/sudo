@@ -46,7 +46,11 @@ def validate_fragment!(resource)
     file.write(capture(resource))
     file.rewind
 
-    cmd = Mixlib::ShellOut.new("visudo -cf #{file.path}").run_command
+    cmd = Mixlib::ShellOut.new("visudo -cf #{file.path}")
+    cmd.environment['PATH'] = "/usr/sbin:#{ENV['PATH']}" if platform_family?('suse')
+    cmd.environment['PATH'] = "/usr/local/sbin:#{ENV['PATH']}" if platform_family?('solaris2')
+    cmd.environment['PATH'] = "#{new_resource.visudo_path}:#{ENV['PATH']}" unless new_resource.visudo_path.nil?
+    cmd.run_command
     unless cmd.exitstatus == 0
       Chef::Log.error("Fragment validation failed: \n\n")
       Chef::Log.error(file.read)
