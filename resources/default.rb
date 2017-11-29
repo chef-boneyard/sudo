@@ -34,6 +34,7 @@ attribute :command_aliases,   kind_of: Array,            default: []
 attribute :setenv,            equal_to: [true, false],   default: false
 attribute :env_keep_add,      kind_of: Array,            default: []
 attribute :env_keep_subtract, kind_of: Array,            default: []
+attribute :visudo_path,       kind_of: String,           default: nil
 
 state_attrs :commands,
             :group,
