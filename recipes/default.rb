@@ -25,7 +25,7 @@ end
 
 if node['authorization']['sudo']['include_sudoers_d']
   directory "#{prefix}/sudoers.d" do
-    mode '0755'
+    mode node['authorization']['sudo']['sudoers_d_mode']
     owner 'root'
     group node['root_group']
   end
