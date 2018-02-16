@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 4.0.1 (2018-02-16)
+
+- FIX: in templates the attribute "passwordless" and other with data type String always will be return true
+- Add an attribute for setting sudoers.d mode
+
 ## 4.0.0 (2017-11-28)
 
 ### Breaking Changes
