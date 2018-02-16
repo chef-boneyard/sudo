@@ -22,6 +22,7 @@ default['authorization']['sudo']['users']             = []
 default['authorization']['sudo']['passwordless']      = false
 default['authorization']['sudo']['setenv']            = false
 default['authorization']['sudo']['include_sudoers_d'] = node['os'] == 'linux' ? true : false
+default['authorization']['sudo']['sudoers_d_mode']    = '0755'
 default['authorization']['sudo']['agent_forwarding']  = false
 default['authorization']['sudo']['sudoers_defaults']  = ['!lecture,tty_tickets,!fqdn']
 default['authorization']['sudo']['command_aliases']   = []
