@@ -127,7 +127,6 @@ action :install do
   end
 
   Chef::Log.warn("#{sudo_filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
-  new_resource.updated_by_last_action(true) if render_sudoer
 end
 
 # Removes a user from the sudoers group
@@ -136,7 +135,6 @@ action :remove do
     action :nothing
   end
   resource.run_action(:delete)
-  new_resource.updated_by_last_action(true) if resource.updated_by_last_action?
 end
 
 private
