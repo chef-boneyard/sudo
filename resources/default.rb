@@ -67,11 +67,9 @@ end
 
 # Removes a user from the sudoers group
 action :remove do
-  resource = file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
-    action :nothing
+  file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
+    action :delete
   end
-  resource.run_action(:delete)
-  new_resource.updated_by_last_action(true) if resource.updated_by_last_action?
 end
 
 action_class do
