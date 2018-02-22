@@ -51,8 +51,13 @@ def config_prefix
   end
 end
 
-# Default action - install a single sudoer
 action :install do
+  Chef::Log.warn('The sudo :install action has been renamed :create. Please update your cookbook code for the new action')
+  action_create
+end
+
+# Default action - install a single sudoer
+action :create do
   validate_properties
 
   target = "#{new_resource.config_prefix}/sudoers.d/"
@@ -81,11 +86,10 @@ action_class do
   # Ensure that the inputs are valid (we cannot just use the resource for this)
   def validate_properties(user, group, foreign_template, _foreign_vars)
     # if group, user, and template are nil, throw an exception
-    if user.nil? && group.nil? && foreign_template.nil?
-      raise 'You must provide a user, group, or template properties!'
-    elsif !user.nil? && !group.nil? && !template.nil?
-      raise 'You cannot specify user, group, and template properties at the same time.!'
-    end
+    raise 'You must provide a user, group, or template properties!' if user.nil? && group.nil? && foreign_template.nil?
+
+    # if specifying user group and template at the same time fail
+    raise 'You cannot specify user, group, and template properties at the same time.!' if !user.nil? && !group.nil? && !template.nil?
   end
 
   # Validate the given resource (template) by writing it out to a file and then
