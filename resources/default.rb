@@ -62,10 +62,6 @@ action :create do
 
   target = "#{new_resource.config_prefix}/sudoers.d/"
 
-  package 'sudo' do
-    not_if 'which sudo'
-  end
-
   unless ::File.exist?(target)
     sudoers_dir = directory target
     sudoers_dir.run_action(:create)

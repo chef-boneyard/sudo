@@ -8,10 +8,6 @@ describe 'sudo::default' do
   context 'usual business' do
     cached(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
-    it 'installs the sudo package' do
-      expect(chef_run).to install_package('sudo')
-    end
-
     it 'creates the /etc/sudoers file' do
       expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults      !lecture,tty_tickets,!fqdn/)
     end
