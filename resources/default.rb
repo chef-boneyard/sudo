@@ -73,7 +73,7 @@ end
 
 # Removes a user from the sudoers group
 action :delete do
-  file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.filename}" do
+  file "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}" do
     action :delete
   end
 end
@@ -123,7 +123,7 @@ action_class do
     if new_resource.template
       Chef::Log.debug('Template property provided, all other properties ignored.')
 
-      resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.filename}" do
+      resource = template "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}" do
         source new_resource.template
         owner 'root'
         group node['root_group']
@@ -134,7 +134,7 @@ action_class do
     else
       sudoer = new_resource.user || ("%#{new_resource.group}".squeeze('%') if new_resource.group)
 
-      resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.filename}" do
+      resource = template "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}" do
         source 'sudoer.erb'
         cookbook 'sudo'
         owner 'root'
