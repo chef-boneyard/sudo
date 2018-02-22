@@ -50,6 +50,8 @@ end
 
 # Default action - install a single sudoer
 action :install do
+  validate_properties
+
   target = "#{new_resource.config_prefix}/sudoers.d/"
 
   package 'sudo' do
@@ -74,7 +76,7 @@ end
 
 action_class do
   # Ensure that the inputs are valid (we cannot just use the resource for this)
-  def check_inputs(user, group, foreign_template, _foreign_vars)
+  def validate_properties(user, group, foreign_template, _foreign_vars)
     # if group, user, and template are nil, throw an exception
     if user.nil? && group.nil? && foreign_template.nil?
       raise 'You must provide a user, group, or template properties!'
