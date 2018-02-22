@@ -118,7 +118,7 @@ action_class do
   #      written out for the user
   def render_sudoer
     if new_resource.template
-      Chef::Log.debug('Template attribute provided, all other attributes ignored.')
+      Chef::Log.debug('Template property provided, all other properties ignored.')
 
       resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
         source new_resource.template
