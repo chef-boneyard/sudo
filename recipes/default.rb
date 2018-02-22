@@ -17,11 +17,12 @@
 # limitations under the License.
 #
 
-prefix = node['authorization']['sudo']['prefix']
-
-package 'sudo' do
-  not_if 'which sudo'
-end
+prefix = case node['platform_family']
+         when 'smartos', 'freebsd'
+           '/usr/local/etc'
+         else
+           '/etc'
+         end
 
 if node['authorization']['sudo']['include_sudoers_d']
   directory "#{prefix}/sudoers.d" do
