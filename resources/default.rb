@@ -21,6 +21,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
+# We convert either to `__`
+property :filename, String, name_property: true, coerce: proc { |x| x.gsub(/[\.~]/, '__') }
 property :user, String
 property :group, String
 property :commands, Array, default: ['ALL']
@@ -63,13 +66,13 @@ action :install do
     sudoers_dir.run_action(:create)
   end
 
-  Chef::Log.warn("#{sudo_filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
+  Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
   new_resource.updated_by_last_action(true) if render_sudoer
 end
 
 # Removes a user from the sudoers group
-action :remove do
-  file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
+action :delete do
+  file "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.filename}" do
     action :delete
   end
 end
@@ -120,7 +123,7 @@ action_class do
     if new_resource.template
       Chef::Log.debug('Template property provided, all other properties ignored.')
 
-      resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
+      resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.filename}" do
         source new_resource.template
         owner 'root'
         group node['root_group']
@@ -131,7 +134,7 @@ action_class do
     else
       sudoer = new_resource.user || ("%#{new_resource.group}".squeeze('%') if new_resource.group)
 
-      resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{sudo_filename}" do
+      resource = template "#{node['authorization']['sudo']['prefix']}/sudoers.d/#{new_resource.filename}" do
         source 'sudoer.erb'
         cookbook 'sudo'
         owner 'root'
@@ -162,12 +165,6 @@ action_class do
   end
 
   private
-
-  # acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
-  # We convert either to `__`
-  def sudo_filename
-    new_resource.name.gsub(/[\.~]/, '__')
-  end
 
   # Capture a template to a string
   def capture(template)
