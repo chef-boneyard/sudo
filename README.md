@@ -17,7 +17,7 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.7+
 
 ### Cookbooks
 
