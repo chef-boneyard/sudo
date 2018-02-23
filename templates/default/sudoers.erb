@@ -41,4 +41,4 @@ Cmnd_Alias <%= a[:name].upcase %> = <%= a[:command_list].join(', ') %>
 <% end -%>
 
 # This is not a comment; see sudoers(5) for more information on "#include" directives
-<%= "#includedir #{node['authorization']['sudo']['prefix']}/sudoers.d" if @include_sudoers_d.to_s == 'true'  %>
+<%= "#includedir #{@config_prefix}/sudoers.d" if @include_sudoers_d.to_s == 'true'  %>

@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-prefix = case node['platform_family']
-         when 'smartos', 'freebsd'
-           '/usr/local/etc'
-         else
-           '/etc'
-         end
+config_prefix = case node['platform_family']
+                when 'smartos', 'freebsd'
+                  '/usr/local/etc'
+                else
+                  '/etc'
+                end
 
 if node['authorization']['sudo']['include_sudoers_d']
   directory "#{prefix}/sudoers.d" do
@@ -55,6 +55,7 @@ template "#{prefix}/sudoers" do
     env_keep_add: node['authorization']['sudo']['env_keep_add'],
     env_keep_subtract: node['authorization']['sudo']['env_keep_subtract'],
     custom_commands_users: node['authorization']['sudo']['custom_commands']['users'],
-    custom_commands_groups: node['authorization']['sudo']['custom_commands']['groups']
+    custom_commands_groups: node['authorization']['sudo']['custom_commands']['groups'],
+    config_prefix: config_prefix
   )
 end
