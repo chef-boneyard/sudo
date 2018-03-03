@@ -80,12 +80,12 @@ end
 
 action_class do
   # Ensure that the inputs are valid (we cannot just use the resource for this)
-  def validate_properties(user, group, foreign_template, _foreign_vars)
+  def validate_properties
     # if group, user, and template are nil, throw an exception
-    raise 'You must provide a user, group, or template properties!' if user.nil? && group.nil? && foreign_template.nil?
+    raise 'You must provide a user, group, or template properties!' if new_resource.user.nil? && new_resource.group.nil? && new_resource.foreign_template.nil?
 
     # if specifying user group and template at the same time fail
-    raise 'You cannot specify user, group, and template properties at the same time!' if !user.nil? && !group.nil? && !template.nil?
+    raise 'You cannot specify user, group, and template properties at the same time!' if !new_resource.user.nil? && !new_resource.group.nil? && !new_resource.template.nil?
   end
 
   # Validate the given resource (template) by writing it out to a file and then
