@@ -27,6 +27,7 @@ env:
   - INSTANCE=default-opensuse-leap
   - INSTANCE=default-ubuntu-1404
   - INSTANCE=default-ubuntu-1604
+  - INSTANCE=default-ubuntu-1804
   - INSTANCE=create-centos-6
   - INSTANCE=create-centos-7
   - INSTANCE=create-debian-8
@@ -35,6 +36,7 @@ env:
   - INSTANCE=create-opensuse-leap
   - INSTANCE=create-ubuntu-1404
   - INSTANCE=create-ubuntu-1604
+  - INSTANCE=create-ubuntu-1804
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
