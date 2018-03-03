@@ -85,7 +85,7 @@ action_class do
     raise 'You must provide a user, group, or template properties!' if user.nil? && group.nil? && foreign_template.nil?
 
     # if specifying user group and template at the same time fail
-    raise 'You cannot specify user, group, and template properties at the same time.!' if !user.nil? && !group.nil? && !template.nil?
+    raise 'You cannot specify user, group, and template properties at the same time!' if !user.nil? && !group.nil? && !template.nil?
   end
 
   # Validate the given resource (template) by writing it out to a file and then
