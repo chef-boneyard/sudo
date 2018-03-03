@@ -25,20 +25,20 @@ config_prefix = case node['platform_family']
                 end
 
 if node['authorization']['sudo']['include_sudoers_d']
-  directory "#{prefix}/sudoers.d" do
+  directory "#{config_prefix}/sudoers.d" do
     mode node['authorization']['sudo']['sudoers_d_mode']
     owner 'root'
     group node['root_group']
   end
 
-  cookbook_file "#{prefix}/sudoers.d/README" do
+  cookbook_file "#{config_prefix}/sudoers.d/README" do
     mode '0440'
     owner 'root'
     group node['root_group']
   end
 end
 
-template "#{prefix}/sudoers" do
+template "#{config_prefix}/sudoers" do
   source 'sudoers.erb'
   mode '0440'
   owner 'root'
