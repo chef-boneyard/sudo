@@ -51,11 +51,6 @@ def config_prefix
   end
 end
 
-action :install do
-  Chef::Log.warn('The sudo :install action has been renamed :create. Please update your cookbook code for the new action')
-  action_create
-end
-
 # Default action - install a single sudoer
 action :create do
   validate_properties
@@ -72,6 +67,11 @@ action :create do
 
   Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
   render_sudoer
+end
+
+action :install do
+  Chef::Log.warn('The sudo :install action has been renamed :create. Please update your cookbook code for the new action')
+  action_create
 end
 
 # Removes a user from the sudoers group
