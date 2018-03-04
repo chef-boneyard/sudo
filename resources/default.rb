@@ -71,7 +71,7 @@ action :create do
   declare_resource(:directory, target) unless ::File.exist?(target)
 
   Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
-  new_resource.updated_by_last_action(true) if render_sudoer
+  render_sudoer
 end
 
 # Removes a user from the sudoers group
@@ -162,9 +162,6 @@ action_class do
     validate_fragment!(resource)
 
     resource.run_action(:create)
-
-    # Return whether the resource was updated so we can notify in the action
-    resource.updated_by_last_action?
   end
 
   private
