@@ -60,6 +60,12 @@ end
 action :create do
   validate_properties
 
+  if docker? # don't even put this into resource collection unless we're in docker
+    package 'sudo' do
+      not_if 'which sudo'
+    end
+  end
+
   target = "#{new_resource.config_prefix}/sudoers.d/"
   declare_resource(:directory, target) unless ::File.exist?(target)
 
