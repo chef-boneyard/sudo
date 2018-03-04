@@ -61,9 +61,10 @@ action :create do
   validate_properties
 
   if docker? # don't even put this into resource collection unless we're in docker
-    package 'sudo' do
+    declare_resource(:package, "foo") do
+      action :nothing
       not_if 'which sudo'
-    end
+    end.run_action(:install)
   end
 
   target = "#{new_resource.config_prefix}/sudoers.d/"
