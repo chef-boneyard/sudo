@@ -44,7 +44,9 @@ property :config_prefix, String, default: lazy { config_prefix }
 # default config prefix paths based on platform
 def config_prefix
   case node['platform_family']
-  when 'smartos', 'freebsd'
+  when 'smartos'
+    '/opt/local/etc'
+  when 'freebsd'
     '/usr/local/etc'
   else
     '/etc'
@@ -56,7 +58,7 @@ action :create do
   validate_properties
 
   if docker? # don't even put this into resource collection unless we're in docker
-    declare_resource(:package, "foo") do
+    declare_resource(:package, 'sudo') do
       action :nothing
       not_if 'which sudo'
     end.run_action(:install)

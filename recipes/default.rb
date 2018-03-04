@@ -18,7 +18,9 @@
 #
 
 config_prefix = case node['platform_family']
-                when 'smartos', 'freebsd'
+                when 'smartos'
+                  '/opt/local/etc'
+                when 'freebsd'
                   '/usr/local/etc'
                 else
                   '/etc'
