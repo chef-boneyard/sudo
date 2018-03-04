@@ -61,11 +61,7 @@ action :create do
   validate_properties
 
   target = "#{new_resource.config_prefix}/sudoers.d/"
-
-  unless ::File.exist?(target)
-    sudoers_dir = directory target
-    sudoers_dir.run_action(:create)
-  end
+  declare_resource(:directory, target) unless ::File.exist?(target)
 
   Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
   new_resource.updated_by_last_action(true) if render_sudoer
