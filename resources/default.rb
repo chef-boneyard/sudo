@@ -136,7 +136,7 @@ action_class do
     else
       sudoer = new_resource.user || ("%#{new_resource.group}".squeeze('%') if new_resource.group)
 
-      resource = template "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}" do
+      resource = declare_resource(:template, "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}") do
         source 'sudoer.erb'
         cookbook 'sudo'
         owner 'root'
