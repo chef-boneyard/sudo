@@ -116,7 +116,7 @@ _Debian_
 node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
 ```
 
-_Ubuntu 12.04_
+_Ubuntu_
 
 ```ruby
 node.default['authorization']['sudo']['sudoers_defaults'] = [
