@@ -44,3 +44,11 @@ sudo 'jane' do
   noexec true
   commands ['/usr/bin/less']
 end
+
+sudo 'rbenv' do
+  env_keep_add %w(PATH RBENV_ROOT RBENV_VERSION)
+end
+
+sudo 'java_home' do
+  env_keep_subtract ['JAVA_HOME']
+end
