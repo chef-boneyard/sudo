@@ -17,7 +17,7 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 ### Chef
 
-- Chef 12.7+
+- Chef 12.21.3+
 
 ### Cookbooks
 
@@ -175,7 +175,7 @@ _Debian_
 node.default['authorization']['sudo']['sudoers_defaults'] = ['env_reset']
 ```
 
-_Ubuntu 12.04_
+_Ubuntu_
 
 ```ruby
 node.default['authorization']['sudo']['sudoers_defaults'] = [
