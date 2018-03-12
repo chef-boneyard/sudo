@@ -82,7 +82,11 @@ Attribute           | Description                                               
 
 **If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
 
-## Attributes
+## Usage
+
+We highly recommend using the sudo resource to define individual sudo entries, but this cookbook also ships with a recipe that can be included on a run_list and controlled using attributes.
+
+### Attributes
 
 - `node['authorization']['sudo']['groups']` - groups to enable sudo access (default: `[]`)
 - `node['authorization']['sudo']['users']` - users to enable sudo access (default: `[]`)
@@ -92,9 +96,7 @@ Attribute           | Description                                               
 - `node['authorization']['sudo']['sudoers_defaults']` - Array of `Defaults` entries to configure in `/etc/sudoers`
 - `node['authorization']['sudo']['setenv']` - Whether to permit preserving of environment with `sudo -E` (default: `false`)
 
-## Usage
-
-### Attributes
+### Using the Attributes
 
 To use attributes for defining sudoers, set the attributes above on the node (or role) itself:
 
