@@ -27,14 +27,14 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 **Note** Sudo version 1.7.2 or newer is required to use the sudo resource as it relies on the "#includedir" directive introduced in version 1.7.2\. The resource does not enforce installing the version. Supported releases of Ubuntu, Debian and RHEL (6+) all support this feature.
 
-There are two ways for rendering a sudoer-fragment using this LWRP:
+There are two ways for rendering a sudoer-fragment using this resource:
 
 1. Using the built-in template
 2. Using a custom, cookbook-level template
 
 Both methods will create the `/etc/sudoers.d/#{resourcename}` file with the correct permissions.
 
-The LWRP also performs **fragment validation**. If a sudoer-fragment is not valid, the Chef run will throw an exception and fail. This ensures that your sudoers file is always valid and cannot become corrupt (from this cookbook).
+The resource also performs **fragment validation**. If a sudoer-fragment is not valid, the Chef run will throw an exception and fail. This ensures that your sudoers file is always valid and cannot become corrupt (from this cookbook).
 
 Example using the built-in template:
 
