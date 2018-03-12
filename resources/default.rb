@@ -131,7 +131,7 @@ action_class do
     if new_resource.template
       Chef::Log.debug('Template property provided, all other properties ignored.')
 
-      resource = template "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}" do
+      resource = declare_resource(:template, "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}") do
         source new_resource.template
         owner 'root'
         group node['root_group']
