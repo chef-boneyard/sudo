@@ -8,10 +8,6 @@ describe 'sudo::default' do
   context 'usual business' do
     cached(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
-    it 'installs the sudo package' do
-      expect(chef_run).to install_package('sudo')
-    end
-
     it 'creates the /etc/sudoers file' do
       expect(chef_run).to render_file('/etc/sudoers').with_content(/Defaults      !lecture,tty_tickets,!fqdn/)
     end
@@ -21,31 +17,6 @@ describe 'sudo::default' do
         owner: 'root',
         mode: '0755'
       )
-    end
-  end
-
-  context 'with custom prefix' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
-        node.override['authorization']['sudo']['prefix'] = '/secret/etc'
-      end.converge(described_recipe)
-    end
-
-    it 'creates the sudoers file in the custom location' do
-      expect(chef_run).to render_file('/secret/etc/sudoers').with_content(/Defaults      !lecture,tty_tickets,!fqdn/)
-    end
-  end
-
-  context "node['authorization']['sudo']['users']" do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
-        node.override['authorization']['sudo']['prefix'] = '/secret/etc'
-        node.override['authorization']['sudo']['users'] = %w(bacon)
-      end.converge(described_recipe)
-    end
-
-    it 'adds users of the bacon group to the sudoers file' do
-      expect(chef_run).to render_file('/secret/etc/sudoers').with_content(/^bacon/)
     end
   end
 
@@ -101,7 +72,7 @@ describe 'sudo::default' do
     end
   end
 
-  context "node['authorization']['sudo']['prefix']" do
+  context 'config prefix' do
     context 'on SmartOS' do
       let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'smartos', version: '5.11').converge(described_recipe) }
 

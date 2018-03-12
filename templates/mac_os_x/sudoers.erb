@@ -30,4 +30,4 @@ root    ALL=(ALL) ALL
 %<%= group %> ALL=(ALL) <%= "NOPASSWD:" if @passwordless.to_s == 'true' %><%= "SETENV:" if @setenv.to_s == 'true' %>ALL
 <% end -%>
 
-<%= "#includedir #{node['authorization']['sudo']['prefix']}/sudoers.d" if @include_sudoers_d.to_s == 'true'  %>
+<%= "#includedir #{@config_prefix}/sudoers.d" if @include_sudoers_d.to_s == 'true'  %>

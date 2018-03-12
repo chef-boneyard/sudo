@@ -2,7 +2,7 @@
 # Cookbook:: sudo
 # Recipe:: default
 #
-# Copyright:: 2008-2016, Chef Software, Inc.
+# Copyright:: 2008-2018, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,27 +17,30 @@
 # limitations under the License.
 #
 
-prefix = node['authorization']['sudo']['prefix']
-
-package 'sudo' do
-  not_if 'which sudo'
-end
+config_prefix = case node['platform_family']
+                when 'smartos'
+                  '/opt/local/etc'
+                when 'freebsd'
+                  '/usr/local/etc'
+                else
+                  '/etc'
+                end
 
 if node['authorization']['sudo']['include_sudoers_d']
-  directory "#{prefix}/sudoers.d" do
+  directory "#{config_prefix}/sudoers.d" do
     mode node['authorization']['sudo']['sudoers_d_mode']
     owner 'root'
     group node['root_group']
   end
 
-  cookbook_file "#{prefix}/sudoers.d/README" do
+  cookbook_file "#{config_prefix}/sudoers.d/README" do
     mode '0440'
     owner 'root'
     group node['root_group']
   end
 end
 
-template "#{prefix}/sudoers" do
+template "#{config_prefix}/sudoers" do
   source 'sudoers.erb'
   mode '0440'
   owner 'root'
@@ -54,6 +57,7 @@ template "#{prefix}/sudoers" do
     env_keep_add: node['authorization']['sudo']['env_keep_add'],
     env_keep_subtract: node['authorization']['sudo']['env_keep_subtract'],
     custom_commands_users: node['authorization']['sudo']['custom_commands']['users'],
-    custom_commands_groups: node['authorization']['sudo']['custom_commands']['groups']
+    custom_commands_groups: node['authorization']['sudo']['custom_commands']['groups'],
+    config_prefix: config_prefix
   )
 end

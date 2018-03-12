@@ -14,4 +14,4 @@ end
 
 source_url 'https://github.com/chef-cookbooks/sudo'
 issues_url 'https://github.com/chef-cookbooks/sudo/issues'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+chef_version '>= 12.21.3' if respond_to?(:chef_version)
