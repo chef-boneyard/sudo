@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@chef.io'
 license 'Apache-2.0'
 description 'Installs sudo and configures /etc/sudoers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '4.0.1'
+version '5.0.0'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 

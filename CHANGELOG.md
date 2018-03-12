@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.0.0 (2018-03-11)
+
+- Converted the LWRP to a custom resource
+- Changed the package install logic to only try to install sudo when we're on a docker guest where sudo is generally missing. This uses the docker? helper which requires 12.21.3, which is the new minimum Chef version supported by this cookbook
+- The property validation logic previously in the resource is now actually run. This prevents combinations of resources that will not work together from being used.
+- Reordered the readme to list the resource first as this is the preferred way to use this resource
+- Removed the `node['authorization']['sudo']['prefix']` attribute. In the recipe this is automatically determined. In the resource there is a new `config_prefix` property. This should have no impact on users as the proper settings for each OS are still specified.
+- Added a new filename name_property is you want to specify the filename as something different than the resource's name. This helps avoid resource cloning issues.
+- The `:install` action has been renamed to `:create`, while retaining backwards compatibility with the old name
+- Resolved FC085 Foodcritic warning
+
 ## 4.0.1 (2018-02-16)
 
 - FIX: in templates the attribute "passwordless" and other with data type String always will be return true
