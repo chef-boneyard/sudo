@@ -120,6 +120,11 @@ action :install do
   action_create
 end
 
+action :remove do
+  Chef::Log.warn('The sudo :remove action has been renamed :delete. Please update your cookbook code for the new action')
+  action_delete
+end
+
 # Removes a user from the sudoers group
 action :delete do
   file "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}" do
