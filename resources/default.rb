@@ -79,8 +79,38 @@ action :create do
   target = "#{new_resource.config_prefix}/sudoers.d/"
   declare_resource(:directory, target) unless ::File.exist?(target)
 
-  Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because node['authorization']['sudo']['include_sudoers_d'] is set to false!") unless node['authorization']['sudo']['include_sudoers_d']
-  render_sudoer
+  Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because the #{new_resource.config_prefix}/sudoers config lacks the includedir directive that loads configs from #{new_resource.config_prefix}/sudoers.d/!") if ::File.readlines("#{new_resource.config_prefix}/sudoers").grep(/includedir/).empty?
+
+  if new_resource.template
+    Chef::Log.debug('Template property provided, all other properties ignored.')
+
+    declare_resource(:template, "#{target}#{new_resource.filename}") do
+      source new_resource.template
+      mode '0440'
+      variables new_resource.variables
+      verify 'visudo -cf %{path}'
+      action :create
+    end
+  else
+    declare_resource(:template, "#{target}#{new_resource.filename}") do
+      source 'sudoer.erb'
+      cookbook 'sudo'
+      mode '0440'
+      variables sudoer:            (new_resource.groups + new_resource.users).join(','),
+                host:               new_resource.host,
+                runas:              new_resource.runas,
+                nopasswd:           new_resource.nopasswd,
+                noexec:             new_resource.noexec,
+                commands:           new_resource.commands,
+                command_aliases:    new_resource.command_aliases,
+                defaults:           new_resource.defaults,
+                setenv:             new_resource.setenv,
+                env_keep_add:       new_resource.env_keep_add,
+                env_keep_subtract:  new_resource.env_keep_subtract
+      verify 'visudo -cf %{path}'
+      action :create
+    end
+  end
 end
 
 action :install do
@@ -103,99 +133,5 @@ action_class do
 
     # if specifying user or group and template at the same time fail
     raise 'You cannot specify users or groups properties and also specify a template. To use your own template pass in all template variables using the variables property.' if (!new_resource.users.empty? || !new_resource.groups.empty?) && !new_resource.template.nil?
-  end
-
-  # Validate the given resource (template) by writing it out to a file and then
-  # ensuring that file's contents pass `visudo -c`
-  def validate_fragment!(resource)
-    file = Tempfile.new('sudoer')
-
-    begin
-      file.write(capture(resource))
-      file.rewind
-
-      cmd = Mixlib::ShellOut.new("visudo -cf #{file.path}")
-      cmd.environment['PATH'] = "/usr/sbin:#{ENV['PATH']}" if platform_family?('suse')
-      cmd.environment['PATH'] = "/usr/local/sbin:#{ENV['PATH']}" if platform_family?('solaris2')
-      cmd.environment['PATH'] = "#{new_resource.visudo_path}:#{ENV['PATH']}" unless new_resource.visudo_path.nil?
-      cmd.run_command
-      unless cmd.exitstatus == 0
-        Chef::Log.error("Fragment validation failed: \n\n")
-        Chef::Log.error(file.read)
-        Chef::Application.fatal!("Template #{file.path} failed fragment validation!")
-      end
-    ensure
-      file.close
-      file.unlink
-    end
-  end
-
-  # Render a single sudoer template. This method has two modes:
-  #   1. using the :template option - the user can specify a template
-  #      that exists in the local cookbook for writing out the attributes
-  #   2. using the built-in template (recommended) - simply pass the
-  #      desired variables to the method and the correct template will be
-  #      written out for the user
-  def render_sudoer
-    if new_resource.template
-      Chef::Log.debug('Template property provided, all other properties ignored.')
-
-      resource = declare_resource(:template, "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}") do
-        source new_resource.template
-        owner 'root'
-        group node['root_group']
-        mode '0440'
-        variables new_resource.variables
-        action :nothing
-      end
-    else
-      resource = declare_resource(:template, "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}") do
-        source 'sudoer.erb'
-        cookbook 'sudo'
-        owner 'root'
-        group node['root_group']
-        mode '0440'
-        variables sudoer:            (new_resource.groups + new_resource.users).join(','),
-                  host:               new_resource.host,
-                  runas:              new_resource.runas,
-                  nopasswd:           new_resource.nopasswd,
-                  noexec:             new_resource.noexec,
-                  commands:           new_resource.commands,
-                  command_aliases:    new_resource.command_aliases,
-                  defaults:           new_resource.defaults,
-                  setenv:             new_resource.setenv,
-                  env_keep_add:       new_resource.env_keep_add,
-                  env_keep_subtract:  new_resource.env_keep_subtract
-        action :nothing
-      end
-    end
-
-    # Ensure that, adding this sudoer, would not break sudo
-    validate_fragment!(resource)
-
-    resource.run_action(:create)
-  end
-
-  private
-
-  # Capture a template to a string
-  def capture(template)
-    context = {}
-    context.merge!(template.variables)
-    context[:node] = node
-
-    eruby = Erubis::Eruby.new(::File.read(template_location(template)))
-    eruby.evaluate(context)
-  end
-
-  # Find the template
-  def template_location(template)
-    if template.local
-      template.source
-    else
-      context = template.instance_variable_get('@run_context')
-      cookbook = context.cookbook_collection[template.cookbook || template.cookbook_name]
-      cookbook.preferred_filename_on_disk_location(node, :templates, template.source)
-    end
   end
 end
