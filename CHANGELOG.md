@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.1.0 (2018-03-13)
+
+- Rework the readme to with additional documentation on the resource
+- Fix a compilation failure if the user was specifying their own template
+- Improve the conditions in which the property validation fails
+- Renamed the group property to groups with backwards compatibility
+- Renamed the user property to users with backwards compatibility
+- Change the type of users/groups to Arrays so you can either specify comma separated lists or arrays of users/groups
+- Improve the splitting of the list of users/groups to handle spaces before/after the commas
+- Properly add % to each group name in arrays as well as comma separated lists. Also support the scenario where one group has a % and the other does not
+- Support setting up sudo for both users and groups in the same config. We now combine the users and groups as you would expect
+
 ## 5.0.0 (2018-03-11)
 
 - Converted the LWRP to a custom resource
