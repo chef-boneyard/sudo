@@ -41,7 +41,7 @@ Attribute           | Description                                               
 `filename`          | name of the `/etc/sudoers.d` file                                                                  | restart-tomcat                           | current resource name
 `commands`          | array of commands this sudoer can execute                                                          | ['/etc/init.d/tomcat restart']           | ['ALL']
 `group`             | group to provide sudo privileges to, except `%` is prepended to the name in case it is not already | %admin                                   |
-`nopasswd`          | supply a password to invoke sudo                                                                   | true                                     | false
+`nopasswd`          | allow running sudo without specifying a password sudo                                              | true                                     | false
 `noexec`            | prevents commands from shelling out                                                                | true                                     | false
 `runas`             | User the command(s) can be run as                                                                  | root                                     | ALL
 `template`          | the erb template to render instead of the default                                                  | restart-tomcat.erb                       |
