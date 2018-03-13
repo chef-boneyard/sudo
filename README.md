@@ -25,6 +25,8 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 ## Resource
 
+Use the sudo resource to add or remove individual sudo entries using sudoers.d files.
+
 **Note** Sudo version 1.7.2 or newer is required to use the sudo resource as it relies on the "#includedir" directive introduced in version 1.7.2\. The resource does not enforce installing the version. Supported releases of Ubuntu, Debian and RHEL (6+) all support this feature.
 
 ### Actions
@@ -34,7 +36,7 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 ### Properties
 
-Attribute           | Description                                                                                        | Example                                  | Default
+Attribute           | Description                                                                                        | Example Value                            | Default Value
 ------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------- | ---------------------
 `filename`          | name of the `/etc/sudoers.d` file                                                                  | restart-tomcat                           | current resource name
 `commands`          | array of commands this sudoer can execute                                                          | ['/etc/init.d/tomcat restart']           | ['ALL']
