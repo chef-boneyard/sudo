@@ -24,8 +24,8 @@
 # acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
 # We convert either to `__`
 property :filename, String, name_property: true, coerce: proc { |x| x.gsub(/[\.~]/, '__') }
-property :user, String
-property :group, String
+property :users, [String, Array], default: [], coerce: proc { |x| x.is_a?(Array) ? x : x.split(',') }
+property :groups, [String, Array], default: [], coerce: proc { |x| coerce_groups(x) }
 property :commands, Array, default: ['ALL']
 property :host, String, default: 'ALL'
 property :runas, String, default: 'ALL'
@@ -40,6 +40,18 @@ property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
 property :visudo_path, String
 property :config_prefix, String, default: lazy { config_prefix }
+
+alias_method :user, :users
+alias_method :group, :groups
+
+# make sure each group starts with a %
+def coerce_groups(x)
+  # split strings on the commas with optional spaces on either side
+  groups = x.is_a?(Array) ? x : x.split(/\s*,\s*/)
+
+  # make sure all the groups start with %
+  groups.map { |g| g[0] == "%" ? g : "%#{g}" }
+end
 
 # default config prefix paths based on platform
 def config_prefix
@@ -87,10 +99,10 @@ action_class do
   # Ensure that the inputs are valid (we cannot just use the resource for this)
   def validate_properties
     # if group, user, env_keep_add, env_keep_subtract and template are nil, throw an exception
-    raise 'You must provide a user, group, env_keep_add, env_keep_subtract, or template properties!' if new_resource.user.nil? && new_resource.group.nil? && new_resource.template.nil? && new_resource.env_keep_add.nil? && new_resource.env_keep_subtract.nil?
+    raise 'You must specify users, groups, env_keep_add, env_keep_subtract, or template properties!' if new_resource.users.empty? && new_resource.groups.empty? && new_resource.template.nil? && new_resource.env_keep_add.empty? && new_resource.env_keep_subtract.empty?
 
     # if specifying user or group and template at the same time fail
-    raise 'You cannot specify user or group properties and also specify a template. To use your own template pass in all template variables using the variables property.' if (!new_resource.user.nil? || !new_resource.group.nil?) && !new_resource.template.nil?
+    raise 'You cannot specify users or groups properties and also specify a template. To use your own template pass in all template variables using the variables property.' if (!new_resource.users.empty? || !new_resource.groups.empty?) && !new_resource.template.nil?
   end
 
   # Validate the given resource (template) by writing it out to a file and then
@@ -137,15 +149,13 @@ action_class do
         action :nothing
       end
     else
-      sudoer = new_resource.user || ("%#{new_resource.group}".squeeze('%') if new_resource.group)
-
       resource = declare_resource(:template, "#{new_resource.config_prefix}/sudoers.d/#{new_resource.filename}") do
         source 'sudoer.erb'
         cookbook 'sudo'
         owner 'root'
         group node['root_group']
         mode '0440'
-        variables sudoer:             sudoer,
+        variables sudoer:            (new_resource.groups + new_resource.users).join(','),
                   host:               new_resource.host,
                   runas:              new_resource.runas,
                   nopasswd:           new_resource.nopasswd,

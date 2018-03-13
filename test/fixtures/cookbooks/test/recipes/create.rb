@@ -1,5 +1,11 @@
 include_recipe 'test::default'
 
+sudo "sysadmins" do
+  users "tas50"
+  groups "sysadmins, superusers"
+  nopasswd true
+end
+
 sudo 'tomcat' do
   user '%tomcat'
   runas 'app_user'

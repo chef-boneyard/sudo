@@ -83,3 +83,12 @@ describe file('/etc/sudoers.d/java_home') do
   its('mode') { should eq 288 }
   its('content') { should match(/^Defaults    env_keep -= "JAVA_HOME"$/) }
 end
+
+# supports sudoers for multiple users and groups
+describe file('/etc/sudoers.d/sysadmins') do
+  it { should be_file }
+  it { should be_owned_by 'root' }
+  its('group') { should eq 'root' }
+  its('mode') { should eq 288 }
+  its('content') { should match(/^%sysadmins,%superusers,tas50 ALL=\(ALL\) NOPASSWD:ALL$/) }
+end
