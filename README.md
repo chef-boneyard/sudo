@@ -23,46 +23,16 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 - None
 
-### Sudo Resource
+## Resource
 
 **Note** Sudo version 1.7.2 or newer is required to use the sudo resource as it relies on the "#includedir" directive introduced in version 1.7.2\. The resource does not enforce installing the version. Supported releases of Ubuntu, Debian and RHEL (6+) all support this feature.
 
-There are two ways for rendering a sudoer-fragment using this resource:
+### Actions
 
-1. Using the built-in template
-2. Using a custom, cookbook-level template
+- `:create` - Create a sudoers config
+- `:delete` - Delete a sudoers config
 
-Both methods will create the `/etc/sudoers.d/#{resourcename}` file with the correct permissions.
-
-The resource also performs **fragment validation**. If a sudoer-fragment is not valid, the Chef run will throw an exception and fail. This ensures that your sudoers file is always valid and cannot become corrupt (from this cookbook).
-
-Example using the built-in template:
-
-```ruby
-sudo 'tomcat' do
-  user      "%tomcat"    # or a username
-  runas     'app_user'   # or 'app_user:tomcat'
-  commands  ['/etc/init.d/tomcat restart']
-end
-```
-
-```ruby
-sudo 'tomcat' do
-  template    'my_tomcat.erb' # local cookbook template
-  variables   :cmds => ['/etc/init.d/tomcat restart']
-end
-```
-
-In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
-
-```bash
-# This file is managed by Chef for node.example.com
-# Do NOT modify this file directly.
-
-%tomcat ALL=(app_user) /etc/init.d/tomcat restart
-```
-
-#### Resource Properties
+### Properties
 
 Attribute           | Description                                                                                        | Example                                  | Default
 ------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------- | ---------------------
@@ -80,7 +50,65 @@ Attribute           | Description                                               
 `env_keep_subtract` | array of strings to remove from env_keep                                                           | ['DISPLAY', 'MY_SECURE_ENV_VAR']         |
 `variables`         | the variables to pass to the custom template                                                       | commands: ['/etc/init.d/tomcat restart'] |
 
-**If you use the template attribute, all other attributes will be ignored except for the variables attribute.**
+**If you use the template property, all other properties will be ignored except for the variables property.**
+
+### Examples
+
+#### user bob sudo privileges for any command
+
+```ruby
+sudo 'bob' do
+  user 'bob'
+end
+```
+
+#### group sysadmin passwordless sudo privileges for any command
+
+```ruby
+sudo "sysadmin" do
+  group "sysadmin"
+  nopasswd true
+end
+```
+
+### Built-In vs. Provided Templates
+
+The resource provides two methods for templating the sudoers config files:
+
+1. Using the built-in template
+2. Using a custom, cookbook-level template
+
+Both methods will create the `/etc/sudoers.d/#{resourcename}` files with the correct permissions.
+
+The resource also performs **fragment validation**. If a sudoer-fragment is not valid, the Chef run will throw an exception and fail. This ensures that your sudoers file is always valid and cannot become corrupt (from this cookbook).
+
+#### Using the Built-in Template
+
+```ruby
+sudo 'tomcat' do
+  user      "%tomcat"    # or a username
+  runas     'app_user'   # or 'app_user:tomcat'
+  commands  ['/etc/init.d/tomcat restart']
+end
+```
+
+#### Specifying Your Own Template
+
+```ruby
+sudo 'tomcat' do
+  template    'my_tomcat.erb' # local cookbook template
+  variables   :cmds => ['/etc/init.d/tomcat restart']
+end
+```
+
+In either case, the following file would be generated in `/etc/sudoers.d/tomcat`
+
+```bash
+# This file is managed by Chef for node.example.com
+# Do NOT modify this file directly.
+
+%tomcat ALL=(app_user) /etc/init.d/tomcat restart
+```
 
 ## Usage
 
