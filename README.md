@@ -36,21 +36,21 @@ Use the sudo resource to add or remove individual sudo entries using sudoers.d f
 
 ### Properties
 
-Attribute           | Description                                                                                           | Example Value                            | Default Value
-------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------- | ---------------------
-`filename`          | name of the `/etc/sudoers.d` file                                                                     | restart-tomcat                           | current resource name
-`commands`          | array of commands this sudoer can execute                                                             | ['/etc/init.d/tomcat restart']           | ['ALL']
-`groups`            | group(s) to provide sudo privileges to, except `%` is prepended to the name in case it is not already | %admin                                   |
-`nopasswd`          | allow running sudo without specifying a password sudo                                                 | true                                     | false
-`noexec`            | prevents commands from shelling out                                                                   | true                                     | false
-`runas`             | User the command(s) can be run as                                                                     | root                                     | ALL
-`template`          | the erb template to render instead of the default                                                     | restart-tomcat.erb                       |
-`users`             | user(s) to provide sudo privileges to                                                                 | tomcat                                   |
-`defaults`          | array of defaults this user has                                                                       | ['!requiretty','env_reset']              |
-`setenv`            | whether to permit the preserving of environment with `sudo -E`                                        | true                                     | false
-`env_keep_add`      | array of strings to add to env_keep                                                                   | ['HOME', 'MY_ENV_VAR MY_OTHER_ENV_VAR']  |
-`env_keep_subtract` | array of strings to remove from env_keep                                                              | ['DISPLAY', 'MY_SECURE_ENV_VAR']         |
-`variables`         | the variables to pass to the custom template                                                          | commands: ['/etc/init.d/tomcat restart'] |
+Property            | Description                                                                                                                                                                                              | Example Value                            | Default Value
+------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ---------------
+`filename`          | name of the `/etc/sudoers.d` file                                                                                                                                                                        | restart-tomcat                           | resource's name
+`commands`          | array of commands this sudoer can execute                                                                                                                                                                | ['/etc/init.d/tomcat restart']           | ['ALL']
+`groups`            | group(s) to provide sudo privileges to. This accepts either an array or a comma separated list. Leading % on group names is optional. This property was named 'group' prior to the 5.1 cookbook release. | %admin,superadmin                        | []
+`nopasswd`          | allow running sudo without specifying a password sudo                                                                                                                                                    | true                                     | false
+`noexec`            | prevents commands from shelling out                                                                                                                                                                      | true                                     | false
+`runas`             | User the command(s) can be run as                                                                                                                                                                        | root                                     | ALL
+`template`          | the erb template to render instead of the default                                                                                                                                                        | restart-tomcat.erb                       |
+`users`             | user(s) to provide sudo privileges to. This accepts either an array or a comma separated. This property was named 'user' prior to the 5.1 cookbook release. list.                                        | [tomcat, webapp]                         | []
+`defaults`          | array of defaults this user has                                                                                                                                                                          | ['!requiretty','env_reset']              |
+`setenv`            | whether to permit the preserving of environment with `sudo -E`                                                                                                                                           | true                                     | false
+`env_keep_add`      | array of strings to add to env_keep                                                                                                                                                                      | ['HOME', 'MY_ENV_VAR MY_OTHER_ENV_VAR']  |
+`env_keep_subtract` | array of strings to remove from env_keep                                                                                                                                                                 | ['DISPLAY', 'MY_SECURE_ENV_VAR']         |
+`variables`         | the variables to pass to the custom template. Ignored if not using a custom template.                                                                                                                    | commands: ['/etc/init.d/tomcat restart'] |
 
 **If you use the template property, all other properties will be ignored except for the variables property.**
 
@@ -69,6 +69,16 @@ end
 ```ruby
 sudo "sysadmin" do
   group "sysadmin"
+  nopasswd true
+end
+```
+
+#### group sysadmin/superadmin and user bob passwordless sudo privileges for any command
+
+```ruby
+sudo "sysadmin" do
+  group ['sysadmin', 'superadmin']
+  user "bob"
   nopasswd true
 end
 ```
