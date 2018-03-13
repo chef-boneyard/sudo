@@ -73,6 +73,14 @@ describe 'sudo::default' do
   end
 
   context 'config prefix' do
+    context 'on macOS' do
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.13').converge(described_recipe) }
+
+      it 'uses /private/etc' do
+        expect(chef_run).to create_template('/private/etc/sudoers')
+      end
+    end
+
     context 'on SmartOS' do
       let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'smartos', version: '5.11').converge(described_recipe) }
 

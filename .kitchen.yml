@@ -31,6 +31,11 @@ platforms:
   - name: solaris-11.3
     driver:
       box: chef/solaris-11.3 # private box
+  - name: macosx-10.12
+    driver:
+      box: chef/macos-10.12 # private box in Chef's Atlas account
+      provider: vmware_fusion
+
 
 suites:
   - name: default

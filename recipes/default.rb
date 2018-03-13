@@ -22,6 +22,8 @@ config_prefix = case node['platform_family']
                   '/opt/local/etc'
                 when 'freebsd'
                   '/usr/local/etc'
+                when 'mac_os_x'
+                  '/private/etc'
                 else
                   '/etc'
                 end
