@@ -77,7 +77,7 @@ action :create do
       source new_resource.template
       mode '0440'
       variables new_resource.variables
-      verify 'visudo -cf %{path}'
+      verify '/usr/sbin/visudo -cf %{path}' if visudo_present?
       action :create
     end
   else
@@ -96,7 +96,7 @@ action :create do
                 setenv:             new_resource.setenv,
                 env_keep_add:       new_resource.env_keep_add,
                 env_keep_subtract:  new_resource.env_keep_subtract
-      verify 'visudo -cf %{path}'
+      verify '/usr/sbin/visudo -cf %{path}' if visudo_present?
       action :create
     end
   end
@@ -128,5 +128,10 @@ action_class do
 
     # if specifying user or group and template at the same time fail
     raise 'You cannot specify users or groups properties and also specify a template. To use your own template pass in all template variables using the variables property.' if (!new_resource.users.empty? || !new_resource.groups.empty?) && !new_resource.template.nil?
+  end
+
+  def visudo_present?
+    return if ::File.exist?('/usr/sbin/visudo')
+    Chef::Log.warn("The visudo binary cannot be found at '/usr/sbin/visudo'. Skipping sudoer file validation")
   end
 end
