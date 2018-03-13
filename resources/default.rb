@@ -4,6 +4,7 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 # Author:: Seth Vargo (<sethvargo@gmail.com>)
+# Author:: Tim Smith (<tsmith@chef.io>)
 #
 # Copyright:: 2011-2018, Bryan w. Berry
 # Copyright:: 2012-2018, Seth Vargo
@@ -39,7 +40,7 @@ property :setenv, [true, false], default: false
 property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
 property :visudo_path, String
-property :config_prefix, String, default: lazy { platform_family?('smartos') ? '/opt/local/etc' : '/etc' }
+property :config_prefix, String, default: lazy { config_prefix }
 
 alias_method :user, :users
 alias_method :group, :groups
@@ -51,6 +52,18 @@ def coerce_groups(x)
 
   # make sure all the groups start with %
   groups.map { |g| g[0] == '%' ? g : "%#{g}" }
+end
+
+# default config prefix paths based on platform
+def config_prefix
+  case node['platform_family']
+  when 'smartos'
+    '/opt/local/etc'
+  when 'mac_os_x'
+    '/private/etc'
+  else
+    '/etc'
+  end
 end
 
 # Default action - install a single sudoer
