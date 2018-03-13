@@ -86,14 +86,11 @@ end
 action_class do
   # Ensure that the inputs are valid (we cannot just use the resource for this)
   def validate_properties
-    # below rules do not apply for env_keep
-    return if new_resource.env_keep_add || new_resource.env_keep_subtract
+    # if group, user, env_keep_add, env_keep_subtract and template are nil, throw an exception
+    raise 'You must provide a user, group, env_keep_add, env_keep_subtract, or template properties!' if new_resource.user.nil? && new_resource.group.nil? && new_resource.template.nil? && new_resource.env_keep_add.nil? && new_resource.env_keep_subtract.nil?
 
-    # if group, user, and template are nil, throw an exception
-    raise 'You must provide a user, group, or template properties!' if new_resource.user.nil? && new_resource.group.nil? && new_resource.template.nil?
-
-    # if specifying user group and template at the same time fail
-    raise 'You cannot specify user, group, and template properties at the same time!' if !new_resource.user.nil? && !new_resource.group.nil? && !new_resource.template.nil?
+    # if specifying user or group and template at the same time fail
+    raise 'You cannot specify user or group properties and also specify a template. To use your own template pass in all template variables using the variables property.' if (!new_resource.user.nil? || !new_resource.group.nil?) && !new_resource.template.nil?
   end
 
   # Validate the given resource (template) by writing it out to a file and then
