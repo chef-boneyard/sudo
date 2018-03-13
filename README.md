@@ -98,7 +98,7 @@ The resource also performs **fragment validation**. If a sudoer-fragment is not 
 
 ```ruby
 sudo 'tomcat' do
-  user      "%tomcat"    # or a username
+  user      '%tomcat'    # or a username
   runas     'app_user'   # or 'app_user:tomcat'
   commands  ['/etc/init.d/tomcat restart']
 end
@@ -109,7 +109,7 @@ end
 ```ruby
 sudo 'tomcat' do
   template    'my_tomcat.erb' # local cookbook template
-  variables   :cmds => ['/etc/init.d/tomcat restart']
+  variables   cmds: ['/etc/init.d/tomcat restart']
 end
 ```
 
