@@ -39,7 +39,7 @@ property :setenv, [true, false], default: false
 property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
 property :visudo_path, String
-property :config_prefix, String, default: lazy { config_prefix }
+property :config_prefix, String, default: lazy { platform_family?('smartos') ? '/opt/local/etc' : '/etc' }
 
 alias_method :user, :users
 alias_method :group, :groups
@@ -53,20 +53,9 @@ def coerce_groups(x)
   groups.map { |g| g[0] == '%' ? g : "%#{g}" }
 end
 
-# default config prefix paths based on platform
-def config_prefix
-  case node['platform_family']
-  when 'smartos'
-    '/opt/local/etc'
-  when 'freebsd'
-    '/usr/local/etc'
-  else
-    '/etc'
-  end
-end
-
 # Default action - install a single sudoer
 action :create do
+  validate_platform
   validate_properties
 
   if docker? # don't even put this into resource collection unless we're in docker
@@ -88,7 +77,7 @@ action :create do
       source new_resource.template
       mode '0440'
       variables new_resource.variables
-      verify 'visudo -cf %{path}'
+      verify '/usr/sbin/visudo -cf %{path}' if visudo_present?
       action :create
     end
   else
@@ -107,7 +96,7 @@ action :create do
                 setenv:             new_resource.setenv,
                 env_keep_add:       new_resource.env_keep_add,
                 env_keep_subtract:  new_resource.env_keep_subtract
-      verify 'visudo -cf %{path}'
+      verify '/usr/sbin/visudo -cf %{path}' if visudo_present?
       action :create
     end
   end
@@ -126,6 +115,12 @@ action :delete do
 end
 
 action_class do
+  # Make sure we fail on FreeBSD
+  def validate_platform
+    return unless platform_family?('freebsd')
+    raise 'The sudo resource cannot run on FreeBSD as FreeBSD does not support using a sudoers.d config directory.'
+  end
+
   # Ensure that the inputs are valid (we cannot just use the resource for this)
   def validate_properties
     # if group, user, env_keep_add, env_keep_subtract and template are nil, throw an exception
@@ -133,5 +128,10 @@ action_class do
 
     # if specifying user or group and template at the same time fail
     raise 'You cannot specify users or groups properties and also specify a template. To use your own template pass in all template variables using the variables property.' if (!new_resource.users.empty? || !new_resource.groups.empty?) && !new_resource.template.nil?
+  end
+
+  def visudo_present?
+    return if ::File.exist?('/usr/sbin/visudo')
+    Chef::Log.warn("The visudo binary cannot be found at '/usr/sbin/visudo'. Skipping sudoer file validation")
   end
 end

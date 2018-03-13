@@ -22,11 +22,22 @@ platforms:
   - name: opensuse-leap-42
   - name: ubuntu-14.04
   - name: ubuntu-16.04
+  - name: sles-11-sp2
+    driver:
+      box: chef/sles-11-sp2-x86_64 # private box
+  - name: sles-12-sp1
+    driver:
+      box: chef/sles-12-sp1-x86_64 # private box
+  - name: solaris-11.3
+    driver:
+      box: chef/solaris-11.3 # private box
 
 suites:
   - name: default
     run_list: test::default
   - name: create
     run_list: test::create
+    excludes: ["freebsd-10", "freebsd-11"]
   - name: remove
     run_list: test::remove
+    excludes: ["freebsd-10", "freebsd-11"]
