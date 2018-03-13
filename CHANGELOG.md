@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.3.0 (2018-03-13)
+
+- Use the includedir directive on Solaris and macOS in addition to Linux. All three of these platforms support it out of the box on non-EOL releases
+- Fail with a useful message in the resource when on FreeBSD since FreeBSD doesn't support sudoers.d`
+- Skip / warn if visudo isn't present where we expect it to be instead of failing hard
+- Fully support macOS in the resource and recipe
+
 ## 5.2.0 (2018-03-13)
 
 - Refactored the resource to use Chef's built in template verification functionality. This avoids a lot of custom work we did in the resource to verify the config file before we wrote it out. Not only does this reduce code complexity/fragility in this cookbook, it removes the double template resource you'd see in converges before.
