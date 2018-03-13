@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.3.1 (2018-03-13)
+
+- Use visudo_path property to override the path to visudo
+- Handle poorly deliminated strings in the users property
+- Add backwards compatibility for the :delete action
+
 ## 5.3.0 (2018-03-13)
 
 - Use the includedir directive on Solaris and macOS in addition to Linux. All three of these platforms support it out of the box on non-EOL releases
