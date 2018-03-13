@@ -1,8 +1,8 @@
 include_recipe 'test::default'
 
-sudo "sysadmins" do
-  users "tas50"
-  groups "sysadmins, superusers"
+sudo 'sysadmins' do
+  users 'tas50'
+  groups 'sysadmins, superusers'
   nopasswd true
 end
 

@@ -50,7 +50,7 @@ def coerce_groups(x)
   groups = x.is_a?(Array) ? x : x.split(/\s*,\s*/)
 
   # make sure all the groups start with %
-  groups.map { |g| g[0] == "%" ? g : "%#{g}" }
+  groups.map { |g| g[0] == '%' ? g : "%#{g}" }
 end
 
 # default config prefix paths based on platform
