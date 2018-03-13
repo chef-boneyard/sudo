@@ -25,7 +25,7 @@
 # acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
 # We convert either to `__`
 property :filename, String, name_property: true, coerce: proc { |x| x.gsub(/[\.~]/, '__') }
-property :users, [String, Array], default: [], coerce: proc { |x| x.is_a?(Array) ? x : x.split(',') }
+property :users, [String, Array], default: [], coerce: proc { |x| x.is_a?(Array) ? x : x.split(/\s*,\s*/) }
 property :groups, [String, Array], default: [], coerce: proc { |x| coerce_groups(x) }
 property :commands, Array, default: ['ALL']
 property :host, String, default: 'ALL'
