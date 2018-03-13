@@ -43,6 +43,6 @@ suites:
   - name: create
     run_list: test::create
     excludes: ["freebsd-10", "freebsd-11"]
-  - name: remove
-    run_list: test::remove
+  - name: delete
+    run_list: test::delete
     excludes: ["freebsd-10", "freebsd-11"]
