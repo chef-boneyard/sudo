@@ -39,7 +39,7 @@ property :command_aliases, Array, default: []
 property :setenv, [true, false], default: false
 property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
-property :visudo_path, String
+property :visudo_path, String, default: '/usr/sbin/visudo'
 property :config_prefix, String, default: lazy { config_prefix }
 
 alias_method :user, :users
@@ -90,7 +90,7 @@ action :create do
       source new_resource.template
       mode '0440'
       variables new_resource.variables
-      verify '/usr/sbin/visudo -cf %{path}' if visudo_present?
+      verify "#{new_resource.visudo_path} -cf %{path}" if visudo_present?
       action :create
     end
   else
@@ -109,7 +109,7 @@ action :create do
                 setenv:             new_resource.setenv,
                 env_keep_add:       new_resource.env_keep_add,
                 env_keep_subtract:  new_resource.env_keep_subtract
-      verify '/usr/sbin/visudo -cf %{path}' if visudo_present?
+      verify "#{new_resource.visudo_path} -cf %{path}" if visudo_present?
       action :create
     end
   end
@@ -144,7 +144,7 @@ action_class do
   end
 
   def visudo_present?
-    return if ::File.exist?('/usr/sbin/visudo')
-    Chef::Log.warn("The visudo binary cannot be found at '/usr/sbin/visudo'. Skipping sudoer file validation")
+    return if ::File.exist?(new_resource.visudo_path)
+    Chef::Log.warn("The visudo binary cannot be found at '#{new_resource.visudo_path}'. Skipping sudoer file validation. If visudo is on this system you can specify the path using the 'visudo_path' property.")
   end
 end
