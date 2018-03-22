@@ -39,9 +39,16 @@ property :command_aliases, Array, default: []
 property :setenv, [true, false], default: false
 property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
-property :visudo_path, String, default: '/usr/sbin/visudo'
+property :visudo_path, String # legacy placeholder for cookbook users. We raise when used below
+property :visudo_binary, String, default: '/usr/sbin/visudo'
 property :config_prefix, String, default: lazy { config_prefix }
 
+# handle legacy cookbook property
+def after_created
+  raise "The 'visudo_path' property from the sudo cookbook has been replaced with the 'visudo_binary' property. The path is now more intelligently determined and for most users specifying the path should no longer be necessary. If this resource still cannot determine the path to visudo then provide the full path to the binary with the 'visudo_binary' property." if visudo_path
+end
+
+# VERY old legacy properties
 alias_method :user, :users
 alias_method :group, :groups
 
@@ -55,6 +62,7 @@ def coerce_groups(x)
 end
 
 # default config prefix paths based on platform
+# @return [String]
 def config_prefix
   case node['platform_family']
   when 'smartos'
@@ -91,7 +99,7 @@ action :create do
       source new_resource.template
       mode '0440'
       variables new_resource.variables
-      verify "#{new_resource.visudo_path} -cf %{path}" if visudo_present?
+      verify "#{new_resource.visudo_binary} -cf %{path}" if visudo_present?
       action :create
     end
   else
@@ -110,7 +118,7 @@ action :create do
                 setenv:             new_resource.setenv,
                 env_keep_add:       new_resource.env_keep_add,
                 env_keep_subtract:  new_resource.env_keep_subtract
-      verify "#{new_resource.visudo_path} -cf %{path}" if visudo_present?
+      verify "#{new_resource.visudo_binary} -cf %{path}" if visudo_present?
       action :create
     end
   end
@@ -144,7 +152,7 @@ action_class do
   end
 
   def visudo_present?
-    return if ::File.exist?(new_resource.visudo_path)
-    Chef::Log.warn("The visudo binary cannot be found at '#{new_resource.visudo_path}'. Skipping sudoer file validation. If visudo is on this system you can specify the path using the 'visudo_path' property.")
+    return if ::File.exist?(new_resource.visudo_binary)
+    Chef::Log.warn("The visudo binary cannot be found at '#{new_resource.visudo_binary}'. Skipping sudoer file validation. If visudo is on this system you can specify the path using the 'visudo_binary' property.")
   end
 end
