@@ -61,6 +61,8 @@ def config_prefix
     '/opt/local/etc'
   when 'mac_os_x'
     '/private/etc'
+  when 'freebsd'
+    '/usr/local/etc'
   else
     '/etc'
   end
@@ -68,7 +70,6 @@ end
 
 # Default action - install a single sudoer
 action :create do
-  validate_platform
   validate_properties
 
   if docker? # don't even put this into resource collection unless we're in docker
@@ -133,12 +134,6 @@ action :delete do
 end
 
 action_class do
-  # Make sure we fail on FreeBSD
-  def validate_platform
-    return unless platform_family?('freebsd')
-    raise 'The sudo resource cannot run on FreeBSD as FreeBSD does not support using a sudoers.d config directory.'
-  end
-
   # Ensure that the inputs are valid (we cannot just use the resource for this)
   def validate_properties
     # if group, user, env_keep_add, env_keep_subtract and template are nil, throw an exception
