@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.3.2 (2018-03-22)
+
+- Restore resource behavior on FreeBSD.
+
 ## 5.3.1 (2018-03-13)
 
 - Use visudo_path property to override the path to visudo
