@@ -42,7 +42,7 @@ property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
 property :visudo_path, String # legacy placeholder for cookbook users. We raise when used below
 property :visudo_binary, String, default: '/usr/sbin/visudo'
-property :config_prefix, String, default: lazy { config_prefix }
+property :config_prefix, String, default: lazy { platform_config_prefix }
 
 # handle legacy cookbook property
 def after_created
@@ -64,7 +64,7 @@ end
 
 # default config prefix paths based on platform
 # @return [String]
-def config_prefix
+def platform_config_prefix
   case node['platform_family']
   when 'smartos'
     '/opt/local/etc'
