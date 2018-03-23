@@ -9,6 +9,7 @@
 # Copyright:: 2011-2018, Bryan w. Berry
 # Copyright:: 2012-2018, Seth Vargo
 # Copyright:: 2015-2018, Chef Software, Inc.
+# License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -152,7 +153,7 @@ action_class do
   end
 
   def visudo_present?
-    return if ::File.exist?(new_resource.visudo_binary)
+    return true if ::File.exist?(new_resource.visudo_binary)
     Chef::Log.warn("The visudo binary cannot be found at '#{new_resource.visudo_binary}'. Skipping sudoer file validation. If visudo is on this system you can specify the path using the 'visudo_binary' property.")
   end
 end
