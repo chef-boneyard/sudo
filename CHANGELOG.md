@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.3.3 (2018-03-22)
+
+- Properly deprecate the undocumented visudo_path property for visudo_binary. Without realizing it later on when I went to make a release I changed the behavior of this property. It was never documented in the readme or the changelog so I suspect few people are using it, but just in case we fail hard on the old name now with helpful messaging.
+- Properly return true in method that looks for visudo
+- Avoid name conflicts between properties and the path helper method
+
 ## 5.3.2 (2018-03-22)
 
 - Restore resource behavior on FreeBSD.
