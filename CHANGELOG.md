@@ -1,6 +1,9 @@
 # sudo Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the sudo cookbook.
+## 5.4.0 (unreleased)
+- add support for aix
+
 
 ## 5.3.3 (2018-03-22)
 
@@ -63,7 +66,7 @@ This file is used to list changes made in each version of the sudo cookbook.
 ### Breaking Changes
 
 - sudo .d functionality is now enabled by default on Linux systems. This allows the sudo resource to function with setting `node['authorization']['sudo']['include_sudoers_d']` to true. Only some older / EoL distros this will break sudo functionality so make sure you test this and set it to false if you're running an EoL distro
-- The `sysadmin` group is no longer added to sudoers by default anymore. Historically many community cookbooks assumed all admins were in this sysadmins group. We've moved away from that assumption since it was a suprise to many when this group was added. If you rely on this behavior make sure to `node['authorization']['sudo']['groups']` attribute to inlude the sysadmin group. 
+- The `sysadmin` group is no longer added to sudoers by default anymore. Historically many community cookbooks assumed all admins were in this sysadmins group. We've moved away from that assumption since it was a suprise to many when this group was added. If you rely on this behavior make sure to `node['authorization']['sudo']['groups']` attribute to inlude the sysadmin group.
 
 ### Other Changes
 
@@ -92,7 +95,7 @@ This file is used to list changes made in each version of the sudo cookbook.
 
 ## 3.5.0 (2017-05-16)
 
-- Add sudo package management to resource 
+- Add sudo package management to resource
 
 ## 3.4.0 (2017-04-26)
 

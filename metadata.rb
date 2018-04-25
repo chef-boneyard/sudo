@@ -4,11 +4,11 @@ maintainer_email 'cookbooks@chef.io'
 license 'Apache-2.0'
 description 'Installs sudo and configures /etc/sudoers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '5.3.3'
+version '5.4.0'
 
 recipe 'sudo', 'Installs sudo and configures /etc/sudoers'
 
-%w(amazon redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific zlinux suse opensuse opensuseleap).each do |os|
+%w(aix amazon redhat centos fedora ubuntu debian freebsd mac_os_x oracle scientific zlinux suse opensuse opensuseleap).each do |os|
   supports os
 end
 
