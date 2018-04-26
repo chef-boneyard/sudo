@@ -8,6 +8,7 @@ The default recipe configures the `/etc/sudoers` file. The cookbook also include
 
 ### Platforms
 
+- AIX  
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific/Amazon/Oracle
 - Amazon Linux
