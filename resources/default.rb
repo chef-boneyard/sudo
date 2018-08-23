@@ -23,7 +23,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-chef_version_for_provides "< 14.0" if defined?(:chef_version_for_provides)
+chef_version_for_provides '< 14.0' if defined?(:chef_version_for_provides)
 resource_name :sudo
 
 # acording to the sudo man pages sudo will ignore files in an include dir that have a `.` or `~`
