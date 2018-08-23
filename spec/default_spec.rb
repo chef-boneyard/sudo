@@ -119,9 +119,9 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['custom_commands']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['command_aliases'] =
+        node.override['authorization']['sudo']['command_aliases'] =
           [{ name: 'TESTA', command_list: ['/usr/bin/whoami'] }, { name: 'TeSTb', command_list: ['/usr/bin/ruby', '! /usr/bin/perl'] }]
-        node.set['authorization']['sudo']['custom_commands']['users'] =
+        node.override['authorization']['sudo']['custom_commands']['users'] =
           [{ user: 'test_usera', passwordless: true, command_list: ['TESTA'] }, { user: 'test_userb', passwordless: false, command_list: ['TESTB'] }]
       end.converge(described_recipe)
     end
@@ -139,7 +139,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['env_keep_add']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['env_keep_add'] = ['TEST_ENV_ADD']
+        node.override['authorization']['sudo']['env_keep_add'] = ['TEST_ENV_ADD']
       end.converge(described_recipe)
     end
     it 'adds environment variables to /etc/sudoers' do
@@ -152,7 +152,7 @@ describe 'sudo::default' do
   context "node['authorization']['sudo']['env_keep_subtract']" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['authorization']['sudo']['env_keep_subtract'] = ['TEST_ENV_SUB']
+        node.override['authorization']['sudo']['env_keep_subtract'] = ['TEST_ENV_SUB']
       end.converge(described_recipe)
     end
     it 'adds environment variables to /etc/sudoers' do
