@@ -1,9 +1,14 @@
 # sudo Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the sudo cookbook.
-## 5.4.0 (unreleased)
-- add support for aix
 
+## 5.4.1 (2018-08-29)
+
+- Avoid deprecation warnings with Chef 14.3+ by not loading resources that are now built into Chef
+
+## 5.4.0 (2018-04-26)
+
+- Add support for aix
 
 ## 5.3.3 (2018-03-22)
 
