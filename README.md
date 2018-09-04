@@ -4,11 +4,13 @@
 
 The default recipe configures the `/etc/sudoers` file. The cookbook also includes a sudo resource to adding and removing individual sudo entries.
 
+NOTE: The `sudo` resource is now built into Chef 14+. When Chef 15 is released (April 2019) this resource will be removed from this cookbook as all users should be on Chef 14+.
+
 ## Requirements
 
 ### Platforms
 
-- AIX  
+- AIX
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific/Amazon/Oracle
 - Amazon Linux
