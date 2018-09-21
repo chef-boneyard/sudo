@@ -80,6 +80,24 @@ def platform_config_prefix
   end
 end
 
+# Validates if each element in an array starts with `/` or is in
+# ALL_CAPS. This is helpful for ensuring that the commands
+# passing into the sudoers resource as they need a full path or a
+# `Cmnd_Alias`. This should help people more easily catch issues
+# where the user requested `tail SOME_ARGS SOME_FILE` where they
+# need to use `/usr/bin/tail SOME_ARGS SOME_FILE`.
+# return [TrueClass, FalseClass]
+def validate_commands_path(commands)
+  commands.each do |command|
+    cmd = command.split(' ').first
+    if command.starts_with('/') || cmd.upcase == cmd
+      true
+    else
+      false
+    end
+  end
+end
+
 # Default action - install a single sudoer
 action :create do
   validate_properties
@@ -95,6 +113,10 @@ action :create do
   declare_resource(:directory, target) unless ::File.exist?(target)
 
   Chef::Log.warn("#{new_resource.filename} will be rendered, but will not take effect because the #{new_resource.config_prefix}/sudoers config lacks the includedir directive that loads configs from #{new_resource.config_prefix}/sudoers.d/!") if ::File.readlines("#{new_resource.config_prefix}/sudoers").grep(/includedir/).empty?
+
+  if new_resource.commands && !validate_commands_path(new_resource.commands)
+    Chef::Log.fatal('To restrict sudoer commands you must use absolute paths. For example to use `tail` you must specify `/usr/bin/tail` or whatever the appropriate path is for your system. This is becase someone could create a command called `tail` and put it in their path, sudo does not know which one to allow.')
+  end
 
   if new_resource.template
     Chef::Log.debug('Template property provided, all other properties ignored.')
