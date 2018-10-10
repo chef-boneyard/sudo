@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.4.4 (2018-10-09)
+
+- Fix the command validation method
+
 ## 5.4.3 (2018-10-09)
 
 - adds better validation for commands passed in
