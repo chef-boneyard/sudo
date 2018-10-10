@@ -90,7 +90,7 @@ end
 def validate_commands_path(commands)
   commands.each do |command|
     cmd = command.split(' ').first
-    if command.starts_with('/') || cmd.upcase == cmd
+    if command.start_with?('/') || cmd.upcase == cmd
       true
     else
       false
