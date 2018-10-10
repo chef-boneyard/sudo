@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.4.3 (2018-10-09)
+
+- adds better validation for commands passed in
+
 ## 5.4.2 (2018-09-04)
 
 The `sudo` resource is now built into Chef 14+. When Chef 15 is released (April 2019) this resource will be removed from this cookbook as all users should be on Chef 14+.
