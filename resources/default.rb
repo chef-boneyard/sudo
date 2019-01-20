@@ -133,17 +133,17 @@ action :create do
       source 'sudoer.erb'
       cookbook 'sudo'
       mode '0440'
-      variables sudoer:            (new_resource.groups + new_resource.users).join(','),
-                host:               new_resource.host,
-                runas:              new_resource.runas,
-                nopasswd:           new_resource.nopasswd,
-                noexec:             new_resource.noexec,
-                commands:           new_resource.commands,
-                command_aliases:    new_resource.command_aliases,
-                defaults:           new_resource.defaults,
-                setenv:             new_resource.setenv,
-                env_keep_add:       new_resource.env_keep_add,
-                env_keep_subtract:  new_resource.env_keep_subtract
+      variables sudoer: (new_resource.groups + new_resource.users).join(','),
+                host: new_resource.host,
+                runas: new_resource.runas,
+                nopasswd: new_resource.nopasswd,
+                noexec: new_resource.noexec,
+                commands: new_resource.commands,
+                command_aliases: new_resource.command_aliases,
+                defaults: new_resource.defaults,
+                setenv: new_resource.setenv,
+                env_keep_add: new_resource.env_keep_add,
+                env_keep_subtract: new_resource.env_keep_subtract
       verify "#{new_resource.visudo_binary} -cf %{path}" if visudo_present?
       action :create
     end
