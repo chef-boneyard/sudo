@@ -255,7 +255,7 @@ node.default['authorization']['sudo']['sudoers_defaults'] = [
 ]
 ```
 
-_Mac OS X_
+_macOS_
 
 ```ruby
 node.default['authorization']['sudo']['sudoers_defaults'] = [
