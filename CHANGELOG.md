@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.4.5 (2019-12-03)
+
+- Remove Ubuntu 14.04 testing for 18.04 - [@tas50](https://github.com/tas50)
+- Cookstyle fixes - [@tas50](https://github.com/tas50)
+- Remove unnecessary metadata - [@tas50](https://github.com/tas50)
+- Metadata syntax issue cookbook failed in chef:12 - [@amalsom10](https://github.com/amalsom10)
+- Minor testing updates - [@tas50](https://github.com/tas50)
+
 ## 5.4.4 (2018-10-09)
 
 - Fix the command validation method
