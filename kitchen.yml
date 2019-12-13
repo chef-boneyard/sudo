@@ -14,17 +14,15 @@ platforms:
       box: mvbcoding/awslinux
   - name: centos-6
   - name: centos-7
+  - name: centos-8
   - name: debian-9
   - name: debian-10
-  - name: fedora-27
-  - name: freebsd-10
+  - name: fedora-31
   - name: freebsd-11
-  - name: opensuse-leap-42
-  - name: ubuntu-14.04
+  - name: freebsd-12
+  - name: opensuse-leap-15
   - name: ubuntu-16.04
-  - name: sles-11-sp2
-    driver:
-      box: chef/sles-11-sp2-x86_64 # private box
+  - name: ubuntu-18.04
   - name: sles-12-sp1
     driver:
       box: chef/sles-12-sp1-x86_64 # private box
