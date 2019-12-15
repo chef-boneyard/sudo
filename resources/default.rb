@@ -34,13 +34,13 @@ property :groups, [String, Array], default: [], coerce: proc { |x| coerce_groups
 property :commands, Array, default: ['ALL']
 property :host, String, default: 'ALL'
 property :runas, String, default: 'ALL'
-property :nopasswd, [true, false], default: false
-property :noexec, [true, false], default: false
+property :nopasswd, [TrueClass, FalseClass], default: false
+property :noexec, [TrueClass, FalseClass], default: false
 property :template, String
 property :variables, [Hash, nil], default: nil
 property :defaults, Array, default: []
 property :command_aliases, Array, default: []
-property :setenv, [true, false], default: false
+property :setenv, [TrueClass, FalseClass], default: false
 property :env_keep_add, Array, default: []
 property :env_keep_subtract, Array, default: []
 property :visudo_path, String # legacy placeholder for cookbook users. We raise when used below
