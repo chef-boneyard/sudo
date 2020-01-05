@@ -74,7 +74,7 @@ describe 'sudo::default' do
 
   context 'config prefix' do
     context 'on macOS' do
-      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.13').converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'mac_os_x').converge(described_recipe) }
 
       it 'uses /private/etc' do
         expect(chef_run).to create_template('/private/etc/sudoers')
@@ -82,7 +82,7 @@ describe 'sudo::default' do
     end
 
     context 'on SmartOS' do
-      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'smartos', version: '5.11').converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'smartos').converge(described_recipe) }
 
       it 'uses /opt/local/etc' do
         expect(chef_run).to create_template('/opt/local/etc/sudoers')
@@ -90,7 +90,7 @@ describe 'sudo::default' do
     end
 
     context 'on Ubuntu' do
-      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu').converge(described_recipe) }
 
       it 'uses /etc' do
         expect(chef_run).to create_template('/etc/sudoers')
@@ -164,7 +164,7 @@ describe 'sudo::default' do
 
   context 'Non-Linux distro' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'freebsd', version: '11.0').converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform: 'freebsd').converge(described_recipe)
     end
 
     it 'does not create the sudoers.d directory' do
