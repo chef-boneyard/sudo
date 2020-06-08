@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.4.6 (2020-06-08)
+
+- Support Chef Infra Client 16.2+  - [@tas50](https://github.com/tas50)
+- Testing updates - [@tas50](https://github.com/tas50)
+- Fix failing specs - [@tas50](https://github.com/tas50)
+- Use the org wide GitHub templates - [@tas50](https://github.com/tas50)
+
 ## 5.4.5 (2019-12-03)
 
 - Remove Ubuntu 14.04 testing for 18.04 - [@tas50](https://github.com/tas50)
