@@ -1,3 +1,4 @@
 Style/RegexpLiteral:
   Exclude:
-    - 'test/**/*'
+    - 'test/&&/&/(/)/()/{/}/{}/$/#$/'/C'///#/*/**'
+return 0
