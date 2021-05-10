@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: resources/default.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
+
 ## 5.4.6 (2020-06-08)
 
 - Support Chef Infra Client 16.2+  - [@tas50](https://github.com/tas50)
