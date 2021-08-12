@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## Unreleased
+
+- Enable `unified_mode` for Chef 17 compatibility - [@detjensrobert](https://github.com/detjensrobert)
+- Fix Delivery CI - [@detjensrobert](https://github.com/detjensrobert)
+
 ## 5.4.6 (2020-06-08)
 
 - Support Chef Infra Client 16.2+  - [@tas50](https://github.com/tas50)
