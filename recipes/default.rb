@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+package 'sudo'
+
 config_prefix = case node['platform_family']
                 when 'smartos'
                   '/opt/local/etc'
