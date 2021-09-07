@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the sudo cookbook.
 
+## 5.4.7 (2021-09-06)
+
+- Deprecating this cookbook. The sudo resource ships in Chef Infra Client 14 and later.
+
 ## 5.4.6 (2020-06-08)
 
 - Support Chef Infra Client 16.2+  - [@tas50](https://github.com/tas50)
